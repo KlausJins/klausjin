@@ -10,7 +10,7 @@ export const useScroll = (props: ScrollType) => {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
-    let timer: any = null
+    let timer: NodeJS.Timeout | null = null
     const handleScroll = () => {
       if (isThrottle) {
         if (!timer) {
@@ -27,7 +27,7 @@ export const useScroll = (props: ScrollType) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [isThrottle, delay])
 
   return scrollY
 }

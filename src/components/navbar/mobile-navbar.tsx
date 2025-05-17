@@ -7,7 +7,6 @@ import {
   KlSheetClose,
   KlSheetContent,
   KlSheetDescription,
-  KlSheetOverlay,
   KlSheetRoot,
   KlSheetTitle,
   KlSheetTrigger

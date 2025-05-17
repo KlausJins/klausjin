@@ -27,6 +27,7 @@ export const KlSheetTitle = React.forwardRef<
     />
   )
 })
+KlSheetTitle.displayName = Dialog.Title.displayName
 
 // 抽屉描述组件
 export const KlSheetDescription = React.forwardRef<
@@ -35,6 +36,7 @@ export const KlSheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return <Dialog.Description ref={ref} className={clm('text-secondary', className)} {...props} />
 })
+KlSheetDescription.displayName = Dialog.Description.displayName
 
 // 抽屉遮罩组件
 export const KlSheetOverlay = React.forwardRef<
@@ -52,6 +54,7 @@ export const KlSheetOverlay = React.forwardRef<
     />
   )
 })
+KlSheetOverlay.displayName = Dialog.Overlay.displayName
 
 // 抽屉内容组件
 export const KlSheetContent = React.forwardRef<
@@ -72,3 +75,4 @@ export const KlSheetContent = React.forwardRef<
     </Dialog.Portal>
   )
 })
+KlSheetContent.displayName = Dialog.Content.displayName

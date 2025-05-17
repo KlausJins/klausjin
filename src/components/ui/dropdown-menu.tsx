@@ -31,6 +31,7 @@ export const KlDropdownMenuContent = React.forwardRef<
     </DropdownMenu.Portal>
   )
 })
+KlDropdownMenuContent.displayName = DropdownMenu.Content.displayName
 
 // 下拉列表项组件
 export const KlDropdownMenuItem = React.forwardRef<
@@ -50,3 +51,4 @@ export const KlDropdownMenuItem = React.forwardRef<
     </DropdownMenu.Item>
   )
 })
+KlDropdownMenuItem.displayName = DropdownMenu.Item.displayName
