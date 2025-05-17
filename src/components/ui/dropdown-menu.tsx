@@ -41,7 +41,7 @@ export const KlDropdownMenuItem = React.forwardRef<
     <DropdownMenu.Item
       ref={ref}
       className={clm(
-        'hover:bg-hoverColor dark:hover:bg-darkHoverColor hover:cursor-pointer outline-0 dark:text-darkprimary px-2 py-1 rounded-lg',
+        'hover:bg-hoverColor dark:hover:bg-darkHoverColor hover:cursor-pointer outline-0 dark:text-darkprimary px-2 py-1 rounded-lg active:bg-activeColor dark:active:bg-darkActiveColor',
         className
       )}
       {...props}

@@ -21,6 +21,9 @@
   --color-bgPrimary: #FFFFFF;
   --color-darkBgPrimary: #09090B;
 
+  --color-activeColor: #F4F4F5;
+  --color-darkActiveColor: #27272A;
+
   --color-hoverColor: #F4F4F5;
   --color-darkHoverColor: #27272A;
 
@@ -36,11 +39,16 @@
 
   /* 动画 */
   --animate-fade-down: fade-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-sheet-fade-in: sheet-fade-in 0.5s cubic-bezier(0.31, 0.00, 0.00, 1.00);
+  --animate-sheet-fade-out: sheet-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
+  --animate-sheetOverlay-fade-in: sheetOverlay-fade-in 0.5s cubic-bezier(0.31, 0.00, 0.00, 1.00);
+  --animate-sheetOverlay-fade-out: sheetOverlay-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
 
   @keyframes fade-down {
     0% {
       opacity: 0;
       transform: translateY(-2px);
+
     }
 
     100% {
@@ -48,6 +56,47 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes sheet-fade-in {
+    0% {
+      transform: translateX(-80vh);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes sheet-fade-out {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-80vh);
+    }
+  }
+
+  @keyframes sheetOverlay-fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheetOverlay-fade-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
 }
 
 
