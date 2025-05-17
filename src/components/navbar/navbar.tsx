@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header
       className={clm(
-        'backdrop-blur-[8px] sticky top-0 w-full h-16 flex justify-between items-center px-10 box-border border-b border-transparent transition-all duration-200 ease-in-out z-10',
+        'backdrop-blur-[8px] sticky top-0 w-full h-16 flex justify-between items-center px-10 max-sm:px-5 box-border border-b border-transparent transition-all duration-200 ease-in-out z-10',
         scrollDisstance >= 10 && 'border-borderColor/50 dark:border-darkBorderColor/50'
       )}
     >
