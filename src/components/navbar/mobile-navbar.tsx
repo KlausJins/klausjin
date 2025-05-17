@@ -49,7 +49,7 @@ const MobileNavbar = ({ className }: IMobileNavbarProps) => {
                   )}
                   href={item.link}
                   key={item.link}
-                  // onClick={() => setOpen(false)}
+                  onClick={() => setOpen(false)}
                 >
                   {item.name}
                 </Link>
