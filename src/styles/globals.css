@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+
+@theme {
+  --color-primary: #18181B;
+  --color-darkprimary: #FAFAFA;
+
+  --color-secondary: #71717A;
+  --color-darksecondary: #A1A1AA;
+
+  --color-bgPrimary: #FFFFFF;
+  --color-darkBgPrimary: #09090B;
+
+  --color-hoverColor: #F4F4F5;
+  --color-darkHoverColor: #27272A;
+
+  --color-borderColor: #E3E3E4;
+  --color-darkBorderColor: #27272A;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+
+  /* 动画 */
+  --animate-fade-down: fade-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+
+@layer base {
+  .light {
+    --scrollBarTrackColor: #FFFFFF;
+    --scrollBarThumbColor: #E4E4E7;
+
+  }
+
+  .dark {
+    --scrollBarTrackColor: #09090B;
+    --scrollBarThumbColor: #27272A;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10%
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scrollBarTrackColor);
+  border-radius: 10px;
+}
+
+/* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollBarThumbColor);
+  border-radius: 10px;
+}
