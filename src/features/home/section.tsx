@@ -69,8 +69,10 @@ const Section = () => {
             <span className="font-bold text-[#58C4DC]">React</span>
             <span>、</span>
           </span>
-          <span className="font-bold text-[#3178C6]">TypeScript</span>
-          <span className="ml-4">🙈 ~</span>
+          <span>
+            <span className="font-bold text-[#3178C6] mr-4">TypeScript</span>
+            <span>🙈 ~</span>
+          </span>
         </span>
 
         <span className="text-2xl max-sm:text-lg text-secondary dark:text-darksecondary animate-fade-up animate-ease-in-out animate-delay-[800ms]">
