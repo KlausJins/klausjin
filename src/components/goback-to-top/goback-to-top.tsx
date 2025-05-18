@@ -5,7 +5,7 @@ import Button from '@/components/ui/button'
 import { useScroll } from '@/hooks'
 import { clm } from '@/utils/normal'
 
-const GoBackToTop = () => {
+export const GoBackToTop = () => {
   const scrollDisstance = useScroll({ isThrottle: true })
 
   return (
@@ -23,5 +23,3 @@ const GoBackToTop = () => {
     </div>
   )
 }
-
-export default GoBackToTop

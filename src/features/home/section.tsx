@@ -1,8 +1,8 @@
 'use client'
 
-import GoBackToTop from '@/components/goback-to-top/goback-to-top'
+import { GoBackToTop } from '@/components/goback-to-top'
 import IconSelf from '@/components/icons/icon-self'
-import ScrollMouse from '@/components/scroll-mouse/scroll-mouse'
+import { ScrollMouse } from '@/components/scroll-mouse'
 import Button from '@/components/ui/button'
 import {
   GITHUB_PERSONAL_PAGE_LINK,
