@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="min-h-[130vh] bg-bgPrimary text-[#18181B] dark:bg-darkBgPrimary dark:text-[#FAFAFA]">
+    <div className="min-h-[150vh] bg-bgPrimary text-[#18181B] dark:bg-darkBgPrimary dark:text-[#FAFAFA]">
       <Navbar />
       {children}
     </div>

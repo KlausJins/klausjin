@@ -2,9 +2,8 @@ import Section from '@/features/home/section'
 
 export default function Home() {
   return (
-    <div>
-      KlausJin 个人博客网站
-      <Section></Section>
+    <div className="flex flex-col items-center justify-center pt-40">
+      <Section />
     </div>
   )
 }

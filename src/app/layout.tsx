@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import { NextThemeProvider } from '@/components/providers'
 import { WEBSITE, WEBSITE_DESCRIPTION } from '@/constants/info'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
 
 export const metadata: Metadata = {
   title: WEBSITE,
@@ -19,7 +21,7 @@ export default function RootLayout({
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       />
-      <body className={`antialiased`}>
+      <body className={`${GeistSans.className} ${GeistMono.className} antialiased`}>
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>
     </html>
