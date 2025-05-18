@@ -10,6 +10,9 @@ export const useScroll = (props: ScrollType) => {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
+    // 先获取当前页面的滑动长度
+    setScrollY(window.scrollY || window.pageYOffset)
+
     let timer: NodeJS.Timeout | null = null
     const handleScroll = () => {
       if (isThrottle) {

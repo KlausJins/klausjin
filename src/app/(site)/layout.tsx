@@ -1,3 +1,4 @@
+import Footer from '@/components/footer/footer'
 import Navbar from '@/components/navbar/navbar'
 
 export default function Layout({
@@ -9,6 +10,7 @@ export default function Layout({
     <div className="min-h-[100vh] bg-bgPrimary text-[#18181B] dark:bg-darkBgPrimary dark:text-[#FAFAFA]">
       <Navbar />
       {children}
+      <Footer />
     </div>
   )
 }

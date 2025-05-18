@@ -44,12 +44,51 @@
   --animate-sheet-fade-out: sheet-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
   --animate-sheetOverlay-fade-in: sheetOverlay-fade-in 0.5s cubic-bezier(0.31, 0.00, 0.00, 1.00);
   --animate-sheetOverlay-fade-out: sheetOverlay-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
+  --animate-opacity-in: opacity-in 0.3s ease-out;
+  --animate-opacity-out: opacity-out 0.3s ease-out;
+  --animate-scroll-mouse: scroll-mouse 3s ease-out infinite;
+
+  @keyframes scroll-mouse {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(2px);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes opacity-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes opacity-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 
   @keyframes fade-down {
     0% {
       opacity: 0;
       transform: translateY(-2px);
-
     }
 
     100% {
