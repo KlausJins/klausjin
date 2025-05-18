@@ -2,7 +2,7 @@ import Section from '@/features/home/section'
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center pt-40">
+    <div className="flex flex-col items-center justify-center pt-[20vh]">
       <Section />
     </div>
   )

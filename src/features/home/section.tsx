@@ -43,7 +43,7 @@ const Section = () => {
         </span>
         <span
           className={clm(
-            'text-8xl max-sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r animate-fade-up animate-ease-in-out animate-delay-[200ms]',
+            'text-8xl max-sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r animate-fade-up animate-ease-in-out animate-delay-[200ms]',
             theme
           )}
         >
@@ -56,17 +56,21 @@ const Section = () => {
           cursor={true}
           repeat={Infinity}
           speed={8}
-          className="text-5xl max-sm:text-3xl flex break-all animate-fade-up animate-ease-in-out animate-delay-[400ms]"
+          className="text-5xl max-sm:text-2xl flex break-all animate-fade-up animate-ease-in-out animate-delay-[400ms]"
         />
 
-        <span className="flex gap-2 text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
-          <span>{'喜欢'}</span>
-          <span className="font-bold text-[#43D392]">{'Vue'}</span>
-          <span>{'、'}</span>
-          <span className="font-bold text-[#58C4DC]">{'React'}</span>
-          <span>{'、'}</span>
-          <span className="font-bold text-[#3178C6]">{'TypeScript'}</span>
-          <span className="ml-4">{'🙈 ~'}</span>
+        <span className="flex gap-2 text-4xl flex-wrap max-sm:text-3xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
+          <span>喜欢</span>
+          <span>
+            <span className="font-bold text-[#43D392]">Vue</span>
+            <span>、</span>
+          </span>
+          <span>
+            <span className="font-bold text-[#58C4DC]">React</span>
+            <span>、</span>
+          </span>
+          <span className="font-bold text-[#3178C6]">TypeScript</span>
+          <span className="ml-4">🙈 ~</span>
         </span>
 
         <span className="text-2xl max-sm:text-lg text-secondary dark:text-darksecondary animate-fade-up animate-ease-in-out animate-delay-[800ms]">
