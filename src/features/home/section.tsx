@@ -1,46 +1,95 @@
 'use client'
 
+import IconSelf from '@/components/icons/icon-self'
+import Button from '@/components/ui/button'
 import {
+  GITHUB_PERSONAL_PAGE_LINK,
   HOME_NAME_TEXT,
   HOME_PRE_TEXT,
   HOME_SLOGAN_TEXT,
   HOME_TPYE_EN_TEXT,
   HOME_TPYE_ZH_TEXT
 } from '@/constants/info'
-import React from 'react'
+import { PATHS } from '@/constants/path'
+import { clm } from '@/utils/normal'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 
 const Section = () => {
+  const colorList = {
+    vueTheme: 'from-[#43D392] to-[#647EFF]',
+    reactTheme: 'from-[#58C4DC] to-[#3178C6]'
+  }
+
+  const [theme, setTheme] = React.useState<string>(colorList.vueTheme)
+  function getRandomTheme() {
+    const randomCount = Math.random()
+    const theRandomTheme = randomCount < 0.5 ? colorList.vueTheme : colorList.reactTheme
+    // console.log(randomCount)
+    return theRandomTheme
+  }
+
+  useEffect(() => {
+    setTheme(getRandomTheme())
+  }, [])
+
   return (
     <div className="flex flex-col gap-4 m-auto text-primary dark:text-darkprimary px-4">
-      <span className="text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out">
-        {HOME_PRE_TEXT}
-      </span>
+      {/* 首页文字 */}
+      <>
+        <span className="text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out">
+          {HOME_PRE_TEXT}
+        </span>
+        <span
+          className={clm(
+            'text-8xl max-sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r animate-fade-up animate-ease-in-out animate-delay-[200ms]',
+            theme
+          )}
+        >
+          {HOME_NAME_TEXT}
+        </span>
 
-      <span className="text-8xl max-sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D8FE] to-[#007ACC] animate-fade-up animate-ease-in-out animate-delay-[200ms]">
-        {HOME_NAME_TEXT}
-      </span>
+        <TypeAnimation
+          sequence={[HOME_TPYE_ZH_TEXT, 1000, HOME_TPYE_EN_TEXT, 2000, () => {}]}
+          wrapper="span"
+          cursor={true}
+          repeat={Infinity}
+          speed={8}
+          className="text-5xl max-sm:text-3xl flex break-all animate-fade-up animate-ease-in-out animate-delay-[400ms]"
+        />
 
-      <TypeAnimation
-        sequence={[HOME_TPYE_ZH_TEXT, 1000, HOME_TPYE_EN_TEXT, 2000, () => {}]}
-        wrapper="span"
-        cursor={true}
-        repeat={Infinity}
-        speed={8}
-        className="text-5xl max-sm:text-3xl flex break-all animate-fade-up animate-ease-in-out animate-delay-[400ms]"
-      />
+        <span className="flex gap-2 text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
+          <span>{'喜欢'}</span>
+          <span className="font-bold text-[#43D392]">{'Vue'}</span>
+          <span>{'、'}</span>
+          <span className="font-bold text-[#58C4DC]">{'React'}</span>
+          <span>{'、'}</span>
+          <span className="font-bold text-[#3178C6]">{'TypeScript'}</span>
+          <span className="ml-4">{'🙈 ~'}</span>
+        </span>
 
-      <span className="text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
-        <span>{'喜欢'}</span>
-        <span className="font-bold text-[#00D8FE]">{'React'}</span>
-        <span>{'、'}</span>
-        <span className="font-bold text-[#007ACC]">{'TypeScript '}</span>
-        <span>{'\\owo/ ~'}</span>
-      </span>
+        <span className="text-2xl max-sm:text-lg text-secondary dark:text-darksecondary animate-fade-up animate-ease-in-out animate-delay-[800ms]">
+          {HOME_SLOGAN_TEXT}
+        </span>
+      </>
 
-      <span className="text-2xl max-sm:text-lg text-secondary dark:text-darksecondary animate-fade-up animate-ease-in-out animate-delay-[800ms]">
-        {HOME_SLOGAN_TEXT}
-      </span>
+      {/* 底部按钮 */}
+      <div className="flex gap-4 text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
+        <Button className="px-2 py-2">
+          <Link href={PATHS.SITE_BLOG}>我的博客</Link>
+        </Button>
+
+        <Button className="px-2 py-2">
+          <Link href={PATHS.SITE_ABOUT}>关于我</Link>
+        </Button>
+
+        <Button>
+          <Link href={GITHUB_PERSONAL_PAGE_LINK} target="_blank" className="flex">
+            <IconSelf iconName="icon-[fa6-brands--github]" />
+          </Link>
+        </Button>
+      </div>
     </div>
   )
 }

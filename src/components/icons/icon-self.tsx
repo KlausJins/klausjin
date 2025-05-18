@@ -11,14 +11,7 @@ const IconSelf = (props: Props) => {
   return (
     <>
       <span
-        className={clm(
-          'icon-[fa6-brands--github]',
-          'text-lg',
-          props.iconName,
-          props.size,
-          props.color,
-          props.className
-        )}
+        className={clm('text-lg', props.iconName, props.size, props.color, props.className)}
       ></span>
     </>
   )
