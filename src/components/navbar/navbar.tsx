@@ -7,10 +7,10 @@ import Link from 'next/link'
 import { clm } from '@/utils/normal'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/hooks'
-import IconSelf from '../icons/icon-self'
-import Button from '../ui/button'
-import { ToggleMode } from '../toggleMode'
-import MobileNavbar from './mobile-navbar'
+import IconSelf from '@/components/icons/icon-self'
+import Button from '@/components/ui/button'
+import { ToggleMode } from '@/components/toggleMode'
+import MobileNavbar from '@/components/navbar/mobile-navbar'
 
 const Navbar = () => {
   const pathname = usePathname()

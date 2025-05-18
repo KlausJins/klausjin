@@ -1,8 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import { clm } from '@/utils/normal'
-import IconSelf from '../icons/icon-self'
-import Button from '../ui/button'
 import {
   KlSheetClose,
   KlSheetContent,
@@ -10,10 +8,12 @@ import {
   KlSheetRoot,
   KlSheetTitle,
   KlSheetTrigger
-} from '../ui/sheet'
+} from '@/components/ui/sheet'
 import { NAVBAR_ITEMS } from './config'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import IconSelf from '@/components/icons/icon-self'
+import Button from '@/components/ui/button'
 
 interface IMobileNavbarProps {
   className?: string

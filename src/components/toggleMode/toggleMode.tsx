@@ -1,14 +1,14 @@
 'use client'
 
-import IconSelf from '../icons/icon-self'
+import IconSelf from '@/components/icons/icon-self'
 import { useTheme } from 'next-themes'
 import {
   KlDropdownMenu,
   KlDropdownMenuContent,
   KlDropdownMenuItem,
   KlDropdownMenuTrigger
-} from '../ui/dropdown-menu'
-import Button from '../ui/button'
+} from '@/components/ui/dropdown-menu'
+import Button from '@/components/ui/button'
 
 export const ToggleMode = () => {
   const { setTheme } = useTheme()
