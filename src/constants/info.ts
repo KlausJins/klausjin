@@ -19,5 +19,4 @@ export const HOME_PRE_TEXT = '你好，我是'
 export const HOME_NAME_TEXT = NICKNAME
 export const HOME_TPYE_ZH_TEXT = '一名前端开发工程师 。'
 export const HOME_TPYE_EN_TEXT = 'A Web <Developer /> .'
-export const HOME_GREETINIG_TEXT = '喜欢React、TypeScript \\owo/ ~'
 export const HOME_SLOGAN_TEXT = '我在这个网站记录我的成长，努力 💪 成为一个更好的程序员。'
