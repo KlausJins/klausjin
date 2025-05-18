@@ -38,7 +38,7 @@ const Section = () => {
     <div className="flex flex-col gap-4 px-4 m-auto text-primary dark:text-darkprimary tracking-wider">
       {/* 首页文字 */}
       <>
-        <span className="text-5xl max-sm:text-3xl animate-fade-up animate-ease-in-out">
+        <span className="text-5xl max-sm:text-2xl animate-fade-up animate-ease-in-out">
           {HOME_PRE_TEXT}
         </span>
         <span
@@ -59,7 +59,7 @@ const Section = () => {
           className="text-5xl max-sm:text-2xl flex break-all animate-fade-up animate-ease-in-out animate-delay-[400ms]"
         />
 
-        <span className="flex gap-2 text-5xl flex-wrap max-sm:text-3xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
+        <span className="flex gap-2 text-5xl flex-wrap max-sm:text-2xl animate-fade-up animate-ease-in-out animate-delay-[600ms]">
           <span>喜欢</span>
           <span>
             <span className="font-bold text-[#43D392]">Vue</span>
