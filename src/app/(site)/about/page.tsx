@@ -2,8 +2,8 @@ import { CardLayout } from '@/components/card-layout'
 
 export default function About() {
   return (
-    <div className="min-h-[calc(100vh-64px)] px-25 py-10">
-      <div className=" grid grid-cols-24 grid-rows-4 gap-6 h-full items-center justify-center">
+    <div className="min-h-[calc(100vh-64px)] px-25 max-md:px-10 py-10">
+      <div className="grid max-md:flex max-md:gap-4 grid-cols-24 grid-rows-4 gap-6 h-full flex-col items-center justify-center">
         <CardLayout className="col-span-14 animate-fade-up animate-ease-in-out">
           CardLayout
         </CardLayout>
