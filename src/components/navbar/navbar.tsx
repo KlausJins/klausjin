@@ -12,7 +12,7 @@ import Button from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
 import MobileNavbar from '@/components/navbar/mobile-navbar'
 
-const Navbar = () => {
+export const Navbar = () => {
   const pathname = usePathname()
   const scrollDisstance = useScroll({ isThrottle: true })
 
@@ -66,5 +66,3 @@ const Navbar = () => {
     </header>
   )
 }
-
-export default Navbar

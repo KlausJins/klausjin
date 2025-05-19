@@ -38,7 +38,7 @@ const Section = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-4 m-auto text-primary dark:text-darkprimary tracking-wider">
+      <div className="flex flex-col gap-4 px-4 mx-auto text-primary dark:text-darkprimary tracking-wider">
         {/* 首页文字 */}
         <>
           <span className="text-5xl max-sm:text-2xl animate-fade-up animate-ease-in-out">
@@ -100,7 +100,7 @@ const Section = () => {
           </Button>
         </div>
 
-        <div className="flex justify-center items-center relative top-30 animate-fade-up animate-ease-in-out animate-delay-[1200ms]">
+        <div className="absolute inset-x-0 bottom-8 grid place-content-center md:bottom-12 animate-fade-up animate-ease-in-out animate-delay-[1200ms]">
           <ScrollMouse />
         </div>
       </div>
