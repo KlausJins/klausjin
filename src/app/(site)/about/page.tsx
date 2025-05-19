@@ -1,3 +1,3 @@
 export default function About() {
-  return <div>About</div>
+  return <div className="min-h-[calc(100vh-64px)]">About</div>
 }

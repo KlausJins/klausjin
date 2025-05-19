@@ -1,3 +1,3 @@
 export default function Blog() {
-  return <div>Blog</div>
+  return <div className="min-h-[calc(100vh-64px)]">blog</div>
 }
