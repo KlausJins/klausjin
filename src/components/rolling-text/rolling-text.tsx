@@ -27,8 +27,8 @@ export const RollingText = (props: IRollingTextProps) => {
         'inline-block relative pt-2 overflow-hidden',
         layoutHeightClassName,
         "after:content-[''] after:absolute after:inset-0 after:z-20",
-        'after:bg-[linear-gradient(to_bottom,#F9F9F9_10%,transparent_30%,transparent_70%,#F9F9F9_90%)]',
-        'dark:after:bg-[linear-gradient(to_bottom,#242424_10%,transparent_30%,transparent_70%,#242424_90%)]',
+        'after:bg-[linear-gradient(to_bottom,#F9F9F9_10%,transparent_30%,transparent_70%,#F9F9F9_120%)]',
+        'dark:after:bg-[linear-gradient(to_bottom,#242424_10%,transparent_30%,transparent_70%,#242424_120%)]',
         className
       )}
     >
