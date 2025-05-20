@@ -51,6 +51,7 @@
   --animate-opacity-out: opacity-out 0.3s ease-out;
   --animate-scroll-mouse: scroll-mouse 3s ease-out infinite;
   --animate-rolling-text: rolling-text 4s infinite;
+  --animate-scroll-to-left: scroll-to-left 8s linear infinite;
 
   @keyframes scroll-mouse {
     0% {
@@ -141,6 +142,16 @@
     }
   }
 
+}
+
+@keyframes scroll-to-left {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 @keyframes rolling-text {

@@ -1,5 +1,5 @@
 import { GoBackToTop } from '@/components/goback-to-top'
-import { Identity, ProAndCareer, Speciality, Tecs, Trace } from '@/features/about'
+import { Identity, Location, ProAndCareer, Speciality, Tecs, Trace } from '@/features/about'
 import { FavSinger } from '@/features/about/fav-singer'
 
 export default function About() {
@@ -12,10 +12,12 @@ export default function About() {
         <Trace />
         {/* 技术力 */}
         <Tecs />
+        {/* 专业和生涯 */}
+        <ProAndCareer />
 
         <div className="grid grid-flow-col grid-cols-24 grid-rows-3 gap-6 col-span-24 max-md:flex flex-col animate-fade-up animate-ease-in-out animate-delay-[600ms]">
-          {/* 专业和生涯 */}
-          <ProAndCareer />
+          {/* 位置 */}
+          <Location />
           {/* 特长 */}
           <Speciality />
           {/* 喜欢的歌手 */}
