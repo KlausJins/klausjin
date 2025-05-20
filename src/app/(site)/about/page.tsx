@@ -1,5 +1,4 @@
 import { CardLayout } from '@/components/card-layout'
-import Logo from '@/components/logo/logo'
 
 export default function About() {
   return (
