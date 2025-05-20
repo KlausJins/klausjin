@@ -1,3 +1,4 @@
+import { GoBackToTop } from '@/components/goback-to-top'
 import { Identity, ProAndCareer, Speciality, Tecs, Trace } from '@/features/about'
 import { FavSinger } from '@/features/about/fav-singer'
 
@@ -21,6 +22,8 @@ export default function About() {
           <FavSinger />
         </div>
       </div>
+
+      <GoBackToTop />
     </div>
   )
 }
