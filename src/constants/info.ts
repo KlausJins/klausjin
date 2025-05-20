@@ -14,9 +14,20 @@ export const GITHUB_PERSONAL_PAGE_LINK = 'https://github.com/KlausJins'
 /** 网站代码 Github 地址 */
 export const GITHUB_PAGE_LINK = 'https://github.com/KlausJins/klausjin'
 
-/** 首页文本 */
+/** 首页页面文本 */
 export const HOME_PRE_TEXT = '你好，我是'
+
 export const HOME_NAME_TEXT = NICKNAME
+
 export const HOME_TPYE_ZH_TEXT = '👨🏻‍💻 一名前端开发工程师 。'
+
 export const HOME_TPYE_EN_TEXT = '👨🏻‍💻 A Web <Developer /> .'
+
 export const HOME_SLOGAN_TEXT = '我在这个网站记录我的成长，努力 💪 成为一个更好的程序员。'
+
+/** 关于页面文本 */
+export const ABOUT_PRE_TEXT = '嘿！你发现我啦 👋🏻'
+
+export const ABOUT_NAME_TEXT = `我是${NICKNAME}`
+
+export const ABOUT_IDENTITY_TEXT = '是一名前端开发工程师 👨🏻‍💻、篮球运动爱好者 ⛹🏻‍♂️'
