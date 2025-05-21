@@ -13,11 +13,14 @@ export const Tecs = () => {
         'dark:after:bg-[linear-gradient(to_right,#242424_-2%,transparent_5%,transparent_95%,#242424_102%)]'
       )}
     >
+      {/* 标题 */}
       <div className="px-8 pb-6 max-md:px-6 max-md:pb-4">
         <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">技能</p>
         <p className="text-3xl max-md:text-2xl font-black">技术力</p>
       </div>
 
+      {/* 内容 */}
+      {/* 第一行标题 */}
       <div className={clm('flex flex-col gap-6 max-md:gap-4 overflow-hidden justify-center')}>
         <div className="m-auto flex ">
           <ul className="flex m-0 p-0 animate-scroll-to-left">
@@ -41,6 +44,7 @@ export const Tecs = () => {
           </ul>
         </div>
 
+        {/* 第二行标题，因为需要错开无缝滚动，所以单独另一个图标出来做特殊处理 */}
         <div className="m-auto flex relative">
           <ul className="flex m-0 p-0 animate-scroll-to-left">
             <li className="relative overflow-hidden w-15 max-md:w-10 flex justify-center items-center">
