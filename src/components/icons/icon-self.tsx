@@ -1,7 +1,7 @@
 import { clm } from '@/utils/normal'
 
 type Props = {
-  iconName?: string
+  iconName: string
   size?: string
   color?: string
   className?: string

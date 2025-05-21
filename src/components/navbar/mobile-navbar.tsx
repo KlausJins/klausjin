@@ -45,7 +45,7 @@ const MobileNavbar = ({ className }: IMobileNavbarProps) => {
                   className={clm(
                     ' font-bold rounded-md py-1 pl-6 text-lg text-primary dark:text-darkprimary active:bg-activeColor dark:active:bg-darkActiveColor',
                     pathname === item.link &&
-                      ' bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary'
+                      ' bg-darkerBgPrimary text-darkprimary dark:bg-lighterBgPrimary dark:text-primary'
                   )}
                   href={item.link}
                   key={item.link}
