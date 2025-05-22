@@ -12,8 +12,8 @@ export const GoBackToTop = () => {
     <div
       data-state={scrollDisstance >= 100 ? 'show' : 'unshow'}
       className={clm(
-        'fixed bottom-8 right-8 z-10 data-[state=show]:animate-opacity-in data-[state=unshow]:animate-opacity-out',
-        scrollDisstance >= 100 ? 'opacity-100 flex' : 'opacity-0 hidden'
+        'flex fixed bottom-8 right-8 z-10 data-[state=show]:animate-opacity-in data-[state=unshow]:animate-opacity-out',
+        scrollDisstance >= 100 ? 'opacity-100' : 'opacity-0 pointer-events-none'
       )}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
