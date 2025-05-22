@@ -22,7 +22,7 @@ export const Tecs = () => {
     >
       {/* 查看详情按钮 */}
       <div
-        className="fixed flex text-secondary dark:text-darksecondary justify-center items-center top-5 right-8 w-8 h-8 rounded-full max-md:top-4 max-md:right-6 z-20 hover:cursor-pointer"
+        className="fixed flex text-secondary dark:text-darksecondary justify-center items-center top-4.5 right-8 w-8 h-8 rounded-full max-md:top-2.5 max-md:right-6 z-20 hover:cursor-pointer"
         onClick={() => toggleDetail()}
       >
         <IconSelf iconName="icon-[lucide--ellipsis]" className={isDetailOpen ? 'hidden' : 'flex'} />
