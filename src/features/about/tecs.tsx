@@ -7,7 +7,7 @@ import { clm } from '@/utils/normal'
 import { useState } from 'react'
 
 export const Tecs = () => {
-  const [isDetailOpen, setDetailOpen] = useState(true)
+  const [isDetailOpen, setDetailOpen] = useState(false)
   console.log(skillsList.flat())
   const toggleDetail = () => {
     setDetailOpen(!isDetailOpen)
@@ -50,7 +50,7 @@ export const Tecs = () => {
                 className="flex p-1.5 rounded-full justify-between items-center box-border border-1 border-borderColor dark:border-darkBorderColor bg-lighterBgPrimary dark:bg-darkerBgPrimary"
               >
                 <div className="flex rounded-full overflow-hidden">
-                  <IconSelf iconName={item.iconPath} className={'text-4xl'} />
+                  <IconSelf iconName={item.iconPath} className={'text-4xl max-md:text-xl'} />
                 </div>
                 <p className="px-2 text-xs">{item.name}</p>
               </div>
