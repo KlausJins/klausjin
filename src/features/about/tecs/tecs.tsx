@@ -9,7 +9,6 @@ import { TecsSection } from './section'
 
 export const Tecs = () => {
   const [isDetailOpen, setDetailOpen] = useState(false)
-  console.log(skillsList.flat())
   const toggleDetail = () => {
     setDetailOpen(!isDetailOpen)
   }
