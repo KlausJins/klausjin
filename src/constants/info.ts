@@ -34,65 +34,142 @@ export const ABOUT_IDENTITY_TEXT = '是一名前端开发工程师 👨🏻‍�
 
 /** 关于页面 技能图标 */
 // html
-export const SKILL_ICON_HTML = 'icon-[skill-icons--html]'
+export const SKILL_ICON_HTML = {
+  name: 'HTML',
+  iconPath: 'icon-[skill-icons--html]'
+}
 // CSS
-export const SKILL_ICON_CSS = 'icon-[skill-icons--css]'
+export const SKILL_ICON_CSS = {
+  name: 'CSS',
+  iconPath: 'icon-[skill-icons--css]'
+}
 // LESS
-export const SKILL_ICON_LESS = 'dark:icon-[skill-icons--less-light] icon-[skill-icons--less-dark]'
+export const SKILL_ICON_LESS = {
+  name: 'Less',
+  iconPath: 'dark:icon-[skill-icons--less-light] icon-[skill-icons--less-dark]'
+}
 // SASS
-export const SKILL_ICON_SASS = 'icon-[skill-icons--sass]'
+export const SKILL_ICON_SASS = {
+  name: 'Sass',
+  iconPath: 'icon-[skill-icons--sass]'
+}
 // TAILWIND
-export const SKILL_ICON_TAILWIND =
-  'dark:icon-[skill-icons--tailwindcss-light] icon-[skill-icons--tailwindcss-dark]'
+export const SKILL_ICON_TAILWIND = {
+  name: 'Tailwind',
+  iconPath: 'dark:icon-[skill-icons--tailwindcss-light] icon-[skill-icons--tailwindcss-dark]'
+}
+
 // STYLEDCOMPONENTS
-export const SKILL_ICON_STYLEDCOMPONENTS = 'icon-[skill-icons--styledcomponents]'
+export const SKILL_ICON_STYLEDCOMPONENTS = {
+  name: 'StyledComponents',
+  iconPath: 'icon-[skill-icons--styledcomponents]'
+}
 // JS
-export const SKILL_ICON_JS = 'icon-[skill-icons--javascript]'
+export const SKILL_ICON_JS = {
+  name: 'JavaScript',
+  iconPath: 'icon-[skill-icons--javascript]'
+}
 // TS
-export const SKILL_ICON_TS = 'icon-[skill-icons--typescript]'
+export const SKILL_ICON_TS = {
+  name: 'TypeScript',
+  iconPath: 'icon-[skill-icons--typescript]'
+}
 // VUE
-export const SKILL_ICON_VUE = 'dark:icon-[skill-icons--vuejs-light] icon-[skill-icons--vuejs-dark]'
+export const SKILL_ICON_VUE = {
+  name: 'Vue',
+  iconPath: 'dark:icon-[skill-icons--vuejs-light] icon-[skill-icons--vuejs-dark]'
+}
 // PINIA
-export const SKILL_ICON_PINIA =
-  'dark:icon-[skill-icons--pinia-light] icon-[skill-icons--pinia-dark]'
+export const SKILL_ICON_PINIA = {
+  name: 'Pinia',
+  iconPath: 'dark:icon-[skill-icons--pinia-light] icon-[skill-icons--pinia-dark]'
+}
+
 // REACT
-export const SKILL_ICON_REACT =
-  'dark:icon-[skill-icons--react-light] icon-[skill-icons--react-dark]'
+export const SKILL_ICON_REACT = {
+  name: 'React',
+  iconPath: 'dark:icon-[skill-icons--react-light] icon-[skill-icons--react-dark]'
+}
+
 // NEXT
-export const SKILL_ICON_NEXT =
-  'dark:icon-[skill-icons--nextjs-light] icon-[skill-icons--nextjs-dark]'
+export const SKILL_ICON_NEXT = {
+  name: 'Next.js',
+  iconPath: 'dark:icon-[skill-icons--nextjs-light] icon-[skill-icons--nextjs-dark]'
+}
+
 // REDUX
-export const SKILL_ICON_REDUX = 'icon-[skill-icons--redux]'
+export const SKILL_ICON_REDUX = {
+  name: 'Redux',
+  iconPath: 'icon-[skill-icons--redux]'
+}
 // NODEJS
-export const SKILL_ICON_NODEJS =
-  'dark:icon-[skill-icons--nodejs-light] icon-[skill-icons--nodejs-dark]'
+export const SKILL_ICON_NODEJS = {
+  name: 'Node.js',
+  iconPath: 'dark:icon-[skill-icons--nodejs-light] icon-[skill-icons--nodejs-dark]'
+}
+
 // PGSQL
-export const SKILL_ICON_PGSQL =
-  'dark:icon-[skill-icons--postgresql-light] icon-[skill-icons--postgresql-dark]'
+export const SKILL_ICON_PGSQL = {
+  name: 'PostgreSQL ',
+  iconPath: 'dark:icon-[skill-icons--postgresql-light] icon-[skill-icons--postgresql-dark]'
+}
+
 // WEBPACK
-export const SKILL_ICON_WEBPACK =
-  'dark:icon-[skill-icons--webpack-light] icon-[skill-icons--webpack-dark]'
+export const SKILL_ICON_WEBPACK = {
+  name: 'Webpack',
+  iconPath: 'dark:icon-[skill-icons--webpack-light] icon-[skill-icons--webpack-dark]'
+}
+
 // VITE
-export const SKILL_ICON_VITE = 'dark:icon-[skill-icons--vite-light] icon-[skill-icons--vite-dark]'
+export const SKILL_ICON_VITE = {
+  name: 'Vite',
+  iconPath: 'dark:icon-[skill-icons--vite-light] icon-[skill-icons--vite-dark]'
+}
 // XD
-export const SKILL_ICON_XD = 'icon-[skill-icons--xd]'
+export const SKILL_ICON_XD = {
+  name: 'Adobe XD',
+  iconPath: 'icon-[skill-icons--xd]'
+}
 // FIGMA
-export const SKILL_ICON_FIGMA =
-  'dark:icon-[skill-icons--figma-light] icon-[skill-icons--figma-dark]'
+export const SKILL_ICON_FIGMA = {
+  name: 'Figma',
+  iconPath: 'dark:icon-[skill-icons--figma-light] icon-[skill-icons--figma-dark]'
+}
 // PR
-export const SKILL_ICON_PR = 'icon-[skill-icons--premiere]'
+export const SKILL_ICON_PR = {
+  name: 'Adobe Premiere',
+  iconPath: 'icon-[skill-icons--premiere]'
+}
 // PS
-export const SKILL_ICON_PS = 'icon-[skill-icons--photoshop]'
+export const SKILL_ICON_PS = {
+  name: 'Adobe Photoshop',
+  iconPath: 'icon-[skill-icons--photoshop]'
+}
 // AN
-export const SKILL_ICON_AN = 'icon-[logos--adobe-animate]'
+export const SKILL_ICON_AN = {
+  name: 'Adobe Animate',
+  iconPath: 'icon-[logos--adobe-animate]'
+}
 // AI
-export const SKILL_ICON_AI = 'icon-[skill-icons--illustrator]'
+export const SKILL_ICON_AI = {
+  name: 'Adobe Illustrator',
+  iconPath: 'icon-[skill-icons--illustrator]'
+}
 // POSTMAN
-export const SKILL_ICON_POSTMAN = 'icon-[skill-icons--postman]'
+export const SKILL_ICON_POSTMAN = {
+  name: 'Postman',
+  iconPath: 'icon-[skill-icons--postman]'
+}
 // PNPM
-export const SKILL_ICON_PNPM = 'dark:icon-[skill-icons--pnpm-light] icon-[skill-icons--pnpm-dark]'
+export const SKILL_ICON_PNPM = {
+  name: 'PNPM',
+  iconPath: 'dark:icon-[skill-icons--pnpm-light] icon-[skill-icons--pnpm-dark]'
+}
 // GIT
-export const SKILL_ICON_GIT = 'icon-[skill-icons--git]'
+export const SKILL_ICON_GIT = {
+  name: 'Git',
+  iconPath: 'icon-[skill-icons--git]'
+}
 
 /** 关于页面 技能图标二维数组 */
 export const skillsList = [

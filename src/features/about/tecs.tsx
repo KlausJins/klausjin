@@ -7,7 +7,8 @@ import { clm } from '@/utils/normal'
 import { useState } from 'react'
 
 export const Tecs = () => {
-  const [isDetailOpen, setDetailOpen] = useState(false)
+  const [isDetailOpen, setDetailOpen] = useState(true)
+  console.log(skillsList.flat())
   const toggleDetail = () => {
     setDetailOpen(!isDetailOpen)
   }
@@ -33,13 +34,28 @@ export const Tecs = () => {
       <div
         data-state={isDetailOpen}
         className={clm(
-          'fixed z-18 bg-bgPrimary/50 dark:bg-darkBgPrimary/50 inset-0 top-0 backdrop-blur-md flex flex-col justify-center items-center data-[state=true]:animate-opacity-in data-[state=false]:animate-opacity-out',
+          'fixed z-18 bg-bgPrimary/50 dark:bg-darkBgPrimary/50 inset-0 top-0 backdrop-blur-md flex flex-col data-[state=true]:animate-opacity-in data-[state=false]:animate-opacity-out',
           isDetailOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div className="w-full h-full box-border px-8 py-6 max-md:px-6 max-md:py-4">
+        <div className="w-full box-border px-8 pt-6 max-md:px-6 max-md:pt-4">
           <p className="text-sm mb-4 max-md:mb-2">其他的技能</p>
           <p className="text-3xl max-md:text-2xl font-black">在学了在学了...</p>
+        </div>
+        <div className="noscrollbar relative h-full p-4 mt-4 max-md:mt-2 flex flex-wrap gap-3 overflow-auto">
+          {skillsList.flat().map((item) => {
+            return (
+              <div
+                key={item.name}
+                className="flex p-1.5 rounded-full justify-between items-center box-border border-1 border-borderColor dark:border-darkBorderColor bg-lighterBgPrimary dark:bg-darkerBgPrimary"
+              >
+                <div className="flex rounded-full overflow-hidden">
+                  <IconSelf iconName={item.iconPath} className={'text-4xl'} />
+                </div>
+                <p className="px-2 text-xs">{item.name}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
 
@@ -50,8 +66,8 @@ export const Tecs = () => {
       </div>
 
       {/* 内容 */}
-      {/* 第一行标题 */}
       <div className={clm('flex flex-col gap-6 max-md:gap-4 overflow-hidden justify-center')}>
+        {/* 第一行标题 */}
         <div className="m-auto flex ">
           <ul
             className={clm(
@@ -61,8 +77,8 @@ export const Tecs = () => {
           >
             {skillsList[0].map((item) => {
               return (
-                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item}>
-                  <IconSelf iconName={item} className="text-8xl max-md:text-6xl" />
+                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item.name}>
+                  <IconSelf iconName={item.iconPath} className="text-8xl max-md:text-6xl" />
                 </li>
               )
             })}
@@ -76,8 +92,8 @@ export const Tecs = () => {
           >
             {skillsList[0].map((item) => {
               return (
-                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item}>
-                  <IconSelf iconName={item} className="text-8xl max-md:text-6xl" />
+                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item.name}>
+                  <IconSelf iconName={item.iconPath} className="text-8xl max-md:text-6xl" />
                 </li>
               )
             })}
@@ -94,20 +110,20 @@ export const Tecs = () => {
           >
             <li className="relative overflow-hidden w-15 max-md:w-10 flex justify-center items-center">
               <IconSelf
-                iconName={SKILL_ICON_PR}
+                iconName={SKILL_ICON_PR.iconPath}
                 className="text-8xl max-md:text-6xl absolute w-30 max-md:w-20 right-0"
               />
             </li>
             {skillsList[1].map((item) => {
               return (
-                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item}>
-                  <IconSelf iconName={item} className="text-8xl max-md:text-6xl" />
+                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item.name}>
+                  <IconSelf iconName={item.iconPath} className="text-8xl max-md:text-6xl" />
                 </li>
               )
             })}
             <li className="relative overflow-hidden w-15 max-md:w-10 flex justify-center items-center">
               <IconSelf
-                iconName={SKILL_ICON_PR}
+                iconName={SKILL_ICON_PR.iconPath}
                 className="text-8xl max-md:text-6xl absolute w-30 max-md:w-20 left-0"
               />
             </li>
@@ -121,20 +137,20 @@ export const Tecs = () => {
           >
             <li className="relative overflow-hidden w-15 max-md:w-10 flex justify-center items-center">
               <IconSelf
-                iconName={SKILL_ICON_PR}
+                iconName={SKILL_ICON_PR.iconPath}
                 className="text-8xl max-md:text-6xl absolute w-30 max-md:w-20 right-0"
               />
             </li>
             {skillsList[1].map((item) => {
               return (
-                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item}>
-                  <IconSelf iconName={item} className="text-8xl max-md:text-6xl" />
+                <li className="w-30 max-md:w-20 flex justify-center items-center" key={item.name}>
+                  <IconSelf iconName={item.iconPath} className="text-8xl max-md:text-6xl" />
                 </li>
               )
             })}
             <li className="relative overflow-hidden w-15 max-md:w-10 flex justify-center items-center">
               <IconSelf
-                iconName={SKILL_ICON_PR}
+                iconName={SKILL_ICON_PR.iconPath}
                 className="text-8xl max-md:text-6xl absolute w-30 max-md:w-20 left-0"
               />
             </li>

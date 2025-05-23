@@ -196,16 +196,30 @@
   }
 }
 
+@layer utilities {
+  .noscrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .noscrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+  }
+}
+
 
 @layer base {
   .light {
-    --scrollBarTrackColor: #FFFFFF;
+    --scrollBarTrackColor: #F9F9F9;
     --scrollBarThumbColor: #E4E4E7;
 
   }
 
   .dark {
-    --scrollBarTrackColor: #09090B;
+    --scrollBarTrackColor: #242424;
     --scrollBarThumbColor: #27272A;
   }
 }
