@@ -34,7 +34,7 @@ const Section = () => {
 
   useEffect(() => {
     setTheme(getRandomTheme())
-  }, [])
+  }, [getRandomTheme])
 
   return (
     <>

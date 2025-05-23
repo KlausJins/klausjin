@@ -20,14 +20,20 @@ export const ProAndCareer = () => {
 
         {/* 时间轴 */}
         <div className="relative h-full">
-          <img
+          <Image
             src={ImageAssests.ProAndCareerDarkSvg}
+            width={100}
+            height={100}
+            style={{ width: '100%', height: 'auto' }}
             alt="生涯专业"
             className="absolute max-md:relative bottom-10 mt-10 max-md:bottom-6 flex dark:hidden"
           />
-          <img
+          <Image
             src={ImageAssests.ProAndCareerLightSvg}
+            width={100}
+            height={100}
             alt="生涯专业"
+            style={{ width: '100%', height: 'auto' }}
             className="absolute max-md:relative bottom-10 mt-10 max-md:bottom-6 hidden dark:flex"
           />
         </div>
