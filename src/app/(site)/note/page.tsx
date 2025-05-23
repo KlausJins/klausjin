@@ -1,9 +1,9 @@
 import { GoBackToTop } from '@/components/goback-to-top'
 
-export default function Blog() {
+export default function Note() {
   return (
     <div className="min-h-[calc(100vh-64px)]">
-      blog
+      note
       <GoBackToTop />
     </div>
   )

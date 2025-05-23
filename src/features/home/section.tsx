@@ -86,7 +86,7 @@ const Section = () => {
         {/* 底部按钮 */}
         <div className="flex gap-4 text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
           <Button className="px-2 py-2">
-            <Link href={PATHS.SITE_BLOG}>我的博客</Link>
+            <Link href={PATHS.SITE_NOTE}>我的笔记</Link>
           </Button>
 
           <Button className="px-2 py-2">
