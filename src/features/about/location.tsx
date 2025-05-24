@@ -1,5 +1,6 @@
 import { CardLayout } from '@/components/card-layout'
 import { ImageAssests } from '@/constants/assets'
+import { ABOUT_LOCATION_NAME, ABOUT_LOCATION_PRE } from '@/constants/info'
 import Image from 'next/image'
 
 export const Location = () => {
@@ -11,7 +12,7 @@ export const Location = () => {
             src={ImageAssests.LocationLight}
             width={2358}
             height={1158}
-            alt="广东广州"
+            alt={ABOUT_LOCATION_PRE}
             sizes="100vw"
             priority
             className="flex dark:hidden"
@@ -20,16 +21,18 @@ export const Location = () => {
             src={ImageAssests.LocationDark}
             width={2358}
             height={1158}
-            alt="广东广州"
+            alt={ABOUT_LOCATION_PRE}
             sizes="100vw"
             priority
             className="hidden dark:flex"
           />
         </div>
         <div className="absolute bottom-0 w-full h-15 max-md:h-10 backdrop-blur-[8px] flex flex-wrap items-center px-8 gap-2 group-hover:-bottom-[100%] transform transition-all duration-1000 ease-in-out delay-150">
-          <p className="text-xl max-md:text-lg text-primary dark:text-darkprimary">我现在在</p>
+          <p className="text-xl max-md:text-lg text-primary dark:text-darkprimary">
+            {ABOUT_LOCATION_PRE}
+          </p>
           <p className="text-xl max-md:text-lg font-black text-primary dark:text-darkprimary">
-            中国，广州市
+            {ABOUT_LOCATION_NAME}
           </p>
         </div>
       </div>

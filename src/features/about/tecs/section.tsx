@@ -1,4 +1,4 @@
-import { SKILL_ICON_PR, skillsList } from '@/constants/info'
+import { ABOUT_TECS_LINE, ABOUT_TECS_TITLE, SKILL_ICON_PR, skillsList } from '@/constants/info'
 import IconSelf from '@/components/icons/icon-self'
 import { clm } from '@/utils/normal'
 
@@ -7,8 +7,10 @@ export const TecsSection = ({ isDetailOpen }: { isDetailOpen: boolean }) => {
     <>
       {/* 标题 */}
       <div className="px-8 pb-6 max-md:px-6 max-md:pb-4">
-        <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">技能</p>
-        <p className="text-3xl max-md:text-2xl font-black">技术力</p>
+        <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">
+          {ABOUT_TECS_TITLE}
+        </p>
+        <p className="text-3xl max-md:text-2xl font-black">{ABOUT_TECS_LINE}</p>
       </div>
 
       {/* 内容 */}

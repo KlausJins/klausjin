@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import IconSelf from '@/components/icons/icon-self'
 import Button from '@/components/ui/button'
+import { HOME_SLOGAN_MOBILE_TEXT, WEBSITE } from '@/constants/info'
 
 interface IMobileNavbarProps {
   className?: string
@@ -34,8 +35,8 @@ const MobileNavbar = ({ className }: IMobileNavbarProps) => {
         <KlSheetContent>
           {/* 头部信息 */}
           <header className="flex flex-col items-center gap-2 pt-10">
-            <KlSheetTitle>KlausJin</KlSheetTitle>
-            <KlSheetDescription>努力做一个更好的程序员</KlSheetDescription>
+            <KlSheetTitle>{WEBSITE}</KlSheetTitle>
+            <KlSheetDescription>{HOME_SLOGAN_MOBILE_TEXT}</KlSheetDescription>
           </header>
 
           <div className="flex flex-col gap-4 mt-8 px-4">

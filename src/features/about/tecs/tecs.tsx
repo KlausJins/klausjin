@@ -2,7 +2,7 @@
 
 import { CardLayout } from '@/components/card-layout'
 import IconSelf from '@/components/icons/icon-self'
-import { skillsList } from '@/constants/info'
+import { ABOUT_TECS_MASK_LINE, ABOUT_TECS_MASK_TITLE, skillsList } from '@/constants/info'
 import { clm } from '@/utils/normal'
 import { useState } from 'react'
 import { TecsSection } from './section'
@@ -39,8 +39,8 @@ export const Tecs = () => {
         )}
       >
         <div className="w-full box-border px-8 pt-6 max-md:px-6 max-md:pt-4">
-          <p className="text-sm mb-4 max-md:mb-2">其他的技能</p>
-          <p className="text-3xl max-md:text-2xl font-black">在学了在学了...</p>
+          <p className="text-sm mb-4 max-md:mb-2">{ABOUT_TECS_MASK_TITLE}</p>
+          <p className="text-3xl max-md:text-2xl font-black">{ABOUT_TECS_MASK_LINE}</p>
         </div>
         <div className="noscrollbar relative h-full p-4 mt-4 max-md:mt-2 flex flex-wrap gap-3 overflow-auto">
           {skillsList.flat().map((item) => {

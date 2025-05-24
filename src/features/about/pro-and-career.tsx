@@ -1,5 +1,11 @@
 import { CardLayout } from '@/components/card-layout'
 import { ImageAssests } from '@/constants/assets'
+import {
+  ABOUT_CAREER_LINE,
+  ABOUT_CAREER_TITLE,
+  ABOUT_PRO_LINE,
+  ABOUT_PRO_TITLE
+} from '@/constants/info'
 import Image from 'next/image'
 
 export const ProAndCareer = () => {
@@ -9,12 +15,16 @@ export const ProAndCareer = () => {
         {/* 标题 */}
         <div className="flex gap-20 max-md:gap-10 px-8 pb-6 max-md:px-6 max-md:pb-4">
           <div>
-            <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">生涯</p>
-            <p className="text-3xl max-md:text-2xl font-black ">学无止境</p>
+            <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">
+              {ABOUT_CAREER_TITLE}
+            </p>
+            <p className="text-3xl max-md:text-2xl font-black ">{ABOUT_CAREER_LINE}</p>
           </div>
           <div>
-            <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">专业</p>
-            <p className="text-3xl max-md:text-2xl font-black ">数字媒体技术</p>
+            <p className="text-sm mb-4 max-md:mb-2 text-secondary dark:text-darksecondary">
+              {ABOUT_PRO_TITLE}
+            </p>
+            <p className="text-3xl max-md:text-2xl font-black ">{ABOUT_PRO_LINE}</p>
           </div>
         </div>
 

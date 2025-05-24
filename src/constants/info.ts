@@ -23,14 +23,58 @@ export const HOME_TPYE_ZH_TEXT = '👨🏻‍💻 一名前端开发工程师 �
 
 export const HOME_TPYE_EN_TEXT = '👨🏻‍💻 A Web <Developer /> .'
 
-export const HOME_SLOGAN_TEXT = '我在这个网站记录我的成长，努力 💪 成为一个更好的程序员。'
+export const HOME_SLOGAN_TEXT = '我在这个网站记录我的成长，努力 💪 成为一个更好的 Coder。'
+
+export const HOME_SLOGAN_MOBILE_TEXT = '努力成为一个更好的 Coder'
 
 /** 关于页面文本 */
 export const ABOUT_PRE_TEXT = '嘿！你发现我啦 👋🏻'
-
 export const ABOUT_NAME_TEXT = `我是${NICKNAME}`
-
 export const ABOUT_IDENTITY_TEXT = '是一名前端开发工程师 👨🏻‍💻、篮球运动爱好者 ⛹🏻‍♂️'
+
+export const ABOUT_TRACE_TITLE = '追求'
+export const ABOUT_TRACE_LINE_1 = '源于'
+export const ABOUT_TRACE_LINE_2 = '热爱而去感受'
+export const ABOUT_TRACE_ROLLING_TEXT = [
+  {
+    text: '体验',
+    className: 'text-3xl max-md:text-2xl font-black from-[#FA7572] to-[#F55F7F]'
+  },
+  {
+    text: '学习',
+    className: 'text-3xl max-md:text-2xl font-black from-[#17E198] to-[#0CC15D]'
+  },
+  {
+    text: '生活',
+    className: 'text-3xl max-md:text-2xl font-black from-[#0ECFFE] to-[#09A6F1]'
+  },
+  {
+    text: '程序',
+    className: 'text-3xl max-md:text-2xl font-black from-[#8A7BFB] to-[#633E9C]'
+  }
+]
+
+export const ABOUT_TECS_TITLE = '技能'
+export const ABOUT_TECS_LINE = '技术力'
+export const ABOUT_TECS_MASK_TITLE = '其他的技能'
+export const ABOUT_TECS_MASK_LINE = '在学了在学了...'
+
+export const ABOUT_CAREER_TITLE = '生涯'
+export const ABOUT_CAREER_LINE = '学无止境'
+
+export const ABOUT_PRO_TITLE = '专业'
+export const ABOUT_PRO_LINE = '数字媒体技术'
+
+export const ABOUT_LOCATION_PRE = '我现在在'
+export const ABOUT_LOCATION_NAME = '中国，广州市'
+
+export const ABOUT_SPECIALITY_TITLE = '特长'
+export const ABOUT_SPECIALITY_LINE_1 = '经典CV工程师'
+export const ABOUT_SPECIALITY_LINE_2 = '面向 ChatGPT 编程'
+
+export const ABOUT_SINGER_TITLE = '喜爱歌手'
+export const ABOUT_SINGER_ZH_NAME = '张敬轩'
+export const ABOUT_SINGER_EN_NAME = 'HinsChueng'
 
 /** 关于页面 技能图标 */
 // html
