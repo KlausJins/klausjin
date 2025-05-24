@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export const Location = () => {
   return (
-    <CardLayout className="row-span-4 col-span-9 animate-fade-up animate-ease-in-out animate-delay-[800ms] p-0 m-0 max-md:p-0 max-md:m-0 overflow-hidden">
+    <CardLayout className="row-span-5 col-span-9 animate-fade-up animate-ease-in-out animate-delay-[800ms] p-0 m-0 max-md:p-0 max-md:m-0 overflow-hidden">
       <div className="w-full h-full relative group">
         <div className="w-full h-full flex inset-0 justify-center items-center overflow-hidden scale-260 max-md:scale-300 group-hover:scale-350 transform transition-all duration-3000 ease-in-out delay-150">
           <Image
@@ -26,7 +26,7 @@ export const Location = () => {
             className="hidden dark:flex"
           />
         </div>
-        <div className="absolute bottom-0 w-full h-15 max-md:h-10 backdrop-blur-[8px] flex items-center px-8 gap-2 group-hover:-bottom-[100%] transform transition-all duration-1000 ease-in-out delay-150">
+        <div className="absolute bottom-0 w-full h-15 max-md:h-10 backdrop-blur-[8px] flex flex-wrap items-center px-8 gap-2 group-hover:-bottom-[100%] transform transition-all duration-1000 ease-in-out delay-150">
           <p className="text-xl max-md:text-lg text-primary dark:text-darkprimary">我现在在</p>
           <p className="text-xl max-md:text-lg font-black text-primary dark:text-darkprimary">
             中国，广州市

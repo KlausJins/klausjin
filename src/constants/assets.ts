@@ -5,5 +5,6 @@ export const ImageAssests = {
   ProAndCareerLightSvg: '/about/ProAndCareerLight.svg',
   ProAndCareerDarkSvg: '/about/ProAndCareerDark.svg',
   LocationLight: '/about/LocationLight.png',
-  LocationDark: '/about/LocationDark.png'
+  LocationDark: '/about/LocationDark.png',
+  HinsWallpaper: '/about/HinsWallpaper.jpg'
 }
