@@ -15,7 +15,7 @@ export default function About() {
         {/* 专业和生涯 */}
         <ProAndCareer />
 
-        <div className="grid grid-flow-col grid-cols-24 grid-rows-3 gap-6 col-span-24 max-md:flex flex-col animate-fade-up animate-ease-in-out animate-delay-[600ms]">
+        <div className="grid grid-flow-col grid-cols-24 grid-rows-4 gap-6 col-span-24 max-md:flex flex-col animate-fade-up animate-ease-in-out animate-delay-[600ms]">
           {/* 位置 */}
           <Location />
           {/* 特长 */}

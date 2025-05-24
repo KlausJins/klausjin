@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export const Location = () => {
   return (
-    <CardLayout className="row-span-3 col-span-9 animate-fade-up animate-ease-in-out animate-delay-[800ms] p-0 m-0 max-md:p-0 max-md:m-0 overflow-hidden">
+    <CardLayout className="row-span-4 col-span-9 animate-fade-up animate-ease-in-out animate-delay-[800ms] p-0 m-0 max-md:p-0 max-md:m-0 overflow-hidden">
       <div className="w-full h-full relative group">
         <div className="w-full h-full flex inset-0 justify-center items-center overflow-hidden scale-260 max-md:scale-300 group-hover:scale-350 transform transition-all duration-3000 ease-in-out delay-150">
           <Image
