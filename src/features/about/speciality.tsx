@@ -9,7 +9,7 @@ import Image from 'next/image'
 
 export const Speciality = () => {
   return (
-    <CardLayout className="col-span-15 row-span-2 animate-fade-up animate-ease-in-out animate-delay-[1000ms] bg-gradient-to-r from-[#FF2ADF] to-[#FF5375] group">
+    <CardLayout className="col-span-15 row-span-2 animate-fade-up animate-ease-in-out animate-delay-[1000ms] bg-gradient-to-r from-[#FF2ADF] to-[#FF5375] group overflow-hidden">
       <div className="flex flex-col gap-2">
         <p className="text-sm mb-0 text-darkprimary/80">{ABOUT_SPECIALITY_TITLE}</p>
         <p className="text-3xl max-md:text-2xl font-black text-darkprimary/50">
