@@ -3,5 +3,7 @@ export const ImageAssests = {
   LogoDark: '/klausjin-dark.svg',
   ProAndCareerSvg: '/about/ProAndCareer.svg',
   ProAndCareerLightSvg: '/about/ProAndCareerLight.svg',
-  ProAndCareerDarkSvg: '/about/ProAndCareerDark.svg'
+  ProAndCareerDarkSvg: '/about/ProAndCareerDark.svg',
+  LocationLight: '/about/LocationLight.png',
+  LocationDark: '/about/LocationDark.png'
 }
