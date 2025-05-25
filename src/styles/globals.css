@@ -19,11 +19,13 @@
   --color-secondary: #71717A;
   --color-darksecondary: #A1A1AA;
 
+  --color-content: #3C3C3CB3;
+  --color-darkContent: #EBEBEB99;
+
   --color-bgPrimary: #FFFFFF;
   --color-lighterBgPrimary: #F9F9F9;
   --color-darkBgPrimary: #1A1A1A;
   --color-darkerBgPrimary: #242424;
-
 
   --color-activeColor: #F4F4F5;
   --color-darkActiveColor: #27272A;
