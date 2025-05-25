@@ -85,19 +85,19 @@ const Section = () => {
 
         {/* 底部按钮 */}
         <div className="flex gap-4 text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
-          <Button className="px-2 py-2">
-            <Link href={PATHS.SITE_NOTE}>我的笔记</Link>
-          </Button>
+          <Link href={PATHS.SITE_NOTE}>
+            <Button className="px-2 py-2">我的笔记</Button>
+          </Link>
 
-          <Button className="px-2 py-2">
-            <Link href={PATHS.SITE_ABOUT}>关于我</Link>
-          </Button>
+          <Link href={PATHS.SITE_ABOUT}>
+            <Button className="px-2 py-2">关于我</Button>
+          </Link>
 
-          <Button>
-            <Link href={GITHUB_PERSONAL_PAGE_LINK} target="_blank" className="flex">
+          <Link href={GITHUB_PERSONAL_PAGE_LINK} target="_blank" className="flex">
+            <Button>
               <IconSelf iconName="icon-[fa6-brands--github]" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
 
         <div className="absolute inset-x-0 bottom-8 grid place-content-center md:bottom-12 animate-fade-up animate-ease-in-out animate-delay-[1200ms]">

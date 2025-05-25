@@ -1,6 +1,7 @@
 import { clm } from '@/utils/normal'
 import IconSelf from '../icons/icon-self'
 import { SKILL_ICON_REACT, SKILL_ICON_VUE } from '@/constants/info'
+import Link from 'next/link'
 
 interface INoteCardProps {
   className?: string
@@ -8,7 +9,8 @@ interface INoteCardProps {
 
 export const NoteCard = ({ className }: INoteCardProps) => {
   return (
-    <div
+    <Link
+      href="/note/1"
       className={clm(
         'flex flex-col px-6 py-4 rounded-xl',
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',
@@ -58,6 +60,6 @@ export const NoteCard = ({ className }: INoteCardProps) => {
           <span>5月25，2025</span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
