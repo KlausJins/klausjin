@@ -10,11 +10,9 @@ const ModalDetail = () => {
   // 阻止滚动，并且防止页面闪烁
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-    document.body.style.marginRight = '8px'
 
     return () => {
       document.body.style.overflow = ''
-      document.body.style.marginRight = ''
     }
   }, [document])
 
