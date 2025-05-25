@@ -1,7 +1,6 @@
 'use client'
 
 import IconSelf from '@/components/icons/icon-self'
-import Button from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
