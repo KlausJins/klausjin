@@ -10,7 +10,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
   return (
     <div
       className={clm(
-        'flex flex-col px-6 py-3 rounded-xl bg-lighterBgPrimary',
+        'flex flex-col px-6 py-3 rounded-xl',
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',
         className
       )}
