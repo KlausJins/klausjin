@@ -10,7 +10,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
   return (
     <div
       className={clm(
-        'flex flex-col px-6 py-3 rounded-xl',
+        'flex flex-col px-6 py-4 rounded-xl',
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',
         className
       )}
@@ -53,7 +53,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
             <span>#效率</span>
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
           <IconSelf iconName="icon-[lucide--calendar]" size="text-md" />
           <span>5月25，2025</span>
         </div>
