@@ -22,7 +22,7 @@ const ModalDetail = () => {
   }
 
   return (
-    <div className="inset-0 absolute z-20 animate-opacity-in">
+    <div className="inset-0 absolute z-20 animate-opacity-in grid place-content-center">
       {/* 遮罩层 */}
       <div
         className="inset-0 absolute bg-darkBgPrimary/30 dark:bg-darkBgPrimary/60"
@@ -34,8 +34,8 @@ const ModalDetail = () => {
         className={clm(
           'relative container m-auto bg-lighterBgPrimary dark:bg-darkerBgPrimary ',
           'w-[80vw] h-[92vh]  rounded-3xl overflow-auto px-6 py-6 pt-0',
-          'max-md:w-[100vw] max-md:h-[100vh] max-md:rounded-none',
-          'md:top-[50%] transform md:translate-y-[-50%] max-md:top-0 transition-all will-change-transform duration-1000 ease-in-out'
+          'max-md:w-[100vw] max-md:h-[100vh] max-md:rounded-none'
+          // 'transition-transform will-change-transform duration-1000 ease-in-out'
         )}
       >
         <div className="sticky top-0 flex justify-between items-center pt-4 pb-2 z-10 bg-lighterBgPrimary dark:bg-darkerBgPrimary">
