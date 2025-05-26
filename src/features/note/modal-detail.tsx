@@ -4,6 +4,7 @@ import IconSelf from '@/components/icons/icon-self'
 import { clm } from '@/utils/normal'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { NoteInfo } from './note-info'
 
 const ModalDetail = () => {
   const router = useRouter()
@@ -48,7 +49,9 @@ const ModalDetail = () => {
         </div>
 
         {/* 笔记内容 */}
-        <div className=" relative h-[120vh] w-full">ModalDetail</div>
+        <div className=" relative min-h-[92%] w-full">
+          <NoteInfo />
+        </div>
       </div>
     </div>
   )
