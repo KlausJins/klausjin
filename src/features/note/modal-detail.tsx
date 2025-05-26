@@ -35,7 +35,7 @@ const ModalDetail = () => {
           'relative container m-auto bg-lighterBgPrimary dark:bg-darkerBgPrimary',
           'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0',
           'max-md:w-[100vw] max-md:h-[100vh] max-md:rounded-none',
-          'top-[50%] translate-y-[-50%] transform transition-[height] will-change-transform duration-1000 ease-in-out'
+          'md:top-[50%] md:translate-y-[-50%] max-md:top-0 transform transition-[height] will-change-transform duration-1000 ease-in-out'
         )}
       >
         <div className="sticky top-0 flex justify-center items-center pt-4 pb-2 z-10 bg-lighterBgPrimary dark:bg-darkerBgPrimary">
