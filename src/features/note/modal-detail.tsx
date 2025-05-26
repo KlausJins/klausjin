@@ -22,7 +22,7 @@ const ModalDetail = () => {
   }
 
   return (
-    <div className="inset-0 absolute z-20 animate-opacity-in grid place-content-center">
+    <div className="inset-0 absolute z-20 animate-opacity-in">
       {/* 遮罩层 */}
       <div
         className="inset-0 absolute bg-darkBgPrimary/30 dark:bg-darkBgPrimary/60"
@@ -32,19 +32,17 @@ const ModalDetail = () => {
       {/* 笔记弹窗 */}
       <div
         className={clm(
-          'relative container m-auto bg-lighterBgPrimary dark:bg-darkerBgPrimary ',
-          'w-[80vw] h-[92vh]  rounded-3xl overflow-auto px-6 py-6 pt-0',
-          'max-md:w-[100vw] max-md:h-[100vh] max-md:rounded-none'
-          // 'transition-transform will-change-transform duration-1000 ease-in-out'
+          'relative container m-auto bg-lighterBgPrimary dark:bg-darkerBgPrimary',
+          'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0',
+          'max-md:w-[100vw] max-md:h-[100vh] max-md:rounded-none',
+          'top-[50%] translate-y-[-50%] transform transition-[height] will-change-transform duration-1000 ease-in-out'
         )}
       >
-        <div className="sticky top-0 flex justify-between items-center pt-4 pb-2 z-10 bg-lighterBgPrimary dark:bg-darkerBgPrimary">
-          {/* 布局占用 */}
-          <span></span>
+        <div className="sticky top-0 flex justify-center items-center pt-4 pb-2 z-10 bg-lighterBgPrimary dark:bg-darkerBgPrimary">
           {/* 默认标题 */}
           <div className="text-xl font-black">笔记</div>
           {/* 关闭按钮 */}
-          <div className="flex hover:cursor-pointer" onClick={() => closePage()}>
+          <div className="flex hover:cursor-pointer absolute right-0" onClick={() => closePage()}>
             <IconSelf iconName="icon-[lucide--x]" />
           </div>
         </div>
