@@ -112,7 +112,7 @@ const ModalDetail = () => {
       {/* 笔记弹窗 */}
       <div
         className={clm(
-          'absolute container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
+          'fixed container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
           'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0',
           'max-md:!w-[100vw] max-md:!h-[100vh] max-md:rounded-none',
           'max-md:!top-0 will-change-transform'
