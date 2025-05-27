@@ -121,7 +121,7 @@ const ModalDetail = () => {
       >
         <div className="sticky top-0 flex justify-center items-center pt-4 pb-2 z-10">
           {/* 默认标题 */}
-          <div className="text-xl font-black">笔记</div>
+          <div className="text-xl font-black">笔记1</div>
           {/* 关闭按钮 */}
           <div className="flex hover:cursor-pointer absolute right-0" onClick={() => closePage()}>
             <IconSelf iconName="icon-[lucide--x]" />
