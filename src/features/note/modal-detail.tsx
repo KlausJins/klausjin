@@ -1,7 +1,7 @@
 'use client'
 
 import IconSelf from '@/components/icons/icon-self'
-import { addKeyframe, clm, removeBodyKeyframe } from '@/utils'
+import { clm, removeBodyKeyframe } from '@/utils'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { NoteInfo } from './note-info'
