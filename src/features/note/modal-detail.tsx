@@ -29,7 +29,7 @@ const ModalDetail = () => {
       const { top, left, width, height } = rect
       addKeyframe(`
         @keyframes opacity-in-111 {
-          98% {
+          60% {
             opacity: 1;
           }
           100% {
@@ -38,7 +38,7 @@ const ModalDetail = () => {
           }
         }`)
       console.log('top, left, width, height: ', top, left, width, height)
-      modal.style.position = 'fixed'
+      modal.style.position = 'absolute'
       modal.style.top = `${top}px`
       modal.style.left = `${left}px`
       modal.style.width = `${width}px`
@@ -47,10 +47,7 @@ const ModalDetail = () => {
       modal.style.transform = 'none'
 
       requestAnimationFrame(() => {
-        // modal.style.transition = 'all 0.5s ease'
-        modal.style.transitionProperty = 'top, left, width, height, transform'
-        modal.style.transitionDuration = '0.5s'
-        modal.style.transitionBehavior = 'ease'
+        modal.style.transition = 'all 0.5s ease'
         modal.style.top = '50%'
         modal.style.left = '50%'
         modal.style.width = '80vw'
@@ -107,7 +104,7 @@ const ModalDetail = () => {
     <div className="inset-0 absolute z-20">
       {/* 遮罩层 */}
       <div
-        className=" absolute inset-0 bg-darkBgPrimary/10 dark:bg-darkBgPrimary/10"
+        className="absolute inset-0 bg-darkBgPrimary/10 dark:bg-darkBgPrimary/10"
         ref={overLayRef}
         onClick={() => closePage()}
       ></div>
@@ -115,11 +112,10 @@ const ModalDetail = () => {
       {/* 笔记弹窗 */}
       <div
         className={clm(
-          'relative container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
+          'absolute container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
           'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0',
           'max-md:!w-[100vw] max-md:!h-[100vh] max-md:rounded-none',
-          'max-md:!top-[50%]'
-          // 'transform transition-[height] will-change-transform duration-1000 ease-in-out'
+          'max-md:!top-[50%] will-change-transform'
         )}
         ref={modalRef}
       >
