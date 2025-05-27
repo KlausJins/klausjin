@@ -13,7 +13,7 @@ import {
   HOME_TPYE_ZH_TEXT
 } from '@/constants/info'
 import { PATHS } from '@/constants/path'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { TypeAnimation } from 'react-type-animation'

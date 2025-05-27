@@ -1,5 +1,5 @@
 'use client'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import React from 'react'
 
 interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,4 +1,4 @@
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import { DropdownMenu } from 'radix-ui'
 import React from 'react'
 

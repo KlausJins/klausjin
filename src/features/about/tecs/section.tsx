@@ -1,6 +1,6 @@
 import { ABOUT_TECS_LINE, ABOUT_TECS_TITLE, SKILL_ICON_PR, skillsList } from '@/constants/info'
 import IconSelf from '@/components/icons/icon-self'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 
 export const TecsSection = ({ isDetailOpen }: { isDetailOpen: boolean }) => {
   return (

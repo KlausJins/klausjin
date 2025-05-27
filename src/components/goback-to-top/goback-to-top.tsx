@@ -3,7 +3,7 @@
 import IconSelf from '@/components/icons/icon-self'
 import Button from '@/components/ui/button'
 import { useScroll } from '@/hooks'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 
 interface IGoBackToTopProps {
   className?: string

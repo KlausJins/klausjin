@@ -1,4 +1,4 @@
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import { Dialog } from 'radix-ui'
 import React from 'react'
 

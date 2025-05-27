@@ -1,4 +1,4 @@
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 
 interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string

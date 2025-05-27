@@ -1,4 +1,6 @@
-import { clm } from '@/utils/normal'
+'use client'
+
+import { clm } from '@/utils'
 import IconSelf from '../icons/icon-self'
 import { SKILL_ICON_REACT, SKILL_ICON_VUE } from '@/constants/info'
 import Link from 'next/link'
@@ -8,6 +10,11 @@ interface INoteCardProps {
 }
 
 export const NoteCard = ({ className }: INoteCardProps) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    sessionStorage.setItem('modalRect', JSON.stringify(rect))
+  }
+
   return (
     <Link
       href="/note/1"
@@ -16,6 +23,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',
         className
       )}
+      onClick={(e) => handleClick(e)}
     >
       {/* 笔记标签 */}
       <div className="hidden max-md:flex items-center flex-wrap gap-4 mb-2 text-xs text-content dark:text-darkContent">

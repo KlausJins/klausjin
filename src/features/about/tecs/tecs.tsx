@@ -3,7 +3,7 @@
 import { CardLayout } from '@/components/card-layout'
 import IconSelf from '@/components/icons/icon-self'
 import { ABOUT_TECS_MASK_LINE, ABOUT_TECS_MASK_TITLE, skillsList } from '@/constants/info'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import { useState } from 'react'
 import { TecsSection } from './section'
 

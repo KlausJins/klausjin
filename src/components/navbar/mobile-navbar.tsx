@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { clm } from '@/utils/normal'
+import { clm } from '@/utils'
 import {
   KlSheetClose,
   KlSheetContent,
