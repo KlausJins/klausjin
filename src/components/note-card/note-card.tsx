@@ -13,6 +13,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     sessionStorage.setItem('modalRect', JSON.stringify(rect))
+    sessionStorage.setItem('scrollY', window.scrollY.toString())
   }
 
   return (
