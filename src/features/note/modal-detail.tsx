@@ -78,9 +78,10 @@ const ModalDetail = () => {
     } else {
       // 移动端动画
       if (modal && overLay) {
-        modal.style.transform = 'translate(-50%, 0%)'
-        modal.style.animation = 'opacity-in 0.3s ease'
-        overLay.style.animation = 'opacity-in 0.3s ease'
+        modal.style.transform = 'translate(-50%, 0)'
+        modal.style.left = '50%'
+        // modal.style.animation = 'opacity-in 0.3s ease'
+        // overLay.style.animation = 'opacity-in 0.3s ease'
       }
     }
   }, [isMobile])
@@ -116,8 +117,8 @@ const ModalDetail = () => {
       } else {
         // 移动端动画
         if (modal && overLay) {
-          modal.style.animation = 'opacity-out 3.3s ease'
-          overLay.style.animation = 'opacity-out 3.3s ease'
+          modal.style.animation = 'opacity-out 0.3s ease'
+          overLay.style.animation = 'opacity-out 0.3s ease'
 
           modal.addEventListener(
             'animationend',
@@ -137,7 +138,6 @@ const ModalDetail = () => {
   // 阻止滚动，并且防止页面闪烁
   useEffect(() => {
     const scrollY = +sessionStorage.getItem('scrollY')!
-    console.log(scrollY)
     document.body.style.position = 'fixed'
     document.body.style.top = `-${scrollY}px`
     document.body.style.overflow = 'hidden'
@@ -168,8 +168,7 @@ const ModalDetail = () => {
           className={clm(
             'fixed container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
             'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0 z-30',
-            'max-md:!w-[100vw] max-md:!h-[100vh] max-md:rounded-none will-change-transform',
-            isMobile && 'max-md:!top-0 max-md:left-[50%]'
+            isMobile && '!top-0 !w-[100vw] !h-[100vh] rounded-none'
           )}
           ref={modalRef}
         >
