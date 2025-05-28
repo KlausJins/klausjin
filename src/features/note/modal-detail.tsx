@@ -138,7 +138,7 @@ const ModalDetail = () => {
   // 阻止滚动，并且防止页面闪烁
   useEffect(() => {
     const scrollY = +sessionStorage.getItem('scrollY')!
-    document.body.style.position = 'absolute'
+    document.body.style.position = 'fixed'
     document.body.style.top = `-${scrollY}px`
     document.body.style.overflow = 'hidden'
     document.body.style.width = '100%'
