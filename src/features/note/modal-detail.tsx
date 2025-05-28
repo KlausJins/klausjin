@@ -79,8 +79,8 @@ const ModalDetail = () => {
       // 移动端动画
       if (modal && overLay) {
         modal.style.transform = 'translate(-50%, 0%)'
-        modal.style.animation = 'opacity-in 0.1s ease'
-        overLay.style.animation = 'opacity-in 0.1s ease'
+        modal.style.animation = 'opacity-in 0.3s ease'
+        overLay.style.animation = 'opacity-in 0.3s ease'
       }
     }
   }, [isMobile])
@@ -169,11 +169,11 @@ const ModalDetail = () => {
             'fixed container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
             'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0 z-30',
             'max-md:!w-[100vw] max-md:!h-[100vh] max-md:rounded-none will-change-transform',
-            isMobile ? 'max-md:!top-0 max-md:left-[50%]' : 'max-md:top-[50%]'
+            isMobile && 'max-md:!top-0 max-md:left-[50%]'
           )}
           ref={modalRef}
         >
-          <div className="sticky top-0 flex justify-center items-center pt-4 pb-2 z-10">
+          <div className="sticky top-0 flex justify-center items-center pt-4 pb-2 z-10 bg-bgPrimary dark:bg-darkerBgPrimary">
             {/* 默认标题 */}
             <div className="text-xl font-black">笔记</div>
             {/* 关闭按钮 */}

@@ -13,5 +13,5 @@ export const removeBodyKeyframe = () => {
   // 设置定时器，延迟删除style标签，避免页面闪烁
   setTimeout(() => {
     document.querySelectorAll('body style').forEach((styleTag) => styleTag.remove())
-  }, 500)
+  }, 200)
 }
