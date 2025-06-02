@@ -1,6 +1,12 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @import "tailwindcss-animated";
+@import "bytemd/dist/index.css";
+@import './github.css';
+@import './github-dark.css';
+@import "./custom.css";
+@import "./custom-dark.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
 
@@ -41,6 +47,19 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+
+  /* 设置文档的最大宽度 */
+  --spacing-detail-content: 812px;
+
+  --shadow-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+
+  /* md-style */
+  --color-foreground: #09090b;
+  --color-background: #ffffff;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-border: #e4e4e7;
+  --color-accent: #f4f4f5;
 
 
   /* 动画 */
@@ -144,59 +163,59 @@
     }
   }
 
+  @keyframes scroll-to-left {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes rolling-text {
+    10% {
+      -webkit-transform: translateY(-102%);
+      transform: translateY(-102%);
+    }
+
+    25% {
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+    }
+
+    35% {
+      -webkit-transform: translateY(-202%);
+      transform: translateY(-202%);
+    }
+
+    50% {
+      -webkit-transform: translateY(-200%);
+      transform: translateY(-200%);
+    }
+
+    60% {
+      -webkit-transform: translateY(-302%);
+      transform: translateY(-302%);
+    }
+
+    75% {
+      -webkit-transform: translateY(-300%);
+      transform: translateY(-300%);
+    }
+
+    85% {
+      -webkit-transform: translateY(-402%);
+      transform: translateY(-402%);
+    }
+
+    100% {
+      -webkit-transform: translateY(-400%);
+      transform: translateY(-400%);
+    }
+  }
 }
 
-@keyframes scroll-to-left {
-  0% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes rolling-text {
-  10% {
-    -webkit-transform: translateY(-102%);
-    transform: translateY(-102%);
-  }
-
-  25% {
-    -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
-
-  35% {
-    -webkit-transform: translateY(-202%);
-    transform: translateY(-202%);
-  }
-
-  50% {
-    -webkit-transform: translateY(-200%);
-    transform: translateY(-200%);
-  }
-
-  60% {
-    -webkit-transform: translateY(-302%);
-    transform: translateY(-302%);
-  }
-
-  75% {
-    -webkit-transform: translateY(-300%);
-    transform: translateY(-300%);
-  }
-
-  85% {
-    -webkit-transform: translateY(-402%);
-    transform: translateY(-402%);
-  }
-
-  100% {
-    -webkit-transform: translateY(-400%);
-    transform: translateY(-400%);
-  }
-}
 
 @layer utilities {
   .noscrollbar {
@@ -214,6 +233,8 @@
 
 
 @layer base {
+  :root {}
+
   .light {
     --scrollBarTrackColor: #F9F9F9;
     --scrollBarThumbColor: #E4E4E7;
@@ -241,3 +262,5 @@
   background-color: var(--scrollBarThumbColor);
   border-radius: 10px;
 }
+
+@import "./custom.css";

@@ -24,6 +24,8 @@ module.exports = {
   importOrderSeparation: false,
   // 是否对导入语句进行排序
   importOrderSortSpecifiers: true,
+  // 禁止非必要空格
+  cssWhitespace: 'strict',
   // 导入语句的排序规则
   importOrder: [
     '^react',

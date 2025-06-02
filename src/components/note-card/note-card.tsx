@@ -18,7 +18,7 @@ export const NoteCard = ({ className }: INoteCardProps) => {
 
   return (
     <Link
-      href="/note/1"
+      href="/note/test"
       className={clm(
         'flex flex-col px-6 py-4 rounded-xl',
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',

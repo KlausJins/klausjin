@@ -25,16 +25,17 @@ const Section = () => {
   }
 
   const [theme, setTheme] = React.useState<string>(colorList.vueTheme)
-  function getRandomTheme() {
-    const randomCount = Math.random()
-    const theRandomTheme = randomCount < 0.5 ? colorList.vueTheme : colorList.reactTheme
-    // console.log(randomCount)
-    return theRandomTheme
-  }
 
   useEffect(() => {
+    function getRandomTheme() {
+      const randomCount = Math.random()
+      const theRandomTheme = randomCount < 0.5 ? colorList.vueTheme : colorList.reactTheme
+      // console.log(randomCount)
+      return theRandomTheme
+    }
+
     setTheme(getRandomTheme())
-  }, [getRandomTheme])
+  }, [colorList.vueTheme, colorList.reactTheme])
 
   return (
     <>

@@ -1,0 +1,45 @@
+.dark {
+
+  /* 编辑器内标题样式 */
+  .cm-header {
+    @apply  !text-[#79ccff]
+  }
+
+  /* 编辑器内列表项样式 */
+  .cm-variable-2 {
+    @apply  !text-[#e1e4e8];
+  }
+
+  /* 编辑器内代码块样式 */
+  .cm-comment {
+    @apply  !text-[#9ecbff];
+  }
+
+  /* 编辑器内引用样式 */
+  .cm-quote {
+    @apply  !text-[#85e89d];
+  }
+
+  /* 编辑器内链接样式 */
+  .cm-link {
+    @apply  !text-[#85e89d];
+  }
+
+  /* 编辑器内图片链接样式 */
+  .cm-string {
+    @apply  !text-[#e1e4e8];
+  }
+
+  /* 编辑器内光标颜色 */
+  .CodeMirror-cursor {
+    @apply  !border-l-[#cee0fd];
+  }
+
+  .markdown-body {
+    @apply prose-invert;
+  }
+
+  .markdown-body pre {
+    @apply border-none bg-[#2D2D2D]
+  }
+}

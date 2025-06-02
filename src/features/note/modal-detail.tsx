@@ -46,7 +46,7 @@ const ModalDetail = () => {
         <div
           className={clm(
             'fixed container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
-            'w-[80vw] h-[92vh] rounded-3xl overflow-auto px-6 py-6 pt-0 z-30',
+            'w-[80vw] h-[92vh] rounded-3xl overflow-auto py-6 pt-0 z-30',
             isMobile && '!top-0 !w-[100vw] !h-[100vh] rounded-none'
           )}
           ref={modalRef}
@@ -55,13 +55,13 @@ const ModalDetail = () => {
             {/* 默认标题 */}
             <div className="text-xl font-black">笔记</div>
             {/* 关闭按钮 */}
-            <div className="flex hover:cursor-pointer absolute right-0" onClick={() => closePage()}>
+            <div className="flex hover:cursor-pointer absolute right-6" onClick={() => closePage()}>
               <IconSelf iconName="icon-[lucide--x]" />
             </div>
           </div>
 
           {/* 笔记内容 */}
-          <div className=" relative min-h-[92%] w-full">
+          <div className="relative min-h-[92%] w-full px-6">
             <NoteInfo />
           </div>
         </div>,

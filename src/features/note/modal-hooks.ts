@@ -88,7 +88,7 @@ export const useListenModalOpen = ({
         // overLay.style.animation = 'opacity-in 0.3s ease'
       }
     }
-  }, [isMobile])
+  }, [isMobile, modalRef, overLayRef])
 }
 
 // 返回关闭 modal 方法，并执行关闭动画
