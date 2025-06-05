@@ -48,7 +48,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
       contentDetail.addEventListener('scroll', scrollHandler)
     }
     return () => contentDetail?.removeEventListener('scroll', scrollHandler)
-  })
+  }, [MDContent])
 
   // 目录点击事件
   const handleClick = (id: string) => {
