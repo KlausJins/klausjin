@@ -24,11 +24,15 @@
 }
 
 .markdown-body {
-  @apply prose prose-neutral max-w-4xl px-5;
+  @apply prose prose-neutral max-w-4xl px-0;
 }
 
 .markdown-body a {
   @apply mx-1 inline-flex items-center gap-1 !no-underline;
+}
+
+.markdown-body ol {
+  @apply pl-10
 }
 
 .medium-zoom-image--opened {
