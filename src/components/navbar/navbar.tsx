@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { clm } from '@/utils'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/hooks'
+import { PATHS } from '@/constants/path'
 import IconSelf from '@/components/icons/icon-self'
 import Button from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
@@ -56,8 +57,9 @@ export const Navbar = () => {
               <IconSelf iconName="icon-[fa6-brands--github]" />
             </Link>
           </Button>
+          {/* 暂时直接链接到后台，后续接入github */}
           <Button>
-            <Link href={''} className="flex">
+            <Link href={PATHS.BACKEND_ADMIN} className="flex">
               <IconSelf iconName="icon-[lucide--user-cog]" />
             </Link>
           </Button>
