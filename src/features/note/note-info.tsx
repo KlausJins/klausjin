@@ -1,10 +1,9 @@
-import { MDViewer } from '@/components/markdown'
+import { ContentViewer } from './content-viewer'
 
 export const NoteInfo = () => {
   return (
     <>
-      {/* <MDEditor /> */}
-      <MDViewer />
+      <ContentViewer id="test" />
     </>
   )
 }

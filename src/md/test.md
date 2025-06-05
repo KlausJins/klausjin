@@ -1,14 +1,4 @@
-# 一级标题
-
-## 二级标题
-
-### 三级标题
-
-#### 四级标题
-
-##### 五级标题
-
-###### 六级标题
+## 一级标题 1
 
 **加粗**
 _倾斜_
@@ -41,6 +31,8 @@ H~2~O
    1. 子项（缩进 3 空格）
 3. 第三项
 
+### 三级标题 1
+
 - [x] 已完成任务
 - [ ] 未完成任务
 - [ ] 待办事项
@@ -58,6 +50,8 @@ def fibonacci(n):
 | 数据 1     |  数据 2  | 数据 3 |
 | 长内容示例 | 居中内容 | 100.00 |
 
+## 一级标题 2
+
 [普通链接](https://example.com)
 [带标题链接](https://example.com '悬浮提示')
 [引用式链接][ref]
@@ -65,10 +59,6 @@ def fibonacci(n):
 自动链接 <https://example.com>
 
 ![替代文字](https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg)
-
----
-
----
 
 ---
 

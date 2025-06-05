@@ -44,6 +44,7 @@ const ModalDetail = () => {
 
       {ReactDOM.createPortal(
         <div
+          id="content-detail"
           className={clm(
             'fixed container m-auto bg-bgPrimary dark:bg-darkerBgPrimary',
             'w-[80vw] h-[92vh] rounded-3xl overflow-auto py-6 pt-0 z-30',

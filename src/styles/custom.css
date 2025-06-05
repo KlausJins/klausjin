@@ -32,7 +32,7 @@
 }
 
 .medium-zoom-image--opened {
-  @apply z-30;
+  @apply z-35;
 }
 
 .medium-zoom-overlay {
@@ -60,7 +60,7 @@
 }
 
 .markdown-body :where(h2, h3, h4, h5, h6) {
-  @apply flex scroll-mt-20 items-center;
+  @apply flex items-center !scroll-mt-[80px];
 }
 
 .markdown-body :where(h2, h3, h4, h5, h6):hover .markdown-anchor {
