@@ -14,6 +14,9 @@ export const Admin = ({ children }: AdminPropsType) => {
       setInnerWidth(window.innerWidth <= 768)
     }
 
+    // 初始化时调用一次
+    resizeHandler()
+
     window.addEventListener('resize', resizeHandler)
 
     return () => {
