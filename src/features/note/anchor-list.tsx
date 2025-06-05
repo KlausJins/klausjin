@@ -1,5 +1,11 @@
 import { clm } from '@/utils'
-import { AnchorItemType } from './content-viewer'
+
+export type AnchorItemType = {
+  id: string
+  text: string
+  level: number
+  children: AnchorItemType[]
+}
 
 export const AnchorList = ({
   anchor,
@@ -24,9 +30,11 @@ export const AnchorList = ({
             <a
               href={`#${item.id}`}
               className={clm(
-                'mt-2',
+                'mt-2 px-3 py-1 rounded-lg',
                 ischildren ? '' : 'font-bold',
-                item.id === activeId ? ' bg-amber-100' : '',
+                item.id === activeId
+                  ? ' bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary'
+                  : '',
                 AClassName
               )}
               style={{

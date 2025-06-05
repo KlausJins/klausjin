@@ -25,13 +25,14 @@ interface MDEditorPropsType {
 }
 
 export const MDEditor = forwardRef<HTMLDivElement, MDEditorPropsType>(({ onChange }, ref) => {
-  const [value, setValue] = useState('')
+  const [value] = useState('')
   return (
     <div id="note-editor" ref={ref} className="flex flex-col h-full w-full items-center">
       <Editor value={value} plugins={plugins} locale={zh_Hans} onChange={(v) => onChange(v)} />
     </div>
   )
 })
+MDEditor.displayName = 'MDEditor'
 
 interface MDViewerPropsType {
   value: string
@@ -46,3 +47,4 @@ export const MDViewer = forwardRef<HTMLDivElement, MDViewerPropsType>(
     )
   }
 )
+MDViewer.displayName = 'MDViewer'

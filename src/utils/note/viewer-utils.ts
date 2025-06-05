@@ -1,4 +1,4 @@
-import { AnchorItemType } from '@/features/note/content-viewer'
+import { AnchorItemType } from '@/features/note/anchor-list'
 
 // 递归生成锚点列表
 export const generateAnchorList = (headings: AnchorItemType[]): AnchorItemType[] => {

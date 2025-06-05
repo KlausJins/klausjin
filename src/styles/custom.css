@@ -24,7 +24,7 @@
 }
 
 .markdown-body {
-  @apply prose prose-neutral max-w-4xl;
+  @apply prose prose-neutral max-w-4xl px-0.5;
 }
 
 .markdown-body a {
