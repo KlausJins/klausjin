@@ -32,10 +32,6 @@ export const ContentViewer = ({ id }: { id: string }) => {
     // 滚动监听高亮
     const contentDetail = document.getElementById('content-detail') || window
 
-    // 所有操作执行完之后，绑定图片的缩放功能
-    const imgEls = document.querySelectorAll('.markdown-body img')
-    mediumZoom(imgEls)
-
     let scrollHandler = () => {}
 
     if (contentDetail && MDViewerContainer) {
@@ -49,6 +45,12 @@ export const ContentViewer = ({ id }: { id: string }) => {
     }
     return () => contentDetail?.removeEventListener('scroll', scrollHandler)
   }, [MDContent])
+
+  // 组件渲染几次就执行几次，避免图片缩放功能失效
+  useEffect(() => {
+    const imgEls = document.querySelectorAll('.markdown-body img')
+    mediumZoom(imgEls)
+  })
 
   // 目录点击事件
   const handleClick = (id: string) => {
