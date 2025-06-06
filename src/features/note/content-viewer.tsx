@@ -7,10 +7,19 @@ import mediumZoom from 'medium-zoom'
 
 import { AnchorList } from './anchor-list'
 import { listenScrollHandler, useGenerateDocDir } from './content-hooks'
+import IconSelf from '@/components/icons/icon-self'
+import Button from '@/components/ui/button'
+import {
+  KlDropdownMenu,
+  KlDropdownMenuContent,
+  KlDropdownMenuItem,
+  KlDropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 
 export const ContentViewer = ({ id }: { id: string }) => {
   const [MDContent, setMDContent] = useState('')
   const [activeId, setActiveId] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(true)
   const MDViewerRef = useRef<HTMLDivElement>(null)
   const { anchorListInfo, setAnchorListInfo } = useGenerateDocDir(setActiveId)
 
@@ -54,6 +63,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   // 目录点击事件
   const handleClick = (id: string) => {
+    setIsOpen(false)
     const target = document.getElementById(id)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -73,12 +83,36 @@ export const ContentViewer = ({ id }: { id: string }) => {
             <div className="text-secondary text-sm">发布于 星期三，六月 4 2025</div>
           </div>
         )}
+
         {/* 文档内容 */}
         <MDViewer value={MDContent} ref={MDViewerRef} />
       </div>
-      {/* 目录 */}
+
+      {/* pc目录 */}
       <div className="max-w-50 mx-auto max-h-100 max-md:hidden shrink-0 sticky right-0 top-25">
         <AnchorList anchor={anchorListInfo} activeId={activeId} onClick={(id) => handleClick(id)} />
+      </div>
+
+      {/* 手机端目录 */}
+      <div className="hidden fixed bottom-22 right-8 bg-amber-100 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0">
+        <KlDropdownMenu open={isOpen}>
+          <KlDropdownMenuTrigger asChild>
+            <Button onClick={() => setIsOpen(true)}>
+              <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
+            </Button>
+          </KlDropdownMenuTrigger>
+          <KlDropdownMenuContent
+            align="end"
+            className="w-60 px-5 mb-2"
+            onPointerDownOutside={() => setIsOpen(false)}
+          >
+            <AnchorList
+              anchor={anchorListInfo}
+              activeId={activeId}
+              onClick={(id) => handleClick(id)}
+            />
+          </KlDropdownMenuContent>
+        </KlDropdownMenu>
       </div>
     </div>
   )
