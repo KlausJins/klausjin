@@ -22,7 +22,6 @@
     "@iconify-json/skill-icons": "^1.2.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/lodash-es": "^4.17.12",
-    "ahooks": "^3.8.4",
     "bytemd": "^1.22.0",
     "clsx": "^2.1.1",
     "geist": "^1.4.2",
