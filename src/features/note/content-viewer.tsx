@@ -2,6 +2,7 @@
 
 import { MDViewer } from '@/components/markdown'
 import { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
 import { throttle } from 'lodash-es'
 import mediumZoom from 'medium-zoom'
 
@@ -12,16 +13,20 @@ import Button from '@/components/ui/button'
 import {
   KlDropdownMenu,
   KlDropdownMenuContent,
-  KlDropdownMenuItem,
   KlDropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
 export const ContentViewer = ({ id }: { id: string }) => {
   const [MDContent, setMDContent] = useState('')
   const [activeId, setActiveId] = useState<string>('')
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const MDViewerRef = useRef<HTMLDivElement>(null)
+  const [hasMounted, setHasMounted] = useState(false)
   const { anchorListInfo, setAnchorListInfo } = useGenerateDocDir(setActiveId)
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   // 获取本地的md文档
   useEffect(() => {
@@ -94,26 +99,30 @@ export const ContentViewer = ({ id }: { id: string }) => {
       </div>
 
       {/* 手机端目录 */}
-      <div className="hidden fixed bottom-22 right-8 bg-amber-100 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0">
-        <KlDropdownMenu open={isOpen}>
-          <KlDropdownMenuTrigger asChild>
-            <Button onClick={() => setIsOpen(true)}>
-              <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
-            </Button>
-          </KlDropdownMenuTrigger>
-          <KlDropdownMenuContent
-            align="end"
-            className="w-60 px-5 mb-2"
-            onPointerDownOutside={() => setIsOpen(false)}
-          >
-            <AnchorList
-              anchor={anchorListInfo}
-              activeId={activeId}
-              onClick={(id) => handleClick(id)}
-            />
-          </KlDropdownMenuContent>
-        </KlDropdownMenu>
-      </div>
+      {hasMounted &&
+        ReactDOM.createPortal(
+          <div className="hidden fixed bottom-22 right-8 bg-amber-100 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0 z-35">
+            <KlDropdownMenu open={isOpen}>
+              <KlDropdownMenuTrigger asChild>
+                <Button onClick={() => setIsOpen(true)}>
+                  <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
+                </Button>
+              </KlDropdownMenuTrigger>
+              <KlDropdownMenuContent
+                align="end"
+                className="w-60 px-5 mb-2"
+                onPointerDownOutside={() => setIsOpen(false)}
+              >
+                <AnchorList
+                  anchor={anchorListInfo}
+                  activeId={activeId}
+                  onClick={(id) => handleClick(id)}
+                />
+              </KlDropdownMenuContent>
+            </KlDropdownMenu>
+          </div>,
+          document.body
+        )}
     </div>
   )
 }

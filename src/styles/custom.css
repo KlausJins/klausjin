@@ -36,11 +36,11 @@
 }
 
 .medium-zoom-image--opened {
-  @apply z-35;
+  @apply z-45;
 }
 
 .medium-zoom-overlay {
-  @apply z-30 !bg-darkBgPrimary/50;
+  @apply z-40 !bg-darkBgPrimary/50;
 }
 
 .markdown-body pre {
