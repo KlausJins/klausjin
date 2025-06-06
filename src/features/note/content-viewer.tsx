@@ -110,7 +110,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
               </KlDropdownMenuTrigger>
               <KlDropdownMenuContent
                 align="end"
-                className="w-60 px-5 mb-2"
+                className="w-auto max-w-[80vw] px-5 mb-2"
                 onPointerDownOutside={() => setIsOpen(false)}
               >
                 <AnchorList

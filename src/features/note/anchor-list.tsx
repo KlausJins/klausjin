@@ -26,11 +26,11 @@ export const AnchorList = ({
     <ul>
       {anchor.map((item) => (
         <li key={item.id} className={clm('flex flex-col', LiClassName)}>
-          <div className="flex items-center hover:cursor-pointer">
+          <div className="flex items-center">
             <a
               href={`#${item.id}`}
               className={clm(
-                'mt-2 px-3 py-1 rounded-lg',
+                'mt-2 px-3 py-1 rounded-lg hover:cursor-pointer',
                 ischildren ? '' : 'font-bold',
                 item.id === activeId
                   ? ' bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary'
