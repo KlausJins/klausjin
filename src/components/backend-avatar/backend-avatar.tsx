@@ -20,7 +20,7 @@ export const BackendAvatar = ({ src, alt }: BackendAvatarPropsType) => {
       <KlDropdownMenu>
         <KlDropdownMenuTrigger asChild>
           <Button className="border-none p-0 rounded-full">
-            <KlAvatar src={src} alt={alt} />
+            <KlAvatar src={src} alt={alt} className="size-8" />
           </Button>
         </KlDropdownMenuTrigger>
         <KlDropdownMenuContent align="end" className=" gap-2 w-auto min-w-60">
