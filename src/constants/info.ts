@@ -247,3 +247,10 @@ export const skillsList = [
     SKILL_ICON_GIT
   ]
 ]
+
+/** 管理后台常量 */
+export const BACKENG_MOBILE_OFF_TEXT = {
+  ICON: '📱',
+  TEXT_1: '手机端暂时不支持登录后台',
+  TEXT_2: '请使用电脑端登录使用'
+}
