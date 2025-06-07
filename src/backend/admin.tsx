@@ -8,7 +8,7 @@ interface AdminPropsType {
 }
 
 export const Admin = ({ children }: AdminPropsType) => {
-  const [isPhone, setInnerWidth] = useState(true)
+  const [isPhone, setInnerWidth] = useState(false)
 
   useEffect(() => {
     const resizeHandler = () => {
