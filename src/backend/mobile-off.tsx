@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const MobileOff = () => {
   return (
     <div className="grid place-content-center min-h-[calc(100vh-64px)]">
-      <div className="flex flex-col items-center text-secondary dark:text-darksecondary border-1 border-borderColor dark:border-darkBorderColor px-10 py-6 rounded-3xl">
+      <div className="flex flex-col items-center text-secondary dark:text-darksecondary border-1 border-borderColor dark:border-darkBorderColor px-10 py-8 rounded-3xl">
         <div className="flex flex-col items-center">
           <span className="text-[150px]">{BACKEND_MOBILE_OFF_TEXT.ICON}</span>
           <div className="flex flex-col items-center gap-1 text-lg">
