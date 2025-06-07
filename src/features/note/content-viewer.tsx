@@ -58,7 +58,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
       contentDetail.addEventListener('scroll', scrollHandler)
     }
     return () => contentDetail?.removeEventListener('scroll', scrollHandler)
-  }, [MDContent, activeId, setAnchorListInfo])
+  }, [MDContent])
 
   // 组件渲染几次就执行几次，避免图片缩放功能失效
   useEffect(() => {
