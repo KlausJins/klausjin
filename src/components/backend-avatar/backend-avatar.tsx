@@ -33,7 +33,7 @@ export const BackendAvatar = ({ src, alt }: BackendAvatarPropsType) => {
           </div>
           <KlDropdownMenuSeparator className="border-[0.5px] border-borderColor dark:border-darkBorderColor" />
           <KlDropdownMenuItem>
-            <div className="flex items-center gap-1 text-sm">
+            <div className="flex items-center gap-1 text-sm py-1">
               <IconSelf iconName="icon-[lucide--log-out]" />
               <div>退出登录</div>
             </div>
