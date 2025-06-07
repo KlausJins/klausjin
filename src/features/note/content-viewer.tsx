@@ -82,10 +82,12 @@ export const ContentViewer = ({ id }: { id: string }) => {
         {MDContent && (
           <div className="flex flex-col gap-10 max-md:gap-4">
             <div className="text-4xl font-black">
-              这是一个笔记标题使用Shell脚本实现自动化打包前端项目并上传到云服务器
+              使用Shell脚本实现自动化打包前端项目并上传到云服务器
             </div>
-            <div className="text-secondary">这是一个笔记内容</div>
-            <div className="text-secondary text-sm">发布于 星期三，六月 4 2025</div>
+            <div className="text-secondary">
+              本文介绍了如何使用Shell脚本实现自动打包前端项目并且上传到服务器上
+            </div>
+            <div className="text-secondary text-sm">发布于 星期五，六月 6 2025</div>
           </div>
         )}
 
