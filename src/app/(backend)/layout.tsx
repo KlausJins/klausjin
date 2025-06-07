@@ -1,4 +1,5 @@
-import { Navbar } from '@/components/navbar'
+import { Admin } from '@/backend'
+import { BackendNavbar } from '@/components/backend-navbar'
 
 export default function Layout({
   children
@@ -7,8 +8,9 @@ export default function Layout({
 }>) {
   return (
     <div className="min-h-[100vh] bg-bgPrimary text-[#18181B] dark:bg-darkBgPrimary dark:text-[#FAFAFA] flex flex-col">
-      <Navbar />
-      {children}
+      <BackendNavbar />
+
+      <Admin>{children}</Admin>
     </div>
   )
 }

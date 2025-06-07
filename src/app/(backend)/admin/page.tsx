@@ -1,5 +1,5 @@
-import { Admin } from '@/backend/admin'
+import { BackendHome } from '@/backend'
 
 export default function Backend() {
-  return <Admin>backend</Admin>
+  return <BackendHome />
 }

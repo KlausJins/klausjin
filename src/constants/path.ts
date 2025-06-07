@@ -3,9 +3,7 @@ export const PATHS = {
   SITE_HOME: '/',
   SITE_NOTE: '/note',
   SITE_ABOUT: '/about',
-
-  /** ****************** BACKEND ****************** */
-  BACKEND_ADMIN: '/admin'
+  SITE_ADMIN: '/admin'
 }
 
 export const PATHS_MAP: Record<string, string> = {
@@ -13,7 +11,5 @@ export const PATHS_MAP: Record<string, string> = {
   [PATHS.SITE_HOME]: '首页',
   [PATHS.SITE_NOTE]: '笔记',
   [PATHS.SITE_ABOUT]: '关于',
-
-  /** ****************** BACKEND ****************** */
-  [PATHS.BACKEND_ADMIN]: '后台管理'
+  [PATHS.SITE_ADMIN]: '后台管理'
 }

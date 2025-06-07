@@ -25,14 +25,17 @@ export const Navbar = () => {
       )}
     >
       <div className="flex justify-between items-center gap-4 box-border w-full container mx-auto">
+        {/* 手机端导航 */}
         <MobileNavbar className="hidden max-sm:flex" />
         <div className="flex items-center justify-between w-full pr-8 max-sm:hidden">
+          {/* 电脑端导航 */}
           <Link href={'/'}>
             <div className=" flex gap-2 items-center hover:cursor-pointer">
               <Logo />
               <span className="text-primary font-semibold dark:text-white">{WEBSITE}</span>
             </div>
           </Link>
+          {/* 导航 */}
           <div className="text-sm text-secondary dark:text-darksecondary flex gap-8">
             {NAVBAR_ITEMS.map((item) => {
               return (
@@ -51,15 +54,17 @@ export const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-4">
+          {/* 明暗模式 */}
           <ToggleMode />
+          {/* 源代码github按钮 */}
           <Button>
             <Link href={GITHUB_PAGE_LINK} target="_blank" className="flex">
               <IconSelf iconName="icon-[fa6-brands--github]" />
             </Link>
           </Button>
-          {/* 暂时直接链接到后台，后续接入github */}
+          {/* 登录到后台 */}
           <Button>
-            <Link href={PATHS.BACKEND_ADMIN} className="flex">
+            <Link href={PATHS.SITE_ADMIN} className="flex">
               <IconSelf iconName="icon-[lucide--user-cog]" />
             </Link>
           </Button>
