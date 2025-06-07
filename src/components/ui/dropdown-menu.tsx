@@ -11,6 +11,9 @@ export const KlDropdownMenuTrigger = DropdownMenu.Trigger
 // 下拉列表内容组件
 export const KlDropdownMenuPortal = DropdownMenu.Portal
 
+// 下拉列表分割线
+export const KlDropdownMenuSeparator = DropdownMenu.Separator
+
 // 下拉列表内容组件
 export const KlDropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenu.Content>,
