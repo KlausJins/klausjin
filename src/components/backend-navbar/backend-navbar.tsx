@@ -34,9 +34,9 @@ export const BackendNavbar = () => {
               return (
                 <Link
                   className={clm(
-                    'hover:bg-hoverColor dark:hover:bg-darkHoverColor py-2 px-4 rounded-lg',
+                    'hover:bg-hoverColor dark:hover:bg-darkHoverColor py-2 px-4 rounded-lg font-semibold',
                     pathname === item.link &&
-                      'font-semibold bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary hover:bg-darkBgPrimary/95 dark:hover:bg-bgPrimary/95'
+                      'bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary hover:bg-darkBgPrimary/95 dark:hover:bg-bgPrimary/95'
                   )}
                   href={item.link}
                   key={item.link}
