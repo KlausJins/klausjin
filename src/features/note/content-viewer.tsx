@@ -1,6 +1,6 @@
 'use client'
 
-import { MDViewer } from '@/components/markdown'
+import { MarkdownSkeleton, MDViewer } from '@/components/markdown'
 import { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { throttle } from 'lodash-es'
@@ -77,9 +77,12 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   return (
     <div id="content-editor" className="mx-auto flex gap-10 justify-center">
-      <div className="mx-auto flex flex-col flex-wrap !max-w-detail-content pb-10 overflow-wrap-anywhere">
-        {/* 文档标题 */}
-        {MDContent && (
+      {/* 文档骨架屏 */}
+      {!MDContent && <MarkdownSkeleton />}
+      {/* 文档内容 */}
+      {MDContent && (
+        <div className="mx-auto flex flex-col flex-wrap !max-w-detail-content pb-10 overflow-wrap-anywhere">
+          {/* 文档标题 */}
           <div className="flex flex-col gap-10 max-md:gap-4">
             <div className="text-4xl font-black">在浏览器中使用 js 获取视频和图片的信息</div>
             <div className="text-secondary">
@@ -88,11 +91,11 @@ export const ContentViewer = ({ id }: { id: string }) => {
             </div>
             <div className="text-secondary text-sm">发布于 星期五，六月 6 2025</div>
           </div>
-        )}
 
-        {/* 文档内容 */}
-        <MDViewer value={MDContent} ref={MDViewerRef} />
-      </div>
+          {/* 文档内容 */}
+          <MDViewer value={MDContent} ref={MDViewerRef} />
+        </div>
+      )}
 
       {/* pc目录 */}
       <div className="max-w-50 mx-auto max-h-100 max-md:hidden shrink-0 sticky right-0 top-25">
