@@ -77,15 +77,14 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   return (
     <div id="content-editor" className="mx-auto flex gap-10 justify-center">
-      <div className="mx-auto flex flex-col !max-w-detail-content overflow-scroll pb-10">
+      <div className="mx-auto flex flex-col flex-wrap !max-w-detail-content pb-10 overflow-wrap-anywhere">
         {/* 文档标题 */}
         {MDContent && (
           <div className="flex flex-col gap-10 max-md:gap-4">
-            <div className="text-4xl font-black">
-              使用Shell脚本实现自动化打包前端项目并上传到云服务器
-            </div>
+            <div className="text-4xl font-black">在浏览器中使用 js 获取视频和图片的信息</div>
             <div className="text-secondary">
-              本文介绍了如何使用Shell脚本实现自动打包前端项目并且上传到服务器上
+              本文简单介绍了如何在浏览器中使用 js 获取视频和图片大小、视频时长等信息，同时提供 ts
+              版本的实现
             </div>
             <div className="text-secondary text-sm">发布于 星期五，六月 6 2025</div>
           </div>

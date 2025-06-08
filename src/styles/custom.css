@@ -24,7 +24,7 @@
 }
 
 .markdown-body {
-  @apply prose prose-neutral max-w-4xl px-0;
+  @apply prose prose-neutral max-w-4xl px-0 w-full;
 }
 
 .markdown-body a {
@@ -44,7 +44,7 @@
 }
 
 .markdown-body pre {
-  @apply relative !my-0 whitespace-break-spaces !rounded-2xl border-none bg-[#FAFAFA] text-primary;
+  @apply relative whitespace-break-spaces rounded-2xl bg-[#FAFAFA] text-primary text-sm p-4;
 }
 
 .markdown-body code::-webkit-scrollbar {

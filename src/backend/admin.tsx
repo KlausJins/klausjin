@@ -8,7 +8,7 @@ interface AdminPropsType {
 }
 
 export const Admin = ({ children }: AdminPropsType) => {
-  const [isPhone, setInnerWidth] = useState(false)
+  const [isPhone, setInnerWidth] = useState<boolean | null>(null)
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -25,13 +25,20 @@ export const Admin = ({ children }: AdminPropsType) => {
     }
   }, [])
 
-  return (
-    <>
-      {/* PC端显示 */}
-      {!isPhone && <div className="min-h-[calc(100vh-64px)]">{children}</div>}
-
-      {/* 手机端禁用提示 */}
-      {isPhone && <MobileOff />}
-    </>
-  )
+  if (isPhone == null) {
+    // 返回空，等待状态确定
+    return null
+  } else {
+    if (!isPhone) {
+      {
+        /* PC端显示 */
+      }
+      return <div className="min-h-[calc(100vh-64px)]">{children}</div>
+    } else {
+      {
+        /* 手机端禁用提示 */
+      }
+      return <MobileOff />
+    }
+  }
 }
