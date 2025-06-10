@@ -12,9 +12,7 @@ export const BackendHome = () => {
       <div className="flex gap-4">
         {BACKEND_HOME_LINKS.map((item) => (
           <Link href={item.SRC} key={item.SRC}>
-            <Button className="px-3 py-2 border-0 text-sm font-bold text-bgPrimary dark:text-darkBgPrimary bg-darkBgPrimary dark:bg-bgPrimary hover:bg-darkBgPrimary/90 dark:hover:text-darkBgPrimary/90">
-              {item.TEXT}
-            </Button>
+            <Button filled="true">{item.TEXT}</Button>
           </Link>
         ))}
       </div>
