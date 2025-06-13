@@ -1,7 +1,7 @@
+import { DataTable } from '@/components/data-table'
 import IconSelf from '@/components/icons/icon-self'
 import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
-import { Table } from '@/components/ui/table'
 
 export const BackendNote = () => {
   return (
@@ -19,13 +19,6 @@ export const BackendNote = () => {
               <span>搜索</span>
             </div>
           </Button>
-          {/* 重置按钮 */}
-          <Button filled="true">
-            <div className="flex items-center gap-2">
-              <IconSelf iconName="icon-[lucide--rotate-cw]" />
-              <span>重置</span>
-            </div>
-          </Button>
           {/* 创建笔记按钮 */}
           <Button filled="true">
             <div className="flex items-center gap-2">
@@ -33,11 +26,18 @@ export const BackendNote = () => {
               <span>创建笔记</span>
             </div>
           </Button>
+          {/* 删除按钮 */}
+          <Button filled="true">
+            <div className="flex items-center gap-2">
+              <IconSelf iconName="icon-[lucide--trash]" />
+              <span>删除</span>
+            </div>
+          </Button>
         </div>
       </div>
 
       {/* 表格 */}
-      <Table />
+      <DataTable />
     </div>
   )
 }

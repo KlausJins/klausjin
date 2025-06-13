@@ -2,12 +2,15 @@
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @import "tailwindcss-animated";
+@plugin '../lib/hero.ts';
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @import "bytemd/dist/index.css";
 @import './github.css';
 @import './github-dark.css';
 @import "./custom.css";
 @import "./custom-dark.css";
 @custom-variant dark (&:where(.dark, .dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 
 @theme inline {

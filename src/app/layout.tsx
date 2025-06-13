@@ -4,6 +4,7 @@ import { NextThemeProvider } from '@/components/providers'
 import { WEBSITE, WEBSITE_DESCRIPTION } from '@/constants/info'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import { HerouiProviders } from './providers'
 
 export const metadata: Metadata = {
   title: WEBSITE,
@@ -22,7 +23,9 @@ export default function RootLayout({
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       />
       <body className={`${GeistSans.className} ${GeistMono.className} antialiased`}>
-        <NextThemeProvider>{children}</NextThemeProvider>
+        <HerouiProviders>
+          <NextThemeProvider>{children}</NextThemeProvider>
+        </HerouiProviders>
       </body>
     </html>
   )

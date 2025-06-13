@@ -64,7 +64,7 @@ export const Navbar = () => {
           </Button>
           {/* 登录到后台 */}
           <Button>
-            <Link href={PATHS.SITE_ADMIN} className="flex">
+            <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank">
               <IconSelf iconName="icon-[lucide--user-cog]" />
             </Link>
           </Button>
