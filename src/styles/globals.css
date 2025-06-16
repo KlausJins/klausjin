@@ -45,6 +45,11 @@
   --color-borderColor: #E3E3E4;
   --color-darkBorderColor: #27272A;
 
+  --color-tableHoverColor: #FAFAFA;
+  --color-darkTableHoverColor: #18181A;
+  --color-tableSelectColor: #F4F4F5;
+  --color-darkTableSelectColor: #27272A;
+
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
@@ -252,6 +257,26 @@
     --scrollBarTrackColor: #242424;
     --scrollBarThumbColor: #27272A;
   }
+}
+
+/* 主要设置表格的样式 */
+@layer components {
+  :where(th label svg) {
+    @apply text-primary;
+  }
+
+  :where(th label span)::after {
+    @apply  !bg-bgPrimary;
+  }
+
+  .dark :where(th label svg) {
+    @apply text-darkprimary;
+  }
+
+  .dark :where(th label span)::after {
+    @apply  !bg-darkBgPrimary;
+  }
+
 }
 
 ::-webkit-scrollbar {

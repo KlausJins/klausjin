@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import { BACKEND_MOBILE_OFF_TEXT } from '@/constants/backend-info'
 import Link from 'next/link'
 
@@ -19,9 +19,9 @@ export const MobileOff = () => {
           <div className="w-full h-0.25 border-1 text-secondary/20 dark:text-darksecondary/20"></div>
         </div>
         <Link href="/" className="w-full">
-          <Button className="w-full py-2 border-0 bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary">
+          <KlButton className="w-full py-2 border-0 bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary">
             回首页
-          </Button>
+          </KlButton>
         </Link>
       </div>
     </div>

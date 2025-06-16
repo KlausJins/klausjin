@@ -1,28 +1,34 @@
-import { Avatar } from 'radix-ui'
+import { Avatar } from '@heroui/react'
 import IconSelf from '../icons/icon-self'
 import { clm } from '@/utils'
 
 interface KlAvatarPropsType {
   src: string
-  alt: string
-  className?: string
+  isBordered?: boolean
+  radius?: 'md' | 'none' | 'sm' | 'lg' | 'full'
+  showFallback?: boolean
+  fallback?: React.ReactNode
+  base_className?: string
 }
 
-export const KlAvatar = ({ src, alt, className }: KlAvatarPropsType) => (
-  <div className="flex gap-5 text-secondary dark:text-darksecondary">
-    <Avatar.Root
-      className={clm(
-        'inline-flex size-10 select-none items-center justify-center overflow-hidden rounded-full align-middle hover:cursor-pointer',
-        className
-      )}
-    >
-      <Avatar.Image className="size-full rounded-[inherit] object-cover" src={src} alt={alt} />
-      <Avatar.Fallback
-        className="leading-1 flex size-full items-center justify-center bg-lighterBgPrimary dark:bg-darkerBgPrimary text-[15px] font-medium text-violet11"
-        delayMs={600}
-      >
-        <IconSelf iconName="icon-[lucide--image-off]" />
-      </Avatar.Fallback>
-    </Avatar.Root>
-  </div>
-)
+export const KlAvatar = ({
+  src,
+  isBordered = false,
+  radius = 'md',
+  showFallback = true,
+  fallback = <IconSelf iconName="icon-[lucide--image-off]" />,
+  base_className
+}: KlAvatarPropsType) => {
+  return (
+    <Avatar
+      src={src}
+      isBordered={isBordered}
+      radius={radius}
+      showFallback={showFallback}
+      fallback={fallback}
+      classNames={{
+        base: clm('size-8 bg-lighterBgPrimary dark:bg-darkBgPrimary', base_className)
+      }}
+    />
+  )
+}

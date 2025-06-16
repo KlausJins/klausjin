@@ -1,7 +1,7 @@
 'use client'
 
 import { MarkdownSkeleton, MDViewer } from '@/components/markdown'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { throttle } from 'lodash-es'
 import mediumZoom from 'medium-zoom'
@@ -9,20 +9,41 @@ import mediumZoom from 'medium-zoom'
 import { AnchorList } from './anchor-list'
 import { listenScrollHandler, useGenerateDocDir } from './content-hooks'
 import IconSelf from '@/components/icons/icon-self'
-import Button from '@/components/ui/button'
-import {
-  KlDropdownMenu,
-  KlDropdownMenuContent,
-  KlDropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import KlButton from '@/components/ui/button'
+import KlDropdown, { DropdownItemType } from '@/components/ui/dropdown'
 
 export const ContentViewer = ({ id }: { id: string }) => {
   const [MDContent, setMDContent] = useState('')
   const [activeId, setActiveId] = useState<string>('')
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const MDViewerRef = useRef<HTMLDivElement>(null)
   const [hasMounted, setHasMounted] = useState(false)
   const { anchorListInfo, setAnchorListInfo } = useGenerateDocDir(setActiveId)
+
+  const ContentViewerDropdownTrigger = useMemo(
+    () => (
+      <KlButton isIconOnly={true} className="size-9">
+        <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
+      </KlButton>
+    ),
+    []
+  )
+
+  const ContentViewerDropdownItems: DropdownItemType[] = useMemo(
+    () => [
+      {
+        key: 'AnchorList',
+        className: 'data-[hover=true]:bg-transparent dark:data-[hover=true]:bg-transparent',
+        children: (
+          <AnchorList
+            anchor={anchorListInfo}
+            activeId={activeId}
+            onClick={(id) => handleClick(id)}
+          />
+        )
+      }
+    ],
+    [anchorListInfo, activeId]
+  )
 
   useEffect(() => {
     setHasMounted(true)
@@ -68,7 +89,6 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   // 目录点击事件
   const handleClick = (id: string) => {
-    setIsOpen(false)
     const target = document.getElementById(id)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -105,25 +125,11 @@ export const ContentViewer = ({ id }: { id: string }) => {
       {/* 手机端目录 */}
       {hasMounted &&
         ReactDOM.createPortal(
-          <div className="hidden fixed bottom-22 right-8 bg-amber-100 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0 z-35">
-            <KlDropdownMenu open={isOpen}>
-              <KlDropdownMenuTrigger asChild>
-                <Button onClick={() => setIsOpen(true)}>
-                  <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
-                </Button>
-              </KlDropdownMenuTrigger>
-              <KlDropdownMenuContent
-                align="end"
-                className="w-auto max-w-[80vw] px-5 mb-2"
-                onPointerDownOutside={() => setIsOpen(false)}
-              >
-                <AnchorList
-                  anchor={anchorListInfo}
-                  activeId={activeId}
-                  onClick={(id) => handleClick(id)}
-                />
-              </KlDropdownMenuContent>
-            </KlDropdownMenu>
+          <div className="hidden fixed bottom-22 right-8 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0 z-35">
+            <KlDropdown
+              items={ContentViewerDropdownItems}
+              trigger={ContentViewerDropdownTrigger}
+            ></KlDropdown>
           </div>,
           document.body
         )}

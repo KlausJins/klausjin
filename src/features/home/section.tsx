@@ -3,7 +3,7 @@
 import { GoBackToTop } from '@/components/goback-to-top'
 import IconSelf from '@/components/icons/icon-self'
 import { ScrollMouse } from '@/components/scroll-mouse'
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import {
   GITHUB_PERSONAL_PAGE_LINK,
   HOME_NAME_TEXT,
@@ -87,17 +87,17 @@ const Section = () => {
         {/* 底部按钮 */}
         <div className="flex gap-4 text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
           <Link href={PATHS.SITE_NOTE}>
-            <Button className="px-2 py-2">我的笔记</Button>
+            <KlButton>我的笔记</KlButton>
           </Link>
 
           <Link href={PATHS.SITE_ABOUT}>
-            <Button className="px-2 py-2">关于我</Button>
+            <KlButton>关于我</KlButton>
           </Link>
 
           <Link href={GITHUB_PERSONAL_PAGE_LINK} target="_blank" className="flex">
-            <Button>
+            <KlButton isIconOnly={true} className="h-full">
               <IconSelf iconName="icon-[fa6-brands--github]" />
-            </Button>
+            </KlButton>
           </Link>
         </div>
 

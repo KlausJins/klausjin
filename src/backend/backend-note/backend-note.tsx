@@ -1,6 +1,6 @@
 import { DataTable } from '@/components/data-table'
 import IconSelf from '@/components/icons/icon-self'
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import Field from '@/components/ui/field'
 
 export const BackendNote = () => {
@@ -13,26 +13,26 @@ export const BackendNote = () => {
 
         <div className="flex gap-6">
           {/* 搜索按钮 */}
-          <Button filled="true">
+          <KlButton fill={true}>
             <div className="flex items-center gap-2">
               <IconSelf iconName="icon-[lucide--search]" />
               <span>搜索</span>
             </div>
-          </Button>
+          </KlButton>
           {/* 创建笔记按钮 */}
-          <Button filled="true">
+          <KlButton fill={true}>
             <div className="flex items-center gap-2">
               <IconSelf iconName="icon-[lucide--plus]" />
               <span>创建笔记</span>
             </div>
-          </Button>
+          </KlButton>
           {/* 删除按钮 */}
-          <Button filled="true">
+          <KlButton fill={true}>
             <div className="flex items-center gap-2">
               <IconSelf iconName="icon-[lucide--trash]" />
               <span>删除</span>
             </div>
-          </Button>
+          </KlButton>
         </div>
       </div>
 

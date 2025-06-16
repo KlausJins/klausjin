@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import { BACKEND_HOME_LINKS, BACKEND_HOME_TEXT } from '@/constants/backend-info'
 import Link from 'next/link'
 
@@ -12,7 +12,7 @@ export const BackendHome = () => {
       <div className="flex gap-4">
         {BACKEND_HOME_LINKS.map((item) => (
           <Link href={item.SRC} key={item.SRC}>
-            <Button filled="true">{item.TEXT}</Button>
+            <KlButton>{item.TEXT}</KlButton>
           </Link>
         ))}
       </div>

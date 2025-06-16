@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 import { useScroll } from '@/hooks'
 import { PATHS } from '@/constants/path'
 import IconSelf from '@/components/icons/icon-self'
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
 import MobileNavbar from '@/components/navbar/mobile-navbar'
 
@@ -57,17 +57,17 @@ export const Navbar = () => {
           {/* 明暗模式 */}
           <ToggleMode />
           {/* 源代码github按钮 */}
-          <Button>
-            <Link href={GITHUB_PAGE_LINK} target="_blank" className="flex">
+          <Link href={GITHUB_PAGE_LINK} target="_blank" className="flex">
+            <KlButton isIconOnly={true}>
               <IconSelf iconName="icon-[fa6-brands--github]" />
-            </Link>
-          </Button>
+            </KlButton>
+          </Link>
           {/* 登录到后台 */}
-          <Button>
-            <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank">
+          <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank">
+            <KlButton isIconOnly={true}>
               <IconSelf iconName="icon-[lucide--user-cog]" />
-            </Link>
-          </Button>
+            </KlButton>
+          </Link>
         </div>
       </div>
     </header>

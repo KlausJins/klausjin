@@ -2,32 +2,46 @@
 
 import IconSelf from '@/components/icons/icon-self'
 import { useTheme } from 'next-themes'
-import {
-  KlDropdownMenu,
-  KlDropdownMenuContent,
-  KlDropdownMenuItem,
-  KlDropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
+import KlDropdown, { DropdownItemType } from '../ui/dropdown'
+import { useMemo } from 'react'
 
 export const ToggleMode = () => {
   const { setTheme } = useTheme()
+  const ToggleModeDropdownTrigger = useMemo(
+    () => (
+      <KlButton isIconOnly={true}>
+        <IconSelf iconName="icon-[lucide--sun-medium]" className="flex dark:hidden text-lg" />
+        <IconSelf iconName="icon-[lucide--moon]" className="hidden dark:flex text-lg" />
+      </KlButton>
+    ),
+    []
+  )
+
+  const ToggleModeDropdownitems: DropdownItemType[] = useMemo(
+    () => [
+      {
+        key: 'light',
+        onPress: () => setTheme('light'),
+        children: '浅色'
+      },
+      {
+        key: 'dark',
+        onPress: () => setTheme('dark'),
+        children: '深色'
+      },
+      {
+        key: 'system',
+        onPress: () => setTheme('system'),
+        children: '跟随系统'
+      }
+    ],
+    [setTheme]
+  )
 
   return (
     <div>
-      <KlDropdownMenu>
-        <KlDropdownMenuTrigger asChild>
-          <Button>
-            <IconSelf iconName="icon-[lucide--sun-medium]" className="flex dark:hidden text-lg" />
-            <IconSelf iconName="icon-[lucide--moon]" className="hidden dark:flex text-lg" />
-          </Button>
-        </KlDropdownMenuTrigger>
-        <KlDropdownMenuContent align="end">
-          <KlDropdownMenuItem onSelect={() => setTheme('light')}>浅色</KlDropdownMenuItem>
-          <KlDropdownMenuItem onSelect={() => setTheme('dark')}>深色</KlDropdownMenuItem>
-          <KlDropdownMenuItem onSelect={() => setTheme('system')}>跟随系统</KlDropdownMenuItem>
-        </KlDropdownMenuContent>
-      </KlDropdownMenu>
+      <KlDropdown items={ToggleModeDropdownitems} trigger={ToggleModeDropdownTrigger}></KlDropdown>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import IconSelf from '@/components/icons/icon-self'
-import Button from '@/components/ui/button'
+import KlButton from '@/components/ui/button'
 import { useScroll } from '@/hooks'
 import { clm } from '@/utils'
 
@@ -20,11 +20,10 @@ export const GoBackToTop = ({ className }: IGoBackToTopProps) => {
         scrollDisstance >= 100 ? 'opacity-100' : 'opacity-0 pointer-events-none',
         className
       )}
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
-      <Button>
+      <KlButton isIconOnly={true} onPress={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         <IconSelf iconName="icon-[lucide--chevron-up]" size="text-2xl" />
-      </Button>
+      </KlButton>
     </div>
   )
 }
