@@ -7,9 +7,9 @@ export const BackendNote = () => {
   return (
     <div className="h-[88vh] w-[95vw] flex flex-col">
       {/* 搜索栏 */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center justify-between gap-6">
         {/* 名称 */}
-        <Field className="w-80" placeholder="请输入笔记名称" />
+        <Field className="w-130" placeholder="请输入笔记名称" />
 
         <div className="flex gap-6">
           {/* 搜索按钮 */}

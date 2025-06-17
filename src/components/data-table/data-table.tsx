@@ -16,6 +16,7 @@ import {
 } from '@heroui/react'
 import KlButton from '../ui/button'
 import IconSelf from '../icons/icon-self'
+import { clm } from '@/utils'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -49,7 +50,12 @@ export const columns = [
   {
     uid: 'createTime',
     children: (
-      <KlButton className="gap-1 text-[14px] border-0 h-8 bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary font-semibold hover:bg-darkHoverColor hover:dark:bg-hoverColor">
+      <KlButton
+        className={clm(
+          'gap-1 text-[14px] border-0 h-8 font-semibold',
+          'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
+        )}
+      >
         <IconSelf iconName="icon-[lucide--calendar]" />
         <div>创建时间</div>
         {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
@@ -60,7 +66,12 @@ export const columns = [
   {
     uid: 'updateTime',
     children: (
-      <KlButton className="gap-1 text-[14px] border-0 h-8 bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary font-semibold hover:bg-darkHoverColor hover:dark:bg-hoverColor">
+      <KlButton
+        className={clm(
+          'gap-1 text-[14px] border-0 h-8 font-semibold',
+          'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
+        )}
+      >
         <IconSelf iconName="icon-[lucide--calendar]" />
         <div>更新时间</div>
         {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
@@ -313,13 +324,13 @@ export const DataTable = () => {
         )
       case 'createTime':
         return (
-          <Chip className="capitalize" size="sm" variant="flat">
+          <Chip className="capitalize text-primary dark:text-darkprimary" size="sm" variant="flat">
             {cellValue}
           </Chip>
         )
       case 'updateTime':
         return (
-          <Chip className="capitalize" size="sm" variant="flat">
+          <Chip className="capitalize text-primary dark:text-darkprimary" size="sm" variant="flat">
             {cellValue}
           </Chip>
         )
@@ -396,10 +407,20 @@ export const DataTable = () => {
       onRowAction={() => {}}
       classNames={{
         base: ' h-[90%] mt-6',
-        wrapper: 'h-[100%] bg-bgPrimary dark:bg-darkBgPrimary',
+        wrapper: 'h-[100%] bg-bgPrimary dark:bg-darkBgPrimary text-primary dark:text-darkprimary',
         table: 'bg-bgPrimary dark:bg-darkBgPrimary',
         th: 'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary',
-        tr: 'dark:data-[hover=true]:bg-darkTableHoverColor/1 dark:data-[selected=true]:bg-darkTableSelectColor/1 data-[hover=true]:bg-tableHoverColor/1 data-[selected=true]:bg-tableSelectColor/1'
+        td: clm(`
+          before:opacity-0
+          group-data-[disabled=true]/tr:text-secondary/30
+          data-[selected=true]:before:bg-tableSelectColor
+          dark:data-[selected=true]:before:bg-darkTableColor/50
+          data-[selected=true]:text-primary
+          dark:data-[selected=true]:text-darkprimary
+          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-tableHoverColor
+          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:opacity-100
+          dark:group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-darkTableColor/30
+        `)
       }}
       selectedKeys={selectedKeys}
       checkboxesProps={{

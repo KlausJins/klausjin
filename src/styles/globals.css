@@ -46,9 +46,8 @@
   --color-darkBorderColor: #27272A;
 
   --color-tableHoverColor: #FAFAFA;
-  --color-darkTableHoverColor: #18181A;
   --color-tableSelectColor: #F4F4F5;
-  --color-darkTableSelectColor: #27272A;
+  --color-darkTableColor: #27272A;
 
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
