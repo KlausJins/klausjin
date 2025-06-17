@@ -1,22 +1,18 @@
 'use client'
 
 import React from 'react'
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Chip,
-  User,
-  Pagination,
-  Selection,
-  SortDescriptor
-} from '@heroui/react'
-import KlButton from '../ui/button'
-import IconSelf from '../icons/icon-self'
+import { Chip, Pagination, Selection } from '@heroui/react'
+import KlButton from '@/components/ui/button'
+import IconSelf from '@/components/icons/icon-self'
 import { clm } from '@/utils'
+import {
+  KlTable,
+  KlTableBody,
+  KlTableCell,
+  KlTableColumn,
+  KlTableHeader,
+  KlTableRow
+} from '@/components/ui/table'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -82,7 +78,7 @@ export const columns = [
   { children: '', uid: 'actions' }
 ]
 
-export const users = [
+export const datas = [
   {
     id: 1,
     tagName: 'Tony Reichert',
@@ -254,62 +250,40 @@ const INITIAL_VISIBLE_COLUMNS = [
   'actions'
 ]
 
-type User = (typeof users)[0]
+type Datas = (typeof datas)[0]
 
-export const DataTable = () => {
-  const [filterValue, setFilterValue] = React.useState('')
+export const TagTable = () => {
+  // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS)
-  )
-  const [statusFilter, setStatusFilter] = React.useState<Selection>('all')
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: 'age',
-    direction: 'ascending'
-  })
-
+  // 实际显示的行表头属性值
+  const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
+  // 表格每页的行数
+  const [rowsPerPage, setRowsPerPage] = React.useState(15)
+  // 表格当前页码
   const [page, setPage] = React.useState(1)
+  // 表格总页数
+  const pages = Math.ceil(datas.length / rowsPerPage) || 1
 
+  // 处理后的表头（过滤掉不相交的表头属性数据）
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === 'all') return columns
 
     return columns.filter((column) => Array.from(visibleColumns).includes(column.uid))
   }, [visibleColumns])
 
-  const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users]
-
-    console.log(filteredUsers)
-
-    return filteredUsers
-  }, [users, filterValue, statusFilter])
-
-  const pages = Math.ceil(filteredItems.length / rowsPerPage) || 1
-
+  // 处理后的表格行数据
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage
     const end = start + rowsPerPage
 
-    return filteredItems.slice(start, end)
-  }, [page, filteredItems, rowsPerPage])
+    return datas.slice(start, end)
+  }, [page, rowsPerPage])
 
-  const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: User, b: User) => {
-      const first = a[sortDescriptor.column as keyof User] as number
-      const second = b[sortDescriptor.column as keyof User] as number
-      const cmp = first < second ? -1 : first > second ? 1 : 0
-
-      return sortDescriptor.direction === 'descending' ? -cmp : cmp
-    })
-  }, [sortDescriptor, items])
-
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User]
+  // 表格行单元格的渲染设置方法
+  const renderCell = React.useCallback((datas: Datas, columnKey: React.Key) => {
+    const cellValue = datas[columnKey as keyof Datas]
 
     switch (columnKey) {
-      case 'tagName':
-        return <div>{cellValue}</div>
       case 'lightIcon':
         return (
           <div className="flex flex-col">
@@ -353,101 +327,65 @@ export const DataTable = () => {
     }
   }, [])
 
+  // 分页器条数设置方法
   const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setRowsPerPage(Number(e.target.value))
     setPage(1)
   }, [])
 
-  const topContent = React.useMemo(() => {
-    return (
-      <div className="flex justify-between items-center">
-        <span className="text-default-400 text-small">Total {users.length} users</span>
-        <label className="flex items-center text-default-400 text-small">
-          Rows per page:
-          <select
-            className="bg-transparent outline-hidden text-default-400 text-small"
-            onChange={onRowsPerPageChange}
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-          </select>
-        </label>
-      </div>
-    )
-  }, [filterValue, statusFilter, visibleColumns, onRowsPerPageChange, users.length])
-
-  const bottomContent = React.useMemo(() => {
+  // 表格底部组件
+  const tableBottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === 'all'
-            ? `总共 ${filteredItems.length} 项，已全选`
-            : `总共 ${filteredItems.length} 项，已选择 ${selectedKeys.size} 项`}
+            ? `总共 ${datas.length} 项，已全选`
+            : `总共 ${datas.length} 项，已选择 ${selectedKeys.size} 项`}
         </span>
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
+        <div className="flex gap-10">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="primary"
+            page={page}
+            total={pages}
+            onChange={setPage}
+          />
+          <select
+            className="bg-transparent outline-hidden text-default-400 text-small"
+            onChange={onRowsPerPageChange}
+          >
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
       </div>
     )
-  }, [selectedKeys, items.length, page, pages])
+  }, [selectedKeys, onRowsPerPageChange, page, pages])
 
   return (
-    <Table
-      isHeaderSticky
-      aria-label="TagTable"
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      onRowAction={() => {}}
-      classNames={{
-        base: ' h-[90%] mt-6',
-        wrapper: 'h-[100%] bg-bgPrimary dark:bg-darkBgPrimary text-primary dark:text-darkprimary',
-        table: 'bg-bgPrimary dark:bg-darkBgPrimary',
-        th: 'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary',
-        td: clm(`
-          before:opacity-0
-          group-data-[disabled=true]/tr:text-secondary/30
-          data-[selected=true]:before:bg-tableSelectColor
-          dark:data-[selected=true]:before:bg-darkTableColor/50
-          data-[selected=true]:text-primary
-          dark:data-[selected=true]:text-darkprimary
-          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-tableHoverColor
-          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:opacity-100
-          dark:group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-darkTableColor/30
-        `)
-      }}
+    // 表格
+    <KlTable
+      bottomContent={tableBottomContent}
       selectedKeys={selectedKeys}
-      checkboxesProps={{
-        classNames: {
-          wrapper:
-            'dark:group-data-[hover=true]:before:bg-transparent group-data-[hover=true]:before:bg-transparent dark:after:bg-bgPrimary dark:text-primary after:bg-darkBgPrimary text-bgPrimary'
-        }
-      }}
-      selectionMode="multiple"
-      sortDescriptor={sortDescriptor}
       onSelectionChange={setSelectedKeys}
-      onSortChange={setSortDescriptor}
     >
-      <TableHeader columns={headerColumns}>
+      <KlTableHeader columns={headerColumns}>
         {(column) => (
-          <TableColumn key={column.uid} align={column.uid === 'actions' ? 'center' : 'start'}>
+          <KlTableColumn key={column.uid} align={column.uid === 'actions' ? 'center' : 'start'}>
             {column.children}
-          </TableColumn>
+          </KlTableColumn>
         )}
-      </TableHeader>
-      <TableBody emptyContent={'No users found'} items={sortedItems}>
+      </KlTableHeader>
+      <KlTableBody emptyContent={'No users found'} items={items}>
         {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
+          <KlTableRow key={item.id}>
+            {(columnKey) => <KlTableCell>{renderCell(item, columnKey)}</KlTableCell>}
+          </KlTableRow>
         )}
-      </TableBody>
-    </Table>
+      </KlTableBody>
+    </KlTable>
   )
 }

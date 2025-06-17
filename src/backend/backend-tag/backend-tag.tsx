@@ -1,6 +1,6 @@
 'use client'
 
-import { DataTable } from '@/components/data-table'
+import { TagTable } from '@/backend/backend-tag/tag-table'
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import Field from '@/components/ui/field'
@@ -49,7 +49,7 @@ export const BackendTag = () => {
       </div>
 
       {/* 表格 */}
-      <DataTable />
+      <TagTable />
     </div>
   )
 }

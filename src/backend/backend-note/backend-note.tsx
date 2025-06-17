@@ -1,7 +1,7 @@
-import { DataTable } from '@/components/data-table'
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import Field from '@/components/ui/field'
+import { NoteTable } from './note-table'
 
 export const BackendNote = () => {
   return (
@@ -37,7 +37,7 @@ export const BackendNote = () => {
       </div>
 
       {/* 表格 */}
-      <DataTable />
+      <NoteTable />
     </div>
   )
 }
