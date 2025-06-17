@@ -34,16 +34,17 @@ const KlTable = React.forwardRef<HTMLTableElement, TableProps>(
         table: 'bg-bgPrimary dark:bg-darkBgPrimary',
         th: 'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary',
         td: clm(`
-                before:opacity-0
-                group-data-[disabled=true]/tr:text-secondary/30
-                data-[selected=true]:before:bg-tableSelectColor
-                dark:data-[selected=true]:before:bg-darkTableColor/50
-                data-[selected=true]:text-primary
-                dark:data-[selected=true]:text-darkprimary
-                group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-tableHoverColor
-                group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:opacity-100
-                dark:group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-darkTableColor/30
-              `)
+          select-text
+          before:opacity-0
+          group-data-[disabled=true]/tr:text-secondary/30
+          data-[selected=true]:before:bg-tableSelectColor
+          dark:data-[selected=true]:before:bg-darkTableColor/50
+          data-[selected=true]:text-primary
+          dark:data-[selected=true]:text-darkprimary
+          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-tableHoverColor
+          group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:opacity-100
+          dark:group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-darkTableColor/30
+        `)
       }}
       checkboxesProps={{
         classNames: {

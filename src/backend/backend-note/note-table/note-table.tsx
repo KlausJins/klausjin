@@ -368,8 +368,8 @@ export const NoteTable = () => {
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === 'all'
-            ? `总共 ${datas.length} 项，已全选`
-            : `总共 ${datas.length} 项，已选择 ${selectedKeys.size} 项`}
+            ? `已全选，总共 ${datas.length} 项`
+            : `已选择 ${selectedKeys.size} 项，总共 ${datas.length} 项`}
         </span>
         <div className="flex gap-10">
           <Pagination
