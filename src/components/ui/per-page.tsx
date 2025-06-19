@@ -24,7 +24,7 @@ export const PerPage = ({ onChange, defaultSelectedKeys }: PerPageProps) => {
             label: 'text-primary dark:text-darkprimary',
             trigger: clm(
               defaultStyles,
-              'hover:cursor-pointer bg-activeColor dark:bg-darkActiveColor'
+              'hover:cursor-pointer bg-lighterBgPrimary dark:bg-darkerBgPrimary shadow-sm'
             )
           },
           onChange: onChange

@@ -18,7 +18,7 @@ export const KlPagination = (props: PaginationProps) => {
         item: defaultStyles,
         prev: defaultStyles,
         next: defaultStyles,
-        cursor: ' bg-primary dark:bg-bgPrimary text-darkprimary dark:text-primary'
+        cursor: 'bg-primary dark:bg-bgPrimary text-darkprimary dark:text-primary'
       }}
       {...props}
     />
