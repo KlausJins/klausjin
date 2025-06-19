@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Chip, Pagination, Selection } from '@heroui/react'
+import { Selection } from '@heroui/react'
 import KlButton from '@/components/ui/button'
 import IconSelf from '@/components/icons/icon-self'
 import { clm } from '@/utils'
@@ -13,6 +13,9 @@ import {
   KlTableHeader,
   KlTableRow
 } from '@/components/ui/table'
+import { KlPagination } from '@/components/ui/pagination'
+import { KlChip } from '@/components/ui/chip'
+import { PerPage } from '@/components/ui/per-page'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -258,7 +261,7 @@ export const TagTable = () => {
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
   // 表格每页的行数
-  const [rowsPerPage, setRowsPerPage] = React.useState(15)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
   // 表格当前页码
   const [page, setPage] = React.useState(1)
   // 表格总页数
@@ -297,17 +300,9 @@ export const TagTable = () => {
           </div>
         )
       case 'createTime':
-        return (
-          <Chip className="capitalize text-primary dark:text-darkprimary" size="sm" variant="flat">
-            {cellValue}
-          </Chip>
-        )
+        return <KlChip>{cellValue}</KlChip>
       case 'updateTime':
-        return (
-          <Chip className="capitalize text-primary dark:text-darkprimary" size="sm" variant="flat">
-            {cellValue}
-          </Chip>
-        )
+        return <KlChip>{cellValue}</KlChip>
       case 'actions':
         return (
           <div className="relative flex justify-end items-center gap-2">
@@ -334,29 +329,14 @@ export const TagTable = () => {
   const tableBottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
+        <span className="w-[30%] text-small text-secondary dark:text-darksecondary">
           {selectedKeys === 'all'
             ? `已全选，总共 ${datas.length} 项`
             : `已选择 ${selectedKeys.size} 项，总共 ${datas.length} 项`}
         </span>
-        <div className="flex gap-10">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            color="primary"
-            page={page}
-            total={pages}
-            onChange={setPage}
-          />
-          <select
-            className="bg-transparent outline-hidden text-default-400 text-small"
-            onChange={onRowsPerPageChange}
-          >
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
+        <div className="flex gap-10 justify-end items-center min-w-100">
+          <KlPagination page={page} total={pages} onChange={setPage} />
+          <PerPage defaultSelectedKeys={'10'} onChange={onRowsPerPageChange} />
         </div>
       </div>
     )
