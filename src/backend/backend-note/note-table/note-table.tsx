@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { forwardRef, useCallback, useImperativeHandle } from 'react'
 import { Selection } from '@heroui/react'
 import KlButton from '@/components/ui/button'
 import IconSelf from '@/components/icons/icon-self'
@@ -16,6 +16,8 @@ import {
 import { KlPagination } from '@/components/ui/pagination'
 import { KlChip } from '@/components/ui/chip'
 import { PerPage } from '@/components/ui/per-page'
+import KlModal from '@/components/ui/modal'
+import { useToast } from '@/hooks'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -284,17 +286,37 @@ const INITIAL_VISIBLE_COLUMNS = [
 
 type Datas = (typeof datas)[0]
 
-export const NoteTable = () => {
+export interface NoteTableHandle {
+  selectedKeys: 'all' | Iterable<React.Key> | undefined
+}
+
+export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
+  const Toast = useToast()
   // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
+  // 获取当前点击actions时表格的key
+  const [currentID, setCurrentID] = React.useState<number | null>(null)
+  // 提示框状态
+  const [open, setOpen] = React.useState(false)
   // 表格每页的行数
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
   // 表格当前页码
   const [page, setPage] = React.useState(1)
   // 表格总页数
   const pages = Math.ceil(datas.length / rowsPerPage) || 1
+
+  // 暴露给父组件的变量和方法
+  useImperativeHandle(ref, () => ({
+    selectedKeys
+  }))
+
+  // 处理表格删除事件
+  const ModalHandler = useCallback(() => {
+    console.log('currentID: ', currentID)
+    Toast({ type: 'success', description: '删除成功！' })
+  }, [currentID, Toast])
 
   // 处理后的表头（过滤掉不相交的表头属性数据）
   const headerColumns = React.useMemo(() => {
@@ -341,7 +363,13 @@ export const NoteTable = () => {
             <KlButton isIconOnly={true}>
               <IconSelf iconName="icon-[lucide--edit-2]" />
             </KlButton>
-            <KlButton isIconOnly={true}>
+            <KlButton
+              isIconOnly={true}
+              onPress={() => {
+                setOpen(true)
+                setCurrentID(datas.id)
+              }}
+            >
               <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
             </KlButton>
           </div>
@@ -375,26 +403,37 @@ export const NoteTable = () => {
   }, [selectedKeys, onRowsPerPageChange, page, pages])
 
   return (
-    // 表格
-    <KlTable
-      bottomContent={tableBottomContent}
-      selectedKeys={selectedKeys}
-      onSelectionChange={setSelectedKeys}
-    >
-      <KlTableHeader columns={headerColumns}>
-        {(column) => (
-          <KlTableColumn key={column.uid} align={column.uid === 'actions' ? 'center' : 'start'}>
-            {column.children}
-          </KlTableColumn>
-        )}
-      </KlTableHeader>
-      <KlTableBody emptyContent={'No users found'} items={items}>
-        {(item) => (
-          <KlTableRow key={item.id}>
-            {(columnKey) => <KlTableCell>{renderCell(item, columnKey)}</KlTableCell>}
-          </KlTableRow>
-        )}
-      </KlTableBody>
-    </KlTable>
+    <>
+      {/* modal提示框 */}
+      <KlModal
+        desc="确定删除该条数据吗？"
+        open={open}
+        setOpen={setOpen}
+        successCallback={() => ModalHandler()}
+      ></KlModal>
+      {/* 表格 */}
+      <KlTable
+        bottomContent={tableBottomContent}
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+      >
+        <KlTableHeader columns={headerColumns}>
+          {(column) => (
+            <KlTableColumn key={column.uid} align={column.uid === 'actions' ? 'center' : 'start'}>
+              {column.children}
+            </KlTableColumn>
+          )}
+        </KlTableHeader>
+        <KlTableBody emptyContent={'No users found'} items={items}>
+          {(item) => (
+            <KlTableRow key={item.id}>
+              {(columnKey) => <KlTableCell>{renderCell(item, columnKey)}</KlTableCell>}
+            </KlTableRow>
+          )}
+        </KlTableBody>
+      </KlTable>
+    </>
   )
-}
+})
+
+NoteTable.displayName = 'NoteTable'
