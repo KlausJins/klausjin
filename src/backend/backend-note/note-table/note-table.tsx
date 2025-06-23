@@ -1,6 +1,6 @@
 'use client'
 
-import React, { forwardRef, useCallback, useImperativeHandle } from 'react'
+import React, { ChangeEvent, forwardRef, useCallback, useImperativeHandle } from 'react'
 import { Selection } from '@heroui/react'
 import KlButton from '@/components/ui/button'
 import IconSelf from '@/components/icons/icon-self'
@@ -18,6 +18,7 @@ import { KlChip } from '@/components/ui/chip'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
+import { KlSwitch } from '@/components/ui/switch'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -95,185 +96,106 @@ export const columns = [
 export const datas = [
   {
     id: 1,
-    title: 'Tony Reichert',
-    author: 'CEO',
-    tags: 'Management',
+    title: '使用Shell脚本实现自动化打包前端项目并上传到云服务器',
+    author: 'KlausJin',
+    tags: ['React', '效率', 'Rocky Linux', '项目工程化', 'Vue'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '29'
+    createTime: '2024年11月3日 星期日 19:00:13',
+    updateTime: '2024年11月3日 星期日 19:04:24'
   },
   {
     id: 2,
-    title: 'Zoey Lang',
-    author: 'Tech Lead',
-    tags: 'Development',
+    title: '在浏览器中使用 js 获取视频和图片的信息',
+    author: 'KlausJin',
+    tags: ['TypeScript', 'JavaScript'],
     publishStatus: 'publishStatus',
-    createTime: 'paused',
-    updateTime: '25'
+    createTime: '2024年10月28日 星期一 22:11:42',
+    updateTime: '2024年11月7日 星期四 23:50:14'
   },
   {
     id: 3,
-    title: 'Jane Fisher',
-    author: 'Sr. Dev',
-    tags: 'Development',
+    title: 'MySQL 学习笔记',
+    author: 'KlausJin',
+    tags: ['MySQL'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '22'
+    createTime: '2024年6月26日 星期三 22:31:06',
+    updateTime: '2024年7月7日 星期日 23:10:01'
   },
   {
     id: 4,
-    title: 'William Howard',
-    author: 'C.M.',
-    tags: 'Marketing',
+    title: 'Xcode 上传 app 时报错：You do not have required contracts to perform an operation',
+    author: 'KlausJin',
+    tags: ['Flutter', 'Xcode', 'iOS'],
     publishStatus: 'publishStatus',
-    createTime: 'vacation',
-    updateTime: '28'
+    createTime: '2024年6月25日 星期二 20:08:16',
+    updateTime: '2024年6月27日 星期四 12:38:39'
   },
   {
     id: 5,
-    title: 'Kristen Copper',
-    author: 'S. Manager',
-    tags: 'Sales',
+    title: 'Flutter 中优雅地将数字格式化为各种国家的货币',
+    author: 'KlausJin',
+    tags: ['Flutter'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '24'
+    createTime: '2024年6月10日 星期一 21:43:34',
+    updateTime: '2024年6月18日 星期二 00:24:18'
   },
   {
     id: 6,
-    title: 'Brian Kim',
-    author: 'P. Manager',
-    tags: 'Management',
+    title: '各种 Flutter Material 组件自定义样式',
+    author: 'KlausJin',
+    tags: ['Flutter'],
     publishStatus: 'publishStatus',
-    createTime: 'Active',
-    updateTime: '29'
+    createTime: '2024年6月10日 星期一 20:53:16',
+    updateTime: '2024年6月10日 星期一 21:03:40'
   },
   {
     id: 7,
-    title: 'Michael Hunt',
-    author: 'Designer',
-    tags: 'Design',
+    title: '如何把 CSS BoxShadow 转换为 Flutter BoxShadow',
+    author: 'KlausJin',
+    tags: ['Flutter'],
     publishStatus: 'publishStatus',
-    createTime: 'paused',
-    updateTime: '27'
+    createTime: '2024年6月10日 星期一 13:47:44',
+    updateTime: '2024年6月10日 星期一 13:47:44'
   },
   {
     id: 8,
-    title: 'Samantha Brooks',
-    author: 'HR Manager',
-    tags: 'HR',
+    title: 'Flutter GetX 使用问题汇总',
+    author: 'KlausJin',
+    tags: ['Flutter'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '31'
+    createTime: '2024年6月9日 星期日 23:46:27',
+    updateTime: '2024年6月9日 星期日 23:46:27'
   },
   {
     id: 9,
-    title: 'Frank Harrison',
-    author: 'F. Manager',
-    tags: 'Finance',
+    title: '使用 tailwindcss-debug-screens 实时显示屏幕断点',
+    author: 'KlausJin',
+    tags: ['Tailwind CSS'],
     publishStatus: 'publishStatus',
-    createTime: 'vacation',
-    updateTime: '33'
+    createTime: '2024年5月20日 星期一 20:36:20',
+    updateTime: '2024年5月20日 星期一 20:42:28'
   },
   {
     id: 10,
-    title: 'Emma Adams',
-    author: 'Ops Manager',
-    tags: 'Operations',
+    title:
+      '解决 Next.js 报错：Server Error Error: (0 , react__WEBPACK_IMPORTED_MODULE_0__.createContext) is not a function',
+    author: 'KlausJin',
+    tags: ['Next.js'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '35'
+    createTime: '2024年5月19日 星期日 23:00:54',
+    updateTime: '2024年5月20日 星期一 20:39:15'
   },
   {
     id: 11,
-    title: 'Brandon Stevens',
-    author: 'Jr. Dev',
-    tags: 'Development',
+    title: 'Flutter 中如何自定义字体',
+    author: 'KlausJin',
+    tags: ['Flutter'],
     publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '22'
-  },
-  {
-    id: 12,
-    title: 'Megan Richards',
-    author: 'P. Manager',
-    tags: 'Product',
-    publishStatus: 'publishStatus',
-    createTime: 'paused',
-    updateTime: '28'
-  },
-  {
-    id: 13,
-    title: 'Oliver Scott',
-    author: 'S. Manager',
-    tags: 'Security',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '37'
-  },
-  {
-    id: 14,
-    title: 'Grace Allen',
-    author: 'M. Specialist',
-    tags: 'Marketing',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '30'
-  },
-  {
-    id: 15,
-    title: 'Noah Carter',
-    author: 'IT Specialist',
-    tags: 'I. Technology',
-    publishStatus: 'publishStatus',
-    createTime: 'paused',
-    updateTime: '31'
-  },
-  {
-    id: 16,
-    title: 'Ava Perez',
-    author: 'Manager',
-    tags: 'Sales',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '29'
-  },
-  {
-    id: 17,
-    title: 'Liam Johnson',
-    author: 'Data Analyst',
-    tags: 'Analysis',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '28'
-  },
-  {
-    id: 18,
-    title: 'Sophia Taylor',
-    author: 'QA Analyst',
-    tags: 'Testing',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '27'
-  },
-  {
-    id: 19,
-    title: 'Lucas Harris',
-    author: 'Administrator',
-    tags: 'Information Technology',
-    publishStatus: 'publishStatus',
-    createTime: 'paused',
-    updateTime: '32'
-  },
-  {
-    id: 20,
-    title: 'Mia Robinson',
-    author: 'Coordinator',
-    tags: 'Operations',
-    publishStatus: 'publishStatus',
-    createTime: 'active',
-    updateTime: '26'
+    createTime: '2024年4月27日 星期六 15:27:35',
+    updateTime: '2024年4月27日 星期六 15:27:35'
   }
 ]
+
 const INITIAL_VISIBLE_COLUMNS = [
   'title',
   'author',
@@ -318,6 +240,19 @@ export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
     Toast({ type: 'success', description: '删除成功！' })
   }, [currentID, Toast])
 
+  // 处理表格删除事件
+  const publishNote = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, id: number) => {
+      console.log('id: ', id)
+      if (e.target.checked) {
+        Toast({ type: 'success', description: '笔记发布成功！' })
+      } else {
+        Toast({ type: 'success', description: '笔记取消发布！' })
+      }
+    },
+    [Toast]
+  )
+
   // 处理后的表头（过滤掉不相交的表头属性数据）
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === 'all') return columns
@@ -334,50 +269,64 @@ export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
   }, [page, rowsPerPage])
 
   // 表格行单元格的渲染设置方法
-  const renderCell = React.useCallback((datas: Datas, columnKey: React.Key) => {
-    const cellValue = datas[columnKey as keyof Datas]
+  const renderCell = React.useCallback(
+    (datas: Datas, columnKey: React.Key) => {
+      const cellValue = datas[columnKey as keyof Datas]
 
-    switch (columnKey) {
-      case 'lightIcon':
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        )
-      case 'darkIcon':
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        )
-      case 'createTime':
-        return <KlChip>{cellValue}</KlChip>
-      case 'updateTime':
-        return <KlChip>{cellValue}</KlChip>
-      case 'actions':
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <KlButton isIconOnly={true}>
-              <IconSelf iconName="icon-[lucide--eye]" />
-            </KlButton>
-            <KlButton isIconOnly={true}>
-              <IconSelf iconName="icon-[lucide--edit-2]" />
-            </KlButton>
-            <KlButton
-              isIconOnly={true}
-              onPress={() => {
-                setOpen(true)
-                setCurrentID(datas.id)
-              }}
-            >
-              <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
-            </KlButton>
-          </div>
-        )
-      default:
-        return cellValue
-    }
-  }, [])
+      switch (columnKey) {
+        case 'title':
+          return (
+            <div className="flex flex-col max-w-60 wrap-break-word">
+              <p className="text-bold text-small capitalize">{cellValue}</p>
+            </div>
+          )
+        case 'tags':
+          const tagsInfo = cellValue as string[]
+          if (tagsInfo.length > 0) {
+            return (
+              <div className="flex flex-wrap max-w-40">
+                {tagsInfo.map((item) => (
+                  <div key={item} className="m-1">
+                    <KlChip>{item}</KlChip>
+                  </div>
+                ))}
+              </div>
+            )
+          } else {
+            return 'N/A'
+          }
+        case 'publishStatus':
+          return <KlSwitch onChange={(e) => publishNote(e, datas.id)}></KlSwitch>
+        case 'actions':
+          return (
+            <div className="relative flex justify-end items-center gap-2">
+              <KlButton isIconOnly={true}>
+                <IconSelf iconName="icon-[lucide--eye]" />
+              </KlButton>
+              <KlButton isIconOnly={true}>
+                <IconSelf iconName="icon-[lucide--edit-2]" />
+              </KlButton>
+              <KlButton
+                isIconOnly={true}
+                onPress={() => {
+                  setOpen(true)
+                  setCurrentID(datas.id)
+                }}
+              >
+                <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
+              </KlButton>
+            </div>
+          )
+        default:
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">{cellValue}</p>
+            </div>
+          )
+      }
+    },
+    [publishNote]
+  )
 
   // 分页器条数设置方法
   const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -14,7 +14,6 @@ import {
   KlTableRow
 } from '@/components/ui/table'
 import { KlPagination } from '@/components/ui/pagination'
-import { KlChip } from '@/components/ui/chip'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
@@ -86,163 +85,91 @@ export const columns = [
 export const datas = [
   {
     id: 1,
-    tagName: 'Tony Reichert',
-    lightIcon: 'CEO',
-    darkIcon: 'Management',
-    createTime: 'active',
-    updateTime: '29'
+    tagName: 'Vue',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年10月7日 星期一 22:56:54',
+    updateTime: '2024年10月7日 星期一 22:56:54'
   },
   {
     id: 2,
-    tagName: 'Zoey Lang',
-    lightIcon: 'Tech Lead',
-    darkIcon: 'Development',
-    createTime: 'paused',
-    updateTime: '25'
+    tagName: 'iOS',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年6月25日 星期二 19:48:34',
+    updateTime: '2024年6月25日 星期二 19:48:34'
   },
   {
     id: 3,
-    tagName: 'Jane Fisher',
-    lightIcon: 'Sr. Dev',
-    darkIcon: 'Development',
-    createTime: 'active',
-    updateTime: '22'
+    tagName: 'Xcode',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年6月25日 星期二 19:48:24',
+    updateTime: '2024年6月25日 星期二 19:48:24'
   },
   {
     id: 4,
-    tagName: 'William Howard',
-    lightIcon: 'C.M.',
-    darkIcon: 'Marketing',
-    createTime: 'vacation',
-    updateTime: '28'
+    tagName: '项目工程化',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年5月22日 星期三 23:36:25',
+    updateTime: '2024年5月22日 星期三 23:36:25'
   },
   {
     id: 5,
-    tagName: 'Kristen Copper',
-    lightIcon: 'S. Manager',
-    darkIcon: 'Sales',
-    createTime: 'active',
-    updateTime: '24'
+    tagName: '名词解释',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年5月19日 星期日 22:27:12',
+    updateTime: '2024年5月19日 星期日 22:27:12'
   },
   {
     id: 6,
-    tagName: 'Brian Kim',
-    lightIcon: 'P. Manager',
-    darkIcon: 'Management',
-    createTime: 'Active',
-    updateTime: '29'
+    tagName: 'Flutter',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年4月27日 星期六 15:12:30',
+    updateTime: '2024年4月27日 星期六 15:12:30'
   },
   {
     id: 7,
-    tagName: 'Michael Hunt',
-    lightIcon: 'Designer',
-    darkIcon: 'Design',
-    createTime: 'paused',
-    updateTime: '27'
+    tagName: 'Caddy',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年4月3日 星期三 17:02:47',
+    updateTime: '2024年4月3日 星期三 17:02:47'
   },
   {
     id: 8,
-    tagName: 'Samantha Brooks',
-    lightIcon: 'HR Manager',
-    darkIcon: 'HR',
-    createTime: 'active',
-    updateTime: '31'
+    tagName: 'Docker',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年4月1日 星期一 13:23:30',
+    updateTime: '2024年4月1日 星期一 13:23:30'
   },
   {
     id: 9,
-    tagName: 'Frank Harrison',
-    lightIcon: 'F. Manager',
-    darkIcon: 'Finance',
-    createTime: 'vacation',
-    updateTime: '33'
+    tagName: 'Git',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年3月31日 星期日 12:37:39',
+    updateTime: '2024年3月31日 星期日 12:37:39'
   },
   {
     id: 10,
-    tagName: 'Emma Adams',
-    lightIcon: 'Ops Manager',
-    darkIcon: 'Operations',
-    createTime: 'active',
-    updateTime: '35'
+    tagName: 'Rocky Linux',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年3月28日 星期四 22:57:06',
+    updateTime: '2024年3月28日 星期四 22:57:06'
   },
   {
     id: 11,
-    tagName: 'Brandon Stevens',
-    lightIcon: 'Jr. Dev',
-    darkIcon: 'Development',
-    createTime: 'active',
-    updateTime: '22'
-  },
-  {
-    id: 12,
-    tagName: 'Megan Richards',
-    lightIcon: 'P. Manager',
-    darkIcon: 'Product',
-    createTime: 'paused',
-    updateTime: '28'
-  },
-  {
-    id: 13,
-    tagName: 'Oliver Scott',
-    lightIcon: 'S. Manager',
-    darkIcon: 'Security',
-    createTime: 'active',
-    updateTime: '37'
-  },
-  {
-    id: 14,
-    tagName: 'Grace Allen',
-    lightIcon: 'M. Specialist',
-    darkIcon: 'Marketing',
-    createTime: 'active',
-    updateTime: '30'
-  },
-  {
-    id: 15,
-    tagName: 'Noah Carter',
-    lightIcon: 'IT Specialist',
-    darkIcon: 'I. Technology',
-    createTime: 'paused',
-    updateTime: '31'
-  },
-  {
-    id: 16,
-    tagName: 'Ava Perez',
-    lightIcon: 'Manager',
-    darkIcon: 'Sales',
-    createTime: 'active',
-    updateTime: '29'
-  },
-  {
-    id: 17,
-    tagName: 'Liam Johnson',
-    lightIcon: 'Data Analyst',
-    darkIcon: 'Analysis',
-    createTime: 'active',
-    updateTime: '28'
-  },
-  {
-    id: 18,
-    tagName: 'Sophia Taylor',
-    lightIcon: 'QA Analyst',
-    darkIcon: 'Testing',
-    createTime: 'active',
-    updateTime: '27'
-  },
-  {
-    id: 19,
-    tagName: 'Lucas Harris',
-    lightIcon: 'Administrator',
-    darkIcon: 'Information Technology',
-    createTime: 'paused',
-    updateTime: '32'
-  },
-  {
-    id: 20,
-    tagName: 'Mia Robinson',
-    lightIcon: 'Coordinator',
-    darkIcon: 'Operations',
-    createTime: 'active',
-    updateTime: '26'
+    tagName: 'NextAuth.js',
+    lightIcon: 'N/A',
+    darkIcon: 'N/A',
+    createTime: '2024年3月27日 星期三 21:41:31',
+    updateTime: '2024年3月27日 星期三 21:41:31'
   }
 ]
 
@@ -309,22 +236,6 @@ export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
     const cellValue = datas[columnKey as keyof Datas]
 
     switch (columnKey) {
-      case 'lightIcon':
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        )
-      case 'darkIcon':
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        )
-      case 'createTime':
-        return <KlChip>{cellValue}</KlChip>
-      case 'updateTime':
-        return <KlChip>{cellValue}</KlChip>
       case 'actions':
         return (
           <div className="relative flex justify-end items-center gap-2">
@@ -343,7 +254,11 @@ export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
           </div>
         )
       default:
-        return cellValue
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{cellValue}</p>
+          </div>
+        )
     }
   }, [])
 
