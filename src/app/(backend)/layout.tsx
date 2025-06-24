@@ -1,12 +1,11 @@
 import { Admin } from '@/backend'
 import { BackendNavbar } from '@/components/backend-navbar'
-import { BACKEND_WEBSITE } from '@/constants/backend-info'
-import { WEBSITE_DESCRIPTION } from '@/constants/info'
+import { BACKEND_WEBSITE, BACKEND_WEBSITE_DESCRIPTION } from '@/constants/backend-info'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: BACKEND_WEBSITE,
-  description: WEBSITE_DESCRIPTION
+  description: BACKEND_WEBSITE_DESCRIPTION
 }
 
 export default function Layout({
