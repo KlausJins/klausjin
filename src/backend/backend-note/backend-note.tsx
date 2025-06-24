@@ -8,6 +8,7 @@ import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
+import { TableRowsToArray } from '@/utils'
 const options = [
   { value: '苹果', id: 'apple' },
   { value: '香蕉', id: 'banana' },
@@ -26,18 +27,10 @@ export const BackendNote = () => {
   const [selectedFruits, setSelectedFruits] = useState<string[]>([])
 
   const NoteTableRef = useRef<NoteTableHandle>(null)
-
-  // 将表格数据转换为数组
-  function toArray<T>(input: 'all' | Iterable<T> | undefined, allList: T[] = []): T[] {
-    if (input === 'all') return allList
-    if (!input) return []
-    return Array.from(input)
-  }
-
   // 处理表格删除事件
   const ModalHandler = useCallback(() => {
     if (NoteTableRef.current) {
-      const selectedKeys = toArray(
+      const selectedKeys = TableRowsToArray(
         NoteTableRef.current.selectedKeys,
         NoteTableRef.current.allRowKeys
       )
@@ -49,7 +42,7 @@ export const BackendNote = () => {
   // 点击删除标签按钮时候校验
   const delTag = useCallback(() => {
     if (NoteTableRef.current) {
-      const selectedKeys = toArray(
+      const selectedKeys = TableRowsToArray(
         NoteTableRef.current.selectedKeys,
         NoteTableRef.current.allRowKeys
       )

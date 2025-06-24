@@ -6,6 +6,7 @@ import KlButton from '@/components/ui/button'
 import Field from '@/components/ui/field'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
+import { TableRowsToArray } from '@/utils'
 import { useCallback, useRef, useState } from 'react'
 
 export const BackendTag = () => {
@@ -17,17 +18,13 @@ export const BackendTag = () => {
   // 标签表格实例
   const TagTableRef = useRef<TagTableHandle>(null)
 
-  // 将表格数据转换为数组
-  function toArray<T>(input: 'all' | Iterable<T> | undefined, allList: T[] = []): T[] {
-    if (input === 'all') return allList
-    if (!input) return []
-    return Array.from(input)
-  }
-
   // 处理表格删除事件
   const ModalHandler = useCallback(() => {
     if (TagTableRef.current) {
-      const selectedKeys = toArray(TagTableRef.current.selectedKeys, TagTableRef.current.allRowKeys)
+      const selectedKeys = TableRowsToArray(
+        TagTableRef.current.selectedKeys,
+        TagTableRef.current.allRowKeys
+      )
       console.log('删除多条数据', selectedKeys)
       Toast({ type: 'success', description: '删除成功！' })
     }
@@ -36,7 +33,10 @@ export const BackendTag = () => {
   // 点击删除标签按钮时候校验
   const delTag = useCallback(() => {
     if (TagTableRef.current) {
-      const selectedKeys = toArray(TagTableRef.current.selectedKeys, TagTableRef.current.allRowKeys)
+      const selectedKeys = TableRowsToArray(
+        TagTableRef.current.selectedKeys,
+        TagTableRef.current.allRowKeys
+      )
       console.log('删除多条数据', selectedKeys)
       if (selectedKeys.length > 0) {
         setOpen(true)
