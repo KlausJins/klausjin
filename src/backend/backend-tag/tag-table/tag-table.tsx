@@ -291,11 +291,11 @@ export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
     <>
       {/* modal提示框 */}
       <KlModal
-        desc="确定删除该条数据吗？"
+        content="确定删除该条数据吗？"
         open={open}
         setOpen={setOpen}
         successCallback={() => ModalHandler()}
-      ></KlModal>
+      />
       {/* 表格 */}
       <KlTable
         bottomContent={tableBottomContent}

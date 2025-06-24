@@ -103,23 +103,22 @@ export const BackendNote = () => {
 
       {/* modal提示框 */}
       <KlModal
-        desc="确定删除选中的多条数据吗？"
+        content="确定删除选中的多条数据吗？"
         open={open}
         setOpen={setOpen}
         successCallback={() => ModalHandler()}
-      ></KlModal>
+      />
 
       {/* 创建笔记模态框 */}
       <KlModal
         open={openCreateNote}
         setOpen={setOpenCreateNote}
         title="创建笔记"
+        content="创建笔记"
         size="full"
         confirmName="创建"
         successCallback={() => console.log('创建标签')}
-      >
-        创建笔记
-      </KlModal>
+      />
     </div>
   )
 }

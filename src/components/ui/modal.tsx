@@ -16,7 +16,7 @@ import { clm } from '@/utils'
 interface KlModalProps {
   children?: ReactNode
   title?: string
-  desc?: string
+  content?: ReactNode
   open: boolean
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full' | undefined
   setOpen: (open: boolean) => void
@@ -30,7 +30,7 @@ export default function KlModal(props: KlModalProps) {
   const {
     children,
     title = '提示',
-    desc,
+    content,
     open,
     setOpen,
     size = 'md',
@@ -77,13 +77,10 @@ export default function KlModal(props: KlModalProps) {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className={clm('flex flex-col gap-1', !desc && 'items-center')}>
+              <ModalHeader className={clm('flex flex-col gap-1', !content && 'items-center')}>
                 {title}
               </ModalHeader>
-              <ModalBody>
-                {desc && <p>{desc}</p>}
-                {children}
-              </ModalBody>
+              <ModalBody>{content}</ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={() => onCancel(onClose)}>
                   {cancelName}

@@ -83,23 +83,22 @@ export const BackendTag = () => {
 
       {/* modal提示框 */}
       <KlModal
-        desc="确定删除选中的多条数据吗？"
+        content="确定删除选中的多条数据吗？"
         open={open}
         setOpen={setOpen}
         successCallback={() => ModalHandler()}
-      ></KlModal>
+      />
 
       {/* 创建标签模态框 */}
       <KlModal
         open={openCreateTag}
         setOpen={setOpenCreateTag}
         title="创建标签"
+        content="创建标签"
         size="2xl"
         confirmName="创建"
         successCallback={() => console.log('创建标签')}
-      >
-        创建标签
-      </KlModal>
+      />
     </div>
   )
 }
