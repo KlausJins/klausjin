@@ -11,19 +11,34 @@ import {
 } from '@heroui/react'
 import React, { ReactNode, useEffect } from 'react'
 import KlButton from './button'
+import { clm } from '@/utils'
 
 interface KlModalProps {
   children?: ReactNode
   title?: string
-  desc: string
+  desc?: string
   open: boolean
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full' | undefined
   setOpen: (open: boolean) => void
+  confirmName?: string
+  cancelName?: string
   successCallback?: () => void
   cancelCallback?: () => void
 }
 
 export default function KlModal(props: KlModalProps) {
-  const { children, title = '提示', desc, open, setOpen, successCallback, cancelCallback } = props
+  const {
+    children,
+    title = '提示',
+    desc,
+    open,
+    setOpen,
+    size = 'md',
+    confirmName = '确定',
+    cancelName = '取消',
+    successCallback,
+    cancelCallback
+  } = props
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   // 成功回调
@@ -53,20 +68,28 @@ export default function KlModal(props: KlModalProps) {
   return (
     <>
       {children}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size={size}
+        classNames={{ closeButton: 'hover:cursor-pointer' }}
+      >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+              <ModalHeader className={clm('flex flex-col gap-1', !desc && 'items-center')}>
+                {title}
+              </ModalHeader>
               <ModalBody>
-                <p>{desc}</p>
+                {desc && <p>{desc}</p>}
+                {children}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={() => onCancel(onClose)}>
-                  取消
+                  {cancelName}
                 </Button>
                 <KlButton fill={true} onPress={() => onAction(onClose)}>
-                  确定
+                  {confirmName}
                 </KlButton>
               </ModalFooter>
             </>

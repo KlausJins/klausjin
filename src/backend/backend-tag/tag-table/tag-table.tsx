@@ -186,6 +186,7 @@ type Datas = (typeof datas)[0]
 
 export interface TagTableHandle {
   selectedKeys: 'all' | Iterable<React.Key> | undefined
+  allRowKeys: number[]
 }
 
 export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
@@ -207,7 +208,8 @@ export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
 
   // 暴露给父组件的变量和方法
   useImperativeHandle(ref, () => ({
-    selectedKeys
+    selectedKeys,
+    allRowKeys: datas.map((row) => row.id)
   }))
 
   // 处理表格删除事件

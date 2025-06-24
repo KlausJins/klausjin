@@ -210,6 +210,7 @@ type Datas = (typeof datas)[0]
 
 export interface NoteTableHandle {
   selectedKeys: 'all' | Iterable<React.Key> | undefined
+  allRowKeys: number[]
 }
 
 export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
@@ -231,7 +232,8 @@ export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
 
   // 暴露给父组件的变量和方法
   useImperativeHandle(ref, () => ({
-    selectedKeys
+    selectedKeys,
+    allRowKeys: datas.map((row) => row.id)
   }))
 
   // 处理表格删除事件
