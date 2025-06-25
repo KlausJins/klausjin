@@ -1,6 +1,10 @@
 /* 创建、编辑笔记的编辑器高度 */
 #note-editor .bytemd {
-  @apply h-[60vh] min-h-[560px];
+  @apply min-h-[80vh];
+}
+
+#note-editor>div {
+  @apply w-full;
 }
 
 /* 创建、编辑博客、片段的编辑器高度 */
@@ -32,7 +36,7 @@
 }
 
 .markdown-body ol {
-  @apply pl-10
+  @apply pl-10;
 }
 
 .medium-zoom-image--opened {
@@ -157,4 +161,9 @@
 
 .bytemd-toolbar-icon:hover {
   @apply  !bg-accent;
+}
+
+/* 隐藏源码按钮 */
+.bytemd-toolbar-right .bytemd-toolbar-icon:last-child {
+  @apply hidden;
 }

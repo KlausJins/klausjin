@@ -7,17 +7,18 @@ interface InputPropsType extends InputProps {
   inputWrapper_className?: string
 }
 
-const Field = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) => {
+const KlField = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) => {
   const { variant = 'bordered', isClearable = true, inputWrapper_className, ...rest } = props
   return (
     <Input
       ref={ref}
       classNames={{
+        label: 'z-10',
         inputWrapper: clm(
-          'h-9 border-borderColor dark:border-darkBorderColor border-1 shadow-none ',
+          'h-9 border-borderColor dark:border-darkBorderColor border-1 shadow-none',
           'bg-bgPrimary dark:bg-darkBgPrimary',
-          'data-[hover=true]:border-borderColor dark:data-[hover=true]:border-darkBorderColor',
-          'data-[focus=true]:border-borderColor dark:data-[focus=true]:border-darkBorderColor',
+          'data-[hover=true]:border-darkBgPrimary dark:data-[hover=true]:border-bgPrimary',
+          'group-data-[focus=true]:border-darkBgPrimary dark:group-data-[focus=true]:border-bgPrimary',
           inputWrapper_className
         ),
         input:
@@ -29,6 +30,6 @@ const Field = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) =>
     />
   )
 })
-Field.displayName = 'Field'
+KlField.displayName = 'KlField'
 
-export default Field
+export default KlField

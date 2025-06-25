@@ -2,13 +2,14 @@
 
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
-import Field from '@/components/ui/field'
+import KlField from '@/components/ui/field'
 import { NoteTable, NoteTableHandle } from './note-table'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
+import { NoteModalContent } from '@/components/note-modal-content'
 const options = [
   { value: '苹果', id: 'apple' },
   { value: '香蕉', id: 'banana' },
@@ -61,7 +62,7 @@ export const BackendNote = () => {
       <div className="flex items-center justify-between gap-6">
         <div className="flex items-center justify-between gap-6">
           {/* 名称 */}
-          <Field className="w-80" placeholder="请输入笔记名称" />
+          <KlField className="w-80" placeholder="请输入笔记名称" />
 
           {/* 下拉框 */}
           <SelectX
@@ -114,8 +115,10 @@ export const BackendNote = () => {
         open={openCreateNote}
         setOpen={setOpenCreateNote}
         title="创建笔记"
-        content="创建笔记"
+        isTitleCenter={true}
+        content={<NoteModalContent />}
         size="full"
+        showCancelButton={false}
         confirmName="创建"
         successCallback={() => console.log('创建标签')}
       />

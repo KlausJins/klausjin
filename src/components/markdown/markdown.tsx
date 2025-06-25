@@ -10,6 +10,7 @@ import gemoji from '@bytemd/plugin-gemoji'
 import gfm_zhHans from '@bytemd/plugin-gfm/lib/locales/zh_Hans.json'
 import zh_Hans from 'bytemd/locales/zh_Hans.json'
 import { headingsPlugins } from './plugins'
+import { clm } from '@/utils'
 
 const plugins = [
   gfm({ locale: gfm_zhHans }),
@@ -21,27 +22,46 @@ const plugins = [
 ]
 
 interface MDEditorPropsType {
-  onChange: (value: string) => void
+  className?: string
+  value: string
+  onChange: (value: string, setMDValue: (value: string) => void) => void
 }
 
-export const MDEditor = forwardRef<HTMLDivElement, MDEditorPropsType>(({ onChange }, ref) => {
-  const [value] = useState('')
-  return (
-    <div id="note-editor" ref={ref} className="flex flex-col h-full w-full items-center">
-      <Editor value={value} plugins={plugins} locale={zh_Hans} onChange={(v) => onChange(v)} />
-    </div>
-  )
-})
+export const MDEditor = forwardRef<HTMLDivElement, MDEditorPropsType>(
+  ({ className, value, onChange }, ref) => {
+    const [MDValue, setMDValue] = useState(value)
+
+    return (
+      <div
+        id="note-editor"
+        ref={ref}
+        className={clm('flex flex-col h-full w-full items-center', className)}
+      >
+        <Editor
+          value={MDValue}
+          plugins={plugins}
+          locale={zh_Hans}
+          onChange={(v) => onChange(v, setMDValue)}
+        />
+      </div>
+    )
+  }
+)
 MDEditor.displayName = 'MDEditor'
 
 interface MDViewerPropsType {
+  className?: string
   value: string
 }
 
 export const MDViewer = forwardRef<HTMLDivElement, MDViewerPropsType>(
-  ({ value }: { value: string }, ref) => {
+  ({ value, className }: MDViewerPropsType, ref) => {
     return (
-      <div id="content-editor" ref={ref} className="mx-auto flex flex-col !max-w-detail-content">
+      <div
+        id="content-editor"
+        ref={ref}
+        className={clm('mx-auto flex flex-col !max-w-detail-content', className)}
+      >
         <Viewer value={value} plugins={plugins} />
       </div>
     )

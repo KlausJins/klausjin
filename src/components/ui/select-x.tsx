@@ -12,7 +12,7 @@ import {
 import IconSelf from '../icons/icon-self'
 import { clm } from '@/utils'
 import { KlChip } from './chip'
-import Field from './field'
+import KlField from './field'
 import { IconEmpty } from '../icons'
 
 type Option = {
@@ -122,7 +122,7 @@ export const SelectX = ({
       >
         <div className="w-full p-2 border-b-1 flex items-center border-borderColor dark:border-darkBorderColor">
           <IconSelf iconName="icon-[lucide--search]" />
-          <Field
+          <KlField
             placeholder="请输入要搜索的内容"
             value={search}
             onChange={(e) => setSearch(e.target.value)}

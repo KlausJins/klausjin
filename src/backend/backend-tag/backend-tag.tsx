@@ -2,8 +2,9 @@
 
 import { TagTable, TagTableHandle } from '@/backend/backend-tag/tag-table'
 import IconSelf from '@/components/icons/icon-self'
+import { TagModalContent } from '@/components/tag-modal-content'
 import KlButton from '@/components/ui/button'
-import Field from '@/components/ui/field'
+import KlField from '@/components/ui/field'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { TableRowsToArray } from '@/utils'
@@ -51,7 +52,7 @@ export const BackendTag = () => {
       {/* 搜索栏 */}
       <div className="flex items-center justify-between gap-6">
         {/* 名称 */}
-        <Field className="w-80" placeholder="请输入标签名称" />
+        <KlField className="w-80" placeholder="请输入标签名称" />
 
         <div className="flex gap-6">
           {/* 搜索按钮 */}
@@ -94,8 +95,10 @@ export const BackendTag = () => {
         open={openCreateTag}
         setOpen={setOpenCreateTag}
         title="创建标签"
-        content="创建标签"
+        content={<TagModalContent />}
+        isTitleCenter={true}
         size="2xl"
+        showCancelButton={false}
         confirmName="创建"
         successCallback={() => console.log('创建标签')}
       />

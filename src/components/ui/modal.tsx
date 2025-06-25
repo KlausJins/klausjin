@@ -20,8 +20,11 @@ interface KlModalProps {
   open: boolean
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full' | undefined
   setOpen: (open: boolean) => void
+  showConfirmButton?: boolean
+  showCancelButton?: boolean
   confirmName?: string
   cancelName?: string
+  isTitleCenter?: boolean
   successCallback?: () => void
   cancelCallback?: () => void
 }
@@ -34,8 +37,11 @@ export default function KlModal(props: KlModalProps) {
     open,
     setOpen,
     size = 'md',
+    showConfirmButton = true,
+    showCancelButton = true,
     confirmName = '确定',
     cancelName = '取消',
+    isTitleCenter = false,
     successCallback,
     cancelCallback
   } = props
@@ -72,22 +78,32 @@ export default function KlModal(props: KlModalProps) {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size={size}
-        classNames={{ closeButton: 'hover:cursor-pointer' }}
+        classNames={{
+          base: 'relative',
+          closeButton: 'hover:cursor-pointer',
+          body: 'overflow-auto'
+        }}
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className={clm('flex flex-col gap-1', !content && 'items-center')}>
+              <ModalHeader className={clm('flex flex-col gap-1', isTitleCenter && 'items-center')}>
                 {title}
               </ModalHeader>
               <ModalBody>{content}</ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={() => onCancel(onClose)}>
-                  {cancelName}
-                </Button>
-                <KlButton fill={true} onPress={() => onAction(onClose)}>
-                  {confirmName}
-                </KlButton>
+                {/* 取消按钮 */}
+                {showCancelButton && (
+                  <Button color="danger" variant="light" onPress={() => onCancel(onClose)}>
+                    {cancelName}
+                  </Button>
+                )}
+                {/* 确认按钮 */}
+                {showConfirmButton && (
+                  <KlButton fill={true} onPress={() => onAction(onClose)}>
+                    {confirmName}
+                  </KlButton>
+                )}
               </ModalFooter>
             </>
           )}
