@@ -10,6 +10,7 @@ import KlButton from '../ui/button'
 import IconSelf from '../icons/icon-self'
 import { TagModalContent } from '../tag-modal-content'
 import KlModal from '../ui/modal'
+import { KlUploader } from '../ui/uploader'
 
 const options = [
   { value: '苹果', id: 'apple' },
@@ -42,15 +43,18 @@ export const NoteModalContent = () => {
 
       <KlField label="作者" labelPlacement="outside" placeholder="请输入作者" />
 
-      <KlTextarea
-        type="textarea"
-        label="封面"
-        labelPlacement="outside"
-        placeholder="请输入封面链接"
-        value={darkIconStr}
-        onChange={(e) => setDarkIconStr(e.target.value)}
-        onClear={() => setDarkIconStr('')}
-      />
+      <div className="flex flex-col gap-2">
+        <KlTextarea
+          type="textarea"
+          label="封面"
+          labelPlacement="outside"
+          placeholder="请输入封面链接"
+          value={darkIconStr}
+          onChange={(e) => setDarkIconStr(e.target.value)}
+          onClear={() => setDarkIconStr('')}
+        />
+        <KlUploader />
+      </div>
 
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium">是否发布</span>

@@ -15,7 +15,7 @@ const KlTextarea = ({ variant = 'bordered', ...props }: TextAreaProps) => {
           'data-[hover=true]:border-darkBgPrimary dark:data-[hover=true]:border-bgPrimary',
           'group-data-[focus=true]:border-darkBgPrimary dark:group-data-[focus=true]:border-bgPrimary'
         ),
-        input: 'resize-y min-h-25'
+        input: 'resize-y min-h-20'
       }}
       variant={variant}
       {...props}
