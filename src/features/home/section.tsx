@@ -1,5 +1,6 @@
 'use client'
 
+import { Firework } from '@/components/firework'
 import { GoBackToTop } from '@/components/goback-to-top'
 import IconSelf from '@/components/icons/icon-self'
 import { ScrollMouse } from '@/components/scroll-mouse'
@@ -85,7 +86,7 @@ const Section = () => {
         </>
 
         {/* 底部按钮 */}
-        <div className="flex gap-4 text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
+        <div className="flex gap-4 flex-wrap text-sm font-medium animate-fade-up animate-ease-in-out animate-delay-[1000ms]">
           <Link href={PATHS.SITE_NOTE}>
             <KlButton>我的笔记</KlButton>
           </Link>
@@ -99,6 +100,9 @@ const Section = () => {
               <IconSelf iconName="icon-[fa6-brands--github]" />
             </KlButton>
           </Link>
+
+          {/* 放烟花 */}
+          <Firework />
         </div>
 
         <div className="absolute inset-x-0 bottom-8 grid place-content-center md:bottom-12 animate-fade-up animate-ease-in-out animate-delay-[1200ms]">
