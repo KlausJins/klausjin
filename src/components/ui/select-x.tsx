@@ -27,6 +27,19 @@ type SelectXProps = {
   placeholder?: string
   width?: string
   className?: string
+  placement?:
+    | 'bottom'
+    | 'top'
+    | 'right'
+    | 'left'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left-start'
+    | 'left-end'
+    | 'right-start'
+    | 'right-end'
 }
 
 export const SelectX = ({
@@ -35,7 +48,8 @@ export const SelectX = ({
   onChange,
   placeholder = '请选择',
   className = '',
-  width = ''
+  width = '',
+  placement = 'bottom'
 }: SelectXProps) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
@@ -61,7 +75,7 @@ export const SelectX = ({
     <Popover
       isOpen={open}
       onOpenChange={setOpen}
-      placement="bottom"
+      placement={placement}
       offset={10}
       showArrow
       triggerScaleOnOpen={false}

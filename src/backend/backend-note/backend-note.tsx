@@ -10,6 +10,7 @@ import { useCallback, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
+
 const options = [
   { value: '苹果', id: 'apple' },
   { value: '香蕉', id: 'banana' },
