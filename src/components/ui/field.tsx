@@ -13,7 +13,7 @@ const KlField = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) 
     <Input
       ref={ref}
       classNames={{
-        label: 'z-10',
+        label: 'z-10 !text-primary dark:!text-darkprimary',
         inputWrapper: clm(
           'h-9 border-borderColor dark:border-darkBorderColor border-1 shadow-none',
           'bg-bgPrimary dark:bg-darkBgPrimary',

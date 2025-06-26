@@ -42,4 +42,24 @@
   .markdown-body pre {
     @apply border-none bg-[#2D2D2D]
   }
+
+  .bytemd,
+  .bytemd-toolbar,
+  .bytemd-body,
+  .CodeMirror-scroll {
+    @apply  !bg-darkBgPrimary !text-darkprimary !border-darkBorderColor;
+  }
+
+  .bytemd-toolbar-left .bytemd-tippy:hover,
+  .bytemd-toolbar-right .bytemd-tippy:hover {
+    @apply  !bg-darkHoverColor;
+  }
+
+  .bytemd-status {
+    @apply  !border-darkBorderColor
+  }
+
+  .bytemd-split .bytemd-preview {
+    @apply  !border-darkBorderColor
+  }
 }

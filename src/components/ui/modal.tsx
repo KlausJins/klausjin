@@ -78,8 +78,9 @@ export default function KlModal(props: KlModalProps) {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size={size}
+        className=""
         classNames={{
-          base: 'relative',
+          base: 'relative text-primary dark:text-darkprimary bg-bgPrimary dark:bg-darkBgPrimary',
           closeButton: 'hover:cursor-pointer',
           body: 'overflow-auto'
         }}

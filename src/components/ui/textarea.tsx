@@ -8,6 +8,7 @@ const KlTextarea = ({ variant = 'bordered', ...props }: TextAreaProps) => {
       isClearable
       classNames={{
         base: 'w-full',
+        label: '!text-primary dark:!text-darkprimary',
         inputWrapper: clm(
           'h-9 pt-6 border-borderColor dark:border-darkBorderColor border-1 shadow-none',
           'bg-bgPrimary dark:bg-darkBgPrimary',
