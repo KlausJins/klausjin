@@ -47,7 +47,7 @@ const Section = () => {
           </span>
           <span
             className={clm(
-              'text-8xl max-sm:text-4xl font-bold text-transparent bg-clip-text bg-[linear-gradient(160deg,_var(--rainbow-left),_var(--rainbow-right))] animate-fade-up animate-ease-in-out animate-delay-[200ms]'
+              'text-8xl max-sm:text-4xl w-max font-bold text-transparent bg-clip-text bg-[linear-gradient(145deg,_var(--rainbow-left),_var(--rainbow-right))] animate-fade-up animate-ease-in-out animate-delay-[200ms]'
             )}
           >
             {HOME_NAME_TEXT}
