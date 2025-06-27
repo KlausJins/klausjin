@@ -80,6 +80,7 @@
   --animate-scroll-mouse: scroll-mouse 3s ease-out infinite;
   --animate-rolling-text: rolling-text 4s infinite;
   --animate-scroll-to-left: scroll-to-left 60s linear infinite;
+  --animate-rainbow: rainbow 16s linear infinite;
 
   @keyframes scroll-mouse {
     0% {
@@ -654,7 +655,7 @@
   :root {
     --rainbow-right: #00a8cf;
     --rainbow-left: #638af8;
-    animation: rainbow 16s linear infinite;
+    /* animation: rainbow 16s linear infinite; */
   }
 
   .light {

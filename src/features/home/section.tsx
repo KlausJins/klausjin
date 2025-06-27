@@ -39,7 +39,7 @@ const Section = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-4 mx-auto text-primary dark:text-darkprimary tracking-wider">
+      <div className="flex flex-col gap-4 px-4 mx-auto text-primary dark:text-darkprimary tracking-wider animate-rainbow">
         {/* 首页文字 */}
         <>
           <span className="text-5xl max-sm:text-2xl animate-fade-up animate-ease-in-out">
