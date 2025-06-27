@@ -221,6 +221,413 @@
       transform: translateY(-400%);
     }
   }
+
+  @keyframes rainbow {
+    0% {
+      --rainbow-right: #00a98e;
+      --rainbow-left: #009ff7;
+    }
+
+    1.25% {
+      --rainbow-right: #00a996;
+      --rainbow-left: #009dfa;
+    }
+
+    2.5% {
+      --rainbow-right: #00a99f;
+      --rainbow-left: #009bfc;
+    }
+
+    3.75% {
+      --rainbow-right: #00a9a7;
+      --rainbow-left: #0098fd;
+    }
+
+    5% {
+      --rainbow-right: #00a9b0;
+      --rainbow-left: #0096fd;
+    }
+
+    6.25% {
+      --rainbow-right: #00a9b8;
+      --rainbow-left: #0093fd;
+    }
+
+    7.5% {
+      --rainbow-right: #00a9c0;
+      --rainbow-left: #2e90fc;
+    }
+
+    8.75% {
+      --rainbow-right: #00a8c7;
+      --rainbow-left: #4d8dfa;
+    }
+
+    10% {
+      --rainbow-right: #00a8cf;
+      --rainbow-left: #638af8;
+    }
+
+    11.25% {
+      --rainbow-right: #00a7d5;
+      --rainbow-left: #7587f5;
+    }
+
+    12.5% {
+      --rainbow-right: #00a6dc;
+      --rainbow-left: #8583f1;
+    }
+
+    13.75% {
+      --rainbow-right: #00a6e2;
+      --rainbow-left: #9280ed;
+    }
+
+    15% {
+      --rainbow-right: #00a4e7;
+      --rainbow-left: #9f7ce9;
+    }
+
+    16.25% {
+      --rainbow-right: #00a3ec;
+      --rainbow-left: #aa78e3;
+    }
+
+    17.5% {
+      --rainbow-right: #00a2f1;
+      --rainbow-left: #b574dd;
+    }
+
+    18.75% {
+      --rainbow-right: #00a0f4;
+      --rainbow-left: #be71d7;
+    }
+
+    20% {
+      --rainbow-right: #009ff7;
+      --rainbow-left: #c76dd1;
+    }
+
+    21.25% {
+      --rainbow-right: #009dfa;
+      --rainbow-left: #cf69c9;
+    }
+
+    22.5% {
+      --rainbow-right: #009bfc;
+      --rainbow-left: #d566c2;
+    }
+
+    23.75% {
+      --rainbow-right: #0098fd;
+      --rainbow-left: #dc63ba;
+    }
+
+    25% {
+      --rainbow-right: #0096fd;
+      --rainbow-left: #e160b3;
+    }
+
+    26.25% {
+      --rainbow-right: #0093fd;
+      --rainbow-left: #e65eab;
+    }
+
+    27.5% {
+      --rainbow-right: #2e90fc;
+      --rainbow-left: #e95ca2;
+    }
+
+    28.75% {
+      --rainbow-right: #4d8dfa;
+      --rainbow-left: #ed5a9a;
+    }
+
+    30% {
+      --rainbow-right: #638af8;
+      --rainbow-left: #ef5992;
+    }
+
+    31.25% {
+      --rainbow-right: #7587f5;
+      --rainbow-left: #f15989;
+    }
+
+    32.5% {
+      --rainbow-right: #8583f1;
+      --rainbow-left: #f25981;
+    }
+
+    33.75% {
+      --rainbow-right: #9280ed;
+      --rainbow-left: #f25a79;
+    }
+
+    35% {
+      --rainbow-right: #9f7ce9;
+      --rainbow-left: #f25c71;
+    }
+
+    36.25% {
+      --rainbow-right: #aa78e3;
+      --rainbow-left: #f15e69;
+    }
+
+    37.5% {
+      --rainbow-right: #b574dd;
+      --rainbow-left: #ef6061;
+    }
+
+    38.75% {
+      --rainbow-right: #be71d7;
+      --rainbow-left: #ed635a;
+    }
+
+    40% {
+      --rainbow-right: #c76dd1;
+      --rainbow-left: #eb6552;
+    }
+
+    41.25% {
+      --rainbow-right: #cf69c9;
+      --rainbow-left: #e8694b;
+    }
+
+    42.5% {
+      --rainbow-right: #d566c2;
+      --rainbow-left: #e46c44;
+    }
+
+    43.75% {
+      --rainbow-right: #dc63ba;
+      --rainbow-left: #e06f3d;
+    }
+
+    45% {
+      --rainbow-right: #e160b3;
+      --rainbow-left: #db7336;
+    }
+
+    46.25% {
+      --rainbow-right: #e65eab;
+      --rainbow-left: #d77630;
+    }
+
+    47.5% {
+      --rainbow-right: #e95ca2;
+      --rainbow-left: #d17a2a;
+    }
+
+    48.75% {
+      --rainbow-right: #ed5a9a;
+      --rainbow-left: #cc7d24;
+    }
+
+    50% {
+      --rainbow-right: #ef5992;
+      --rainbow-left: #c6811e;
+    }
+
+    51.25% {
+      --rainbow-right: #f15989;
+      --rainbow-left: #bf8418;
+    }
+
+    52.5% {
+      --rainbow-right: #f25981;
+      --rainbow-left: #b98713;
+    }
+
+    53.75% {
+      --rainbow-right: #f25a79;
+      --rainbow-left: #b28a0f;
+    }
+
+    55% {
+      --rainbow-right: #f25c71;
+      --rainbow-left: #ab8d0c;
+    }
+
+    56.25% {
+      --rainbow-right: #f15e69;
+      --rainbow-left: #a3900b;
+    }
+
+    57.5% {
+      --rainbow-right: #ef6061;
+      --rainbow-left: #9c920d;
+    }
+
+    58.75% {
+      --rainbow-right: #ed635a;
+      --rainbow-left: #949510;
+    }
+
+    60% {
+      --rainbow-right: #eb6552;
+      --rainbow-left: #8b9715;
+    }
+
+    61.25% {
+      --rainbow-right: #e8694b;
+      --rainbow-left: #83991b;
+    }
+
+    62.5% {
+      --rainbow-right: #e46c44;
+      --rainbow-left: #7a9b21;
+    }
+
+    63.75% {
+      --rainbow-right: #e06f3d;
+      --rainbow-left: #719d27;
+    }
+
+    65% {
+      --rainbow-right: #db7336;
+      --rainbow-left: #679e2e;
+    }
+
+    66.25% {
+      --rainbow-right: #d77630;
+      --rainbow-left: #5da035;
+    }
+
+    67.5% {
+      --rainbow-right: #d17a2a;
+      --rainbow-left: #51a13c;
+    }
+
+    68.75% {
+      --rainbow-right: #cc7d24;
+      --rainbow-left: #44a244;
+    }
+
+    70% {
+      --rainbow-right: #c6811e;
+      --rainbow-left: #34a44b;
+    }
+
+    71.25% {
+      --rainbow-right: #bf8418;
+      --rainbow-left: #1ba553;
+    }
+
+    72.5% {
+      --rainbow-right: #b98713;
+      --rainbow-left: #00a65b;
+    }
+
+    73.75% {
+      --rainbow-right: #b28a0f;
+      --rainbow-left: #00a663;
+    }
+
+    75% {
+      --rainbow-right: #ab8d0c;
+      --rainbow-left: #00a76c;
+    }
+
+    76.25% {
+      --rainbow-right: #a3900b;
+      --rainbow-left: #00a874;
+    }
+
+    77.5% {
+      --rainbow-right: #9c920d;
+      --rainbow-left: #00a87d;
+    }
+
+    78.75% {
+      --rainbow-right: #949510;
+      --rainbow-left: #00a985;
+    }
+
+    80% {
+      --rainbow-right: #8b9715;
+      --rainbow-left: #00a98e;
+    }
+
+    81.25% {
+      --rainbow-right: #83991b;
+      --rainbow-left: #00a996;
+    }
+
+    82.5% {
+      --rainbow-right: #7a9b21;
+      --rainbow-left: #00a99f;
+    }
+
+    83.75% {
+      --rainbow-right: #719d27;
+      --rainbow-left: #00a9a7;
+    }
+
+    85% {
+      --rainbow-right: #679e2e;
+      --rainbow-left: #00a9b0;
+    }
+
+    86.25% {
+      --rainbow-right: #5da035;
+      --rainbow-left: #00a9b8;
+    }
+
+    87.5% {
+      --rainbow-right: #51a13c;
+      --rainbow-left: #00a9c0;
+    }
+
+    88.75% {
+      --rainbow-right: #44a244;
+      --rainbow-left: #00a8c7;
+    }
+
+    90% {
+      --rainbow-right: #34a44b;
+      --rainbow-left: #00a8cf;
+    }
+
+    91.25% {
+      --rainbow-right: #1ba553;
+      --rainbow-left: #00a7d5;
+    }
+
+    92.5% {
+      --rainbow-right: #00a65b;
+      --rainbow-left: #00a6dc;
+    }
+
+    93.75% {
+      --rainbow-right: #00a663;
+      --rainbow-left: #00a6e2;
+    }
+
+    95% {
+      --rainbow-right: #00a76c;
+      --rainbow-left: #00a4e7;
+    }
+
+    96.25% {
+      --rainbow-right: #00a874;
+      --rainbow-left: #00a3ec;
+    }
+
+    97.5% {
+      --rainbow-right: #00a87d;
+      --rainbow-left: #00a2f1;
+    }
+
+    98.75% {
+      --rainbow-right: #00a985;
+      --rainbow-left: #00a0f4;
+    }
+
+    100% {
+      --rainbow-right: #00a98e;
+      --rainbow-left: #009ff7;
+    }
+  }
 }
 
 
@@ -244,7 +651,11 @@
 
 
 @layer base {
-  :root {}
+  :root {
+    --rainbow-right: #00a8cf;
+    --rainbow-left: #638af8;
+    animation: rainbow 16s linear infinite;
+  }
 
   .light {
     --scrollBarTrackColor: #F9F9F9;

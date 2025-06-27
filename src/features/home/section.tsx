@@ -16,27 +16,26 @@ import {
 import { PATHS } from '@/constants/path'
 import { clm } from '@/utils'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 
 const Section = () => {
-  const colorList = {
-    vueTheme: 'from-[#43D392] to-[#647EFF]',
-    reactTheme: 'from-[#58C4DC] to-[#3178C6]'
-  }
+  // const colorList = {
+  //   vueTheme: 'from-[#43D392] to-[#647EFF]',
+  //   reactTheme: 'from-[#58C4DC] to-[#3178C6]'
+  // }
 
-  const [theme, setTheme] = React.useState<string>(colorList.vueTheme)
+  // const [theme, setTheme] = React.useState<string>(colorList.vueTheme)
 
-  useEffect(() => {
-    function getRandomTheme() {
-      const randomCount = Math.random()
-      const theRandomTheme = randomCount < 0.5 ? colorList.vueTheme : colorList.reactTheme
-      // console.log(randomCount)
-      return theRandomTheme
-    }
+  // useEffect(() => {
+  //   function getRandomTheme() {
+  //     const randomCount = Math.random()
+  //     const theRandomTheme = randomCount < 0.5 ? colorList.vueTheme : colorList.reactTheme
+  //     // console.log(randomCount)
+  //     return theRandomTheme
+  //   }
 
-    setTheme(getRandomTheme())
-  }, [colorList.vueTheme, colorList.reactTheme])
+  //   setTheme(getRandomTheme())
+  // }, [colorList.vueTheme, colorList.reactTheme])
 
   return (
     <>
@@ -48,8 +47,7 @@ const Section = () => {
           </span>
           <span
             className={clm(
-              'text-8xl max-sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r animate-fade-up animate-ease-in-out animate-delay-[200ms]',
-              theme
+              'text-8xl max-sm:text-4xl font-bold text-transparent bg-clip-text bg-[linear-gradient(160deg,_var(--rainbow-left),_var(--rainbow-right))] animate-fade-up animate-ease-in-out animate-delay-[200ms]'
             )}
           >
             {HOME_NAME_TEXT}
@@ -101,7 +99,7 @@ const Section = () => {
             </KlButton>
           </Link>
 
-          {/* 放烟花 */}
+          {/* 放礼炮 */}
           <Firework />
         </div>
 

@@ -9,7 +9,7 @@ export const Firework = () => {
       </KlButton>
       <div className="flex items-center gap-2 text-secondary dark:text-darksecondary">
         <span className="text-2xl">👈</span>
-        <span>快来试试放烟花吧～</span>
+        <span>快来试试放礼炮吧～</span>
       </div>
     </div>
   )
