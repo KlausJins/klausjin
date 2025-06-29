@@ -1,5 +1,6 @@
 'use client'
 
+import { signIn } from 'next-auth/react'
 import { GITHUB_PAGE_LINK, WEBSITE } from '@/constants/info'
 import Logo from '../logo/logo'
 import { NAVBAR_ITEMS } from './config'
@@ -63,11 +64,14 @@ export const Navbar = () => {
             </KlButton>
           </Link>
           {/* 登录到后台 */}
-          <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank">
-            <KlButton isIconOnly={true}>
-              <IconSelf iconName="icon-[lucide--user-cog]" />
-            </KlButton>
-          </Link>
+          {/* <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank"> */}
+          <KlButton
+            isIconOnly={true}
+            onClick={() => signIn('github', { redirectTo: PATHS.SITE_ADMIN })}
+          >
+            <IconSelf iconName="icon-[lucide--user-cog]" />
+          </KlButton>
+          {/* </Link> */}
         </div>
       </div>
     </header>
