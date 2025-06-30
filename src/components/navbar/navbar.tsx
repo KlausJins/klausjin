@@ -1,6 +1,5 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
 import { GITHUB_PAGE_LINK, WEBSITE } from '@/constants/info'
 import Logo from '../logo/logo'
 import { NAVBAR_ITEMS } from './config'
@@ -8,7 +7,6 @@ import Link from 'next/link'
 import { clm } from '@/utils'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/hooks'
-import { PATHS } from '@/constants/path'
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
@@ -64,14 +62,11 @@ export const Navbar = () => {
             </KlButton>
           </Link>
           {/* 登录到后台 */}
-          {/* <Link href={PATHS.SITE_ADMIN} className="flex" target="_blank"> */}
-          <KlButton
-            isIconOnly={true}
-            onClick={() => signIn('github', { redirectTo: PATHS.SITE_ADMIN })}
-          >
-            <IconSelf iconName="icon-[lucide--user-cog]" />
-          </KlButton>
-          {/* </Link> */}
+          <Link href="/auth/sign_in" className="flex">
+            <KlButton isIconOnly={true}>
+              <IconSelf iconName="icon-[lucide--user-cog]" />
+            </KlButton>
+          </Link>
         </div>
       </div>
     </header>
