@@ -5,6 +5,7 @@ import { KlAvatar } from '../ui/avatar'
 import IconSelf from '../icons/icon-self'
 import KlDropdown, { DropdownItemType } from '../ui/dropdown'
 import { useMemo } from 'react'
+import { signOutAndRedirect } from '@/auth/actions'
 
 interface BackendAvatarPropsType {
   src: string
@@ -40,7 +41,10 @@ export const BackendAvatar = ({ src }: BackendAvatarPropsType) => {
       {
         key: 'logout',
         children: (
-          <div className="flex items-center gap-1 text-sm py-1">
+          <div
+            className="flex items-center gap-1 text-sm py-1"
+            onClick={() => signOutAndRedirect()}
+          >
             <IconSelf iconName="icon-[lucide--log-out]" />
             <div>退出登录</div>
           </div>

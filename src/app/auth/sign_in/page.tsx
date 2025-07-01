@@ -3,9 +3,8 @@
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import { PATHS } from '@/constants/path'
 import { clm } from '@/utils'
+import { signInWithGithub } from '@/auth/actions'
 
 export default function SignIn() {
   return (
@@ -24,7 +23,7 @@ export default function SignIn() {
           <KlButton
             fill={true}
             className="w-full py-2 border-0 bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary active:bg-darkBgPrimary dark:active:bg-bgPrimary"
-            onClick={() => signIn('github', { redirectTo: PATHS.SITE_ADMIN })}
+            onClick={() => signInWithGithub()}
           >
             <IconSelf iconName="icon-[fa6-brands--github]" />
             <span>使用 Github 登录</span>
