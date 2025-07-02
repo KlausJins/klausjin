@@ -11,6 +11,7 @@ import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
 import MobileNavbar from '@/components/navbar/mobile-navbar'
+import { PATHS } from '@/constants/path'
 
 export const Navbar = () => {
   const pathname = usePathname()
@@ -62,7 +63,7 @@ export const Navbar = () => {
             </KlButton>
           </Link>
           {/* 登录到后台 */}
-          <Link href="/auth/sign_in" className="flex">
+          <Link href={PATHS.SITE_ADMIN} className="flex">
             <KlButton isIconOnly={true}>
               <IconSelf iconName="icon-[lucide--user-cog]" />
             </KlButton>
