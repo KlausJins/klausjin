@@ -24,8 +24,8 @@ export async function middleware(request: NextRequest) {
 
 async function handleApiValidation() {
   // console.log('handleApiValidation: ', request)
-  const session = await auth()
-  console.log('handleApiValidation: session', session)
+  // const session = await auth()
+  // console.log('handleApiValidation: session', session)
   // 这里实现你的 API 校验逻辑
   // 例如检查请求头、验证 token 等
 

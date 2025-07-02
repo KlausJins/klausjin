@@ -8,9 +8,12 @@ import { usePathname } from 'next/navigation'
 import { ToggleMode } from '@/components/toggleMode'
 import { BACKEND_WEBSITE } from '@/constants/backend-info'
 import { BackendAvatar } from '../backend-avatar'
+import { useSession } from 'next-auth/react'
 
 export const BackendNavbar = () => {
   const pathname = usePathname()
+
+  const { data: session } = useSession()
 
   return (
     <header
@@ -50,10 +53,7 @@ export const BackendNavbar = () => {
         {/* 明暗模式 */}
         <div className="flex items-center justify-between gap-6">
           <ToggleMode />
-          <BackendAvatar
-            src="https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Colm Tuite"
-          />
+          <BackendAvatar session={session} alt="Colm Tuite" />
         </div>
       </div>
     </header>

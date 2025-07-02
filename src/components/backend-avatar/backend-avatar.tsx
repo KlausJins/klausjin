@@ -5,21 +5,22 @@ import { KlAvatar } from '../ui/avatar'
 import IconSelf from '../icons/icon-self'
 import KlDropdown, { DropdownItemType } from '../ui/dropdown'
 import { useMemo } from 'react'
-import { signOutAndRedirect } from '@/auth/actions'
+import { signOutAndRedirect } from '@/actions/auth'
+import type { Session } from 'next-auth'
 
 interface BackendAvatarPropsType {
-  src: string
+  session?: Session | null
   alt: string
 }
 
-export const BackendAvatar = ({ src }: BackendAvatarPropsType) => {
+export const BackendAvatar = ({ session }: BackendAvatarPropsType) => {
   const AvatarDropdownTrigger = useMemo(
     () => (
       <KlButton className="border-0 p-0 rounded-full" isIconOnly={true}>
-        <KlAvatar src={src} radius="sm" />
+        <KlAvatar src={session?.user.image || ''} radius="sm" />
       </KlButton>
     ),
-    [src]
+    [session]
   )
 
   const AvatarDropdownitems: DropdownItemType[] = useMemo(
@@ -30,10 +31,13 @@ export const BackendAvatar = ({ src }: BackendAvatarPropsType) => {
         showDivider: true,
         children: (
           <div className="flex items-center gap-2 p-2">
-            <KlAvatar src={src} base_className="hover:cursor-default rounded-full" />
+            <KlAvatar
+              src={session?.user.image || ''}
+              base_className="hover:cursor-default rounded-full"
+            />
             <div className="felx flex-col justify-between">
-              <div className="text-sm font-black ">KlausJin</div>
-              <div className="text-xs ">KlausJin@gmail.com</div>
+              <div className="text-sm font-black ">{session?.user.name || '用户名称'}</div>
+              <div className="text-xs ">{session?.user.email || 'user@gmail.com'}</div>
             </div>
           </div>
         )
@@ -51,7 +55,7 @@ export const BackendAvatar = ({ src }: BackendAvatarPropsType) => {
         )
       }
     ],
-    [src]
+    [session]
   )
 
   return (

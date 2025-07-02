@@ -16,6 +16,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  role          String          @default("user") // 默认角色为user
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 

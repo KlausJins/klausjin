@@ -4,7 +4,7 @@ import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import Link from 'next/link'
 import { clm } from '@/utils'
-import { signInWithGithub } from '@/auth/actions'
+import { signInWithGithub } from '@/actions/auth'
 
 export default function SignIn() {
   return (
