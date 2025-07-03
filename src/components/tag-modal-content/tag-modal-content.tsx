@@ -1,6 +1,6 @@
 'use client'
 
-import { isSVGString, svgToDataURL } from '@/utils'
+import { svgToDataURL } from '@/utils'
 import KlButton from '../ui/button'
 import KlField from '../ui/field'
 import KlTextarea from '../ui/textarea'
@@ -12,16 +12,12 @@ export const TagModalContent = () => {
 
   // 浅色标签转换数据格式方法
   const lightIconTurnToDataUrl = useCallback(() => {
-    if (isSVGString(lightIconStr)) {
-      setLightIconStr(svgToDataURL(lightIconStr))
-    }
+    setLightIconStr(svgToDataURL(lightIconStr))
   }, [lightIconStr, setLightIconStr])
 
   // 深色标签转换数据格式方法
   const darkIconTurnToDataUrl = useCallback(() => {
-    if (isSVGString(darkIconStr)) {
-      setDarkIconStr(svgToDataURL(darkIconStr))
-    }
+    setDarkIconStr(svgToDataURL(darkIconStr))
   }, [darkIconStr, setDarkIconStr])
 
   return (

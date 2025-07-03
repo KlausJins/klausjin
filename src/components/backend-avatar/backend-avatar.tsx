@@ -32,7 +32,7 @@ export const BackendAvatar = ({ session }: BackendAvatarPropsType) => {
         children: (
           <div className="flex items-center gap-2 p-2">
             <KlAvatar
-              src={session?.user.image || ''}
+              src={session?.user?.image || ''}
               base_className="hover:cursor-default rounded-full"
             />
             <div className="felx flex-col justify-between">
