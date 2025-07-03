@@ -95,7 +95,12 @@ export default function KlModal(props: KlModalProps) {
               <ModalFooter>
                 {/* 取消按钮 */}
                 {showCancelButton && (
-                  <Button color="danger" variant="light" onPress={() => onCancel(onClose)}>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    className="h-auto"
+                    onPress={() => onCancel(onClose)}
+                  >
                     {cancelName}
                   </Button>
                 )}
