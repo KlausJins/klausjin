@@ -16,6 +16,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Note          Note[]
+  Tag           Tag[]
   role          String          @default("user") // 默认角色为user
   // Optional for WebAuthn support
   Authenticator Authenticator[]
@@ -77,4 +79,39 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+// 业务表
+// 标签
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  icon      String?  @db.Text
+  iconDark  String?  @db.Text
+  // 关联用户id
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  notes     Note[]
+
+  User User @relation(fields: [userId], references: [id])
+}
+
+// 笔记
+model Note {
+  id          String   @id @default(cuid())
+  title       String   @unique
+  description String
+  content     String   @db.Text
+  cover       String?
+  author      String?
+  published   Boolean  @default(false)
+  // 关联用户id
+  userId      String
+  tagIds      String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Tag       Tag      @relation(fields: [tagIds], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
 }

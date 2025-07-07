@@ -1,3 +1,5 @@
+'use server'
+
 import { prisma } from '@/lib/prisma'
 import { User } from 'next-auth'
 
@@ -7,4 +9,13 @@ export const setAdmin = async (user: User) => {
     where: { email: user.email! },
     data: { role: 'admin' }
   })
+}
+
+// 获取当前用户的id
+export const getCurrentUserId = async (email: string) => {
+  const user = await prisma.user.findFirst({
+    where: { email }
+  })
+
+  return user?.id
 }

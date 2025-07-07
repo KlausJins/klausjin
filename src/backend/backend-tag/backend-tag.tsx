@@ -95,12 +95,11 @@ export const BackendTag = () => {
         open={openCreateTag}
         setOpen={setOpenCreateTag}
         title="创建标签"
-        content={<TagModalContent />}
+        content={<TagModalContent closeModal={() => setOpenCreateTag(false)} />}
         isTitleCenter={true}
         size="2xl"
         showCancelButton={false}
-        confirmName="创建"
-        successCallback={() => console.log('创建标签')}
+        showConfirmButton={false}
       />
     </div>
   )

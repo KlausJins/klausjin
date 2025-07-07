@@ -9,11 +9,37 @@ import { ToggleMode } from '@/components/toggleMode'
 import { BACKEND_WEBSITE } from '@/constants/backend-info'
 import { BackendAvatar } from '../backend-avatar'
 import { useSession } from 'next-auth/react'
+import { useDispatch } from 'react-redux'
+import { setUserSession } from '@/store/features/user-slice'
+import { AppDispatch, RootState } from '@/store'
+import { useEffect } from 'react'
+import { getCurrentUserId } from '@/actions/backend'
+import { useSelector } from 'react-redux'
 
 export const BackendNavbar = () => {
   const pathname = usePathname()
-
   const { data: session } = useSession()
+  // 获取user的store信息
+  const userStore = useSelector((state: RootState) => state.user)
+  // 获取store实例
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    ;(async () => {
+      if (session && !userStore.id) {
+        const userId = await getCurrentUserId(session.user.email as string)
+
+        const user = {
+          id: userId,
+          name: session.user.name || '',
+          email: session.user.email || '',
+          image: session.user.image || '',
+          role: session.user.role || ''
+        }
+        dispatch(setUserSession(user))
+      }
+    })()
+  }, [session])
 
   return (
     <header
@@ -53,7 +79,7 @@ export const BackendNavbar = () => {
         {/* 明暗模式 */}
         <div className="flex items-center justify-between gap-6">
           <ToggleMode />
-          <BackendAvatar session={session} alt="Colm Tuite" />
+          <BackendAvatar />
         </div>
       </div>
     </header>

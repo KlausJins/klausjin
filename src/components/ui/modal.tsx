@@ -13,7 +13,7 @@ import React, { ReactNode, useEffect } from 'react'
 import KlButton from './button'
 import { clm } from '@/utils'
 
-interface KlModalProps {
+interface KlModalProps<ST, CT> {
   children?: ReactNode
   title?: string
   content?: ReactNode
@@ -25,11 +25,11 @@ interface KlModalProps {
   confirmName?: string
   cancelName?: string
   isTitleCenter?: boolean
-  successCallback?: () => void
-  cancelCallback?: () => void
+  successCallback?: (SE?: any) => void
+  cancelCallback?: (CE?: any) => void
 }
 
-export default function KlModal(props: KlModalProps) {
+export default function KlModal<SE, CE>(props: KlModalProps<SE, CE>) {
   const {
     children,
     title = '提示',
@@ -45,25 +45,29 @@ export default function KlModal(props: KlModalProps) {
     successCallback,
     cancelCallback
   } = props
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
 
   // 成功回调
   const onAction = (onClose: () => void) => {
     if (successCallback) successCallback()
     onClose()
-    setOpen(false)
+    // setOpen(false)
   }
 
   // 失败回调
   const onCancel = (onClose: () => void) => {
     if (cancelCallback) cancelCallback()
     onClose()
-    setOpen(false)
+    // setOpen(false)
   }
 
   // 处理外部传入的open状态
   useEffect(() => {
-    if (open) onOpen()
+    if (open) {
+      onOpen()
+    } else {
+      onClose()
+    }
   }, [open, onOpen])
 
   // 处理内部的isOpen状态，使其余关闭效果正常
