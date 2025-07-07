@@ -10,9 +10,10 @@ import { useToast } from '@/hooks'
 import { createTag, hasRepeatTag } from '@/actions/backend/backend-tag'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import KlForm from '../ui/form'
 
 export interface TagContentProps {
-  closeModal: () => void
+  closeModal?: () => void
 }
 
 export const TagModalContent = ({ closeModal }: TagContentProps) => {
@@ -63,7 +64,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
       })
 
       // 关闭弹窗
-      closeModal()
+      closeModal && closeModal()
 
       Toast({ type: 'success', description: '标签创建成功' })
     },
@@ -72,7 +73,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
+      <KlForm onSubmit={onSubmit}>
         <div className="w-full mb-8 flex flex-col gap-8">
           <KlField
             label="名称"
@@ -141,10 +142,10 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
         </div>
         <div className="w-full bg-bgPrimary dark:bg-darkBgPrimary absolute bottom-0 left-0 pt-2 pb-4 px-6 flex justify-end">
           <KlButton fill={true} type="submit">
-            创建标签
+            提交
           </KlButton>
         </div>
-      </Form>
+      </KlForm>
     </>
   )
 }

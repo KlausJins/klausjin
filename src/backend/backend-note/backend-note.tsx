@@ -120,7 +120,7 @@ export const BackendNote = () => {
         content={<NoteModalContent />}
         size="full"
         showCancelButton={false}
-        confirmName="创建"
+        showConfirmButton={false}
         successCallback={() => console.log('创建标签')}
       />
     </div>

@@ -81,7 +81,6 @@ export default function KlModal<SE, CE, OC>(props: KlModalProps<SE, CE, OC>) {
   const onModalChange = useCallback(
     (open: boolean) => {
       onOpenChange()
-      console.log('onModalChange open: ', open)
       if (!open && onCloseCallback) onCloseCallback()
     },
     [onOpenChange, onCloseCallback]
