@@ -14,6 +14,8 @@ export const BackendTag = () => {
   const Toast = useToast()
   // 提示框状态
   const [open, setOpen] = useState(false)
+  // 标签模态框标题
+  const [tagModalTitle, setTagModalTitle] = useState('创建标签')
   // 创建标签模态框状态
   const [openCreateTag, setOpenCreateTag] = useState(false)
   // 标签表格实例
@@ -80,7 +82,13 @@ export const BackendTag = () => {
       </div>
 
       {/* 表格 */}
-      <TagTable ref={TagTableRef} />
+      <TagTable
+        ref={TagTableRef}
+        openEditTagModal={() => {
+          setTagModalTitle('编辑标签')
+          setOpenCreateTag(true)
+        }}
+      />
 
       {/* modal提示框 */}
       <KlModal
@@ -94,12 +102,14 @@ export const BackendTag = () => {
       <KlModal
         open={openCreateTag}
         setOpen={setOpenCreateTag}
-        title="创建标签"
+        title={tagModalTitle}
         content={<TagModalContent closeModal={() => setOpenCreateTag(false)} />}
         isTitleCenter={true}
         size="2xl"
         showCancelButton={false}
         showConfirmButton={false}
+        // modal关闭时，恢复默认标题
+        onCloseCallback={() => setTagModalTitle('创建标签')}
       />
     </div>
   )

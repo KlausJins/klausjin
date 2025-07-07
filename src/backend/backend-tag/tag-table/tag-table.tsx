@@ -189,7 +189,11 @@ export interface TagTableHandle {
   allRowKeys: number[]
 }
 
-export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
+export interface TagTableProps {
+  openEditTagModal: () => void
+}
+
+export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTagModal }, ref) => {
   const Toast = useToast()
   // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
@@ -241,9 +245,17 @@ export const TagTable = forwardRef<TagTableHandle>((_props, ref) => {
       case 'actions':
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <KlButton isIconOnly={true}>
+            {/* 编辑按钮 */}
+            <KlButton
+              isIconOnly={true}
+              onPress={() => {
+                openEditTagModal()
+                setCurrentID(datas.id)
+              }}
+            >
               <IconSelf iconName="icon-[lucide--edit-2]" />
             </KlButton>
+            {/* 删除按钮 */}
             <KlButton
               isIconOnly={true}
               onPress={() => {

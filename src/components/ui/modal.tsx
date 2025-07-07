@@ -9,11 +9,11 @@ import {
   Button,
   useDisclosure
 } from '@heroui/react'
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useCallback, useEffect } from 'react'
 import KlButton from './button'
 import { clm } from '@/utils'
 
-interface KlModalProps<ST, CT> {
+interface KlModalProps<ST, CT, OC> {
   children?: ReactNode
   title?: string
   content?: ReactNode
@@ -27,9 +27,10 @@ interface KlModalProps<ST, CT> {
   isTitleCenter?: boolean
   successCallback?: (SE?: any) => void
   cancelCallback?: (CE?: any) => void
+  onCloseCallback?: (OC?: any) => void
 }
 
-export default function KlModal<SE, CE>(props: KlModalProps<SE, CE>) {
+export default function KlModal<SE, CE, OC>(props: KlModalProps<SE, CE, OC>) {
   const {
     children,
     title = '提示',
@@ -43,7 +44,8 @@ export default function KlModal<SE, CE>(props: KlModalProps<SE, CE>) {
     cancelName = '取消',
     isTitleCenter = false,
     successCallback,
-    cancelCallback
+    cancelCallback,
+    onCloseCallback
   } = props
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
 
@@ -75,12 +77,22 @@ export default function KlModal<SE, CE>(props: KlModalProps<SE, CE>) {
     setOpen(isOpen)
   }, [isOpen, setOpen])
 
+  // 当modal关闭时，调用外部传入的onCloseCallback
+  const onModalChange = useCallback(
+    (open: boolean) => {
+      onOpenChange()
+      console.log('onModalChange open: ', open)
+      if (!open && onCloseCallback) onCloseCallback()
+    },
+    [onOpenChange, onCloseCallback]
+  )
+
   return (
     <>
       {children}
       <Modal
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={onModalChange}
         size={size}
         className=""
         classNames={{
