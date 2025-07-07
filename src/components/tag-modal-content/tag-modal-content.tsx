@@ -50,12 +50,10 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
 
       // 如果图标为svg，则自动转为data url
       if (data.icon && isSVGString(data.icon as string)) {
-        console.log('data.icon: ', data.icon)
-        svgToDataURL(data.icon as string)
+        data.icon = svgToDataURL(data.icon as string)
       }
       if (data.darkIcon && isSVGString(data.darkIcon as string)) {
-        console.log('data.darkIcon: ', data.darkIcon)
-        svgToDataURL(data.darkIcon as string)
+        data.darkIcon = svgToDataURL(data.darkIcon as string)
       }
 
       // 创建标签
