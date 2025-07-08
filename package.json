@@ -33,6 +33,7 @@
     "bytemd": "^1.22.0",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^12.17.3",
     "geist": "^1.4.2",
     "highlight.js": "^11.11.1",

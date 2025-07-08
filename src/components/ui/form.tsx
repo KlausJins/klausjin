@@ -1,15 +1,16 @@
+import { Form, PropsOf } from '@heroui/react'
 import React from 'react'
 
-interface FormPropsType extends React.FormHTMLAttributes<HTMLFormElement> {
+interface FormPropsType extends PropsOf<typeof Form> {
   children?: React.ReactNode
 }
 
 const KlForm = React.forwardRef<HTMLFormElement, FormPropsType>((props, ref) => {
-  const { children, ...rest } = props
+  const { children, onSubmit, ...rest } = props
   return (
-    <form ref={ref} {...rest}>
+    <Form ref={ref} {...rest} onSubmit={onSubmit}>
       {children}
-    </form>
+    </Form>
   )
 })
 KlForm.displayName = 'KlForm'

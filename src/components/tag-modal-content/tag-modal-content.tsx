@@ -34,6 +34,17 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
     setDarkIconStr(svgToDataURL(darkIconStr))
   }, [darkIconStr, setDarkIconStr])
 
+  // 校验标签格式
+  const validateTagIcon = useCallback((value: string) => {
+    if (
+      !isSVGString(value) &&
+      !value.startsWith('data:image/svg+xml') &&
+      !value.startsWith('http')
+    ) {
+      return '标签图标格式不对，必须为svg字符串或者data url或者一个图片地址'
+    }
+  }, [])
+
   // 提交表单信息
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,13 +104,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
               placeholder="请输入一个svg字符串（会自动转换为data url）或者data url或者一个
           图片地址"
               value={lightIconStr}
-              validate={(value) => {
-                if (value.length < 3) {
-                  return 'Username must be at least 3 characters long'
-                }
-
-                return value === 'admin' ? 'Nice try!' : null
-              }}
+              validate={(value) => validateTagIcon(value)}
               onChange={(e) => setLightIconStr(e.target.value)}
               onClear={() => setLightIconStr('')}
             />
@@ -121,13 +126,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
               placeholder="请输入一个svg字符串（会自动转换为data url）或者data url或者一个
           图片地址"
               value={darkIconStr}
-              validate={(value) => {
-                if (value.length < 3) {
-                  return 'Username must be at least 3 characters long'
-                }
-
-                return value === 'admin' ? 'Nice try!' : null
-              }}
+              validate={(value) => validateTagIcon(value)}
               onChange={(e) => setDarkIconStr(e.target.value)}
               onClear={() => setDarkIconStr('')}
             />

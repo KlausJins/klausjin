@@ -31,3 +31,23 @@ export const createTag = async (tagInfo: { [k: string]: FormDataEntryValue }) =>
     }
   })
 }
+
+// 查询所有标签数据
+export const searchTags = async (name?: string) => {
+  return prisma.tag.findMany({
+    select: {
+      id: true,
+      name: true,
+      icon: true,
+      iconDark: true,
+      createdAt: true,
+      updatedAt: true
+    },
+    where: {
+      name: {
+        contains: name,
+        mode: 'insensitive' // 不区分大小写
+      }
+    }
+  })
+}

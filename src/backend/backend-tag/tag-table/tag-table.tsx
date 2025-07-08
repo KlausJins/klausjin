@@ -1,10 +1,10 @@
 'use client'
 
-import React, { forwardRef, useCallback, useImperativeHandle } from 'react'
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo } from 'react'
 import { Selection } from '@heroui/react'
 import KlButton from '@/components/ui/button'
 import IconSelf from '@/components/icons/icon-self'
-import { clm } from '@/utils'
+import { clm, formatChineseDateTime } from '@/utils'
 import {
   KlTable,
   KlTableBody,
@@ -17,161 +17,7 @@ import { KlPagination } from '@/components/ui/pagination'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-
-export const columns = [
-  { children: 'ID', uid: 'id' },
-  {
-    uid: 'tagName',
-    children: (
-      <div className="flex items-center gap-1 text-[14px]">
-        <IconSelf iconName="icon-[lucide--type]" />
-        <div>名称</div>
-      </div>
-    )
-  },
-  {
-    uid: 'lightIcon',
-    children: (
-      <div className="flex items-center gap-1 text-[14px]">
-        <IconSelf iconName="icon-[lucide--image]" />
-        <div>浅色标签</div>
-      </div>
-    )
-  },
-  {
-    uid: 'darkIcon',
-    children: (
-      <div className="flex items-center gap-1 text-[14px]  font-semibold">
-        <IconSelf iconName="icon-[lucide--image]" />
-        <div>深色标签</div>
-      </div>
-    )
-  },
-  {
-    uid: 'createTime',
-    children: (
-      <KlButton
-        className={clm(
-          'gap-1 text-[14px] border-0 h-8 font-semibold',
-          'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
-        )}
-      >
-        <IconSelf iconName="icon-[lucide--calendar]" />
-        <div>创建时间</div>
-        {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
-        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
-      </KlButton>
-    )
-  },
-  {
-    uid: 'updateTime',
-    children: (
-      <KlButton
-        className={clm(
-          'gap-1 text-[14px] border-0 h-8 font-semibold',
-          'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
-        )}
-      >
-        <IconSelf iconName="icon-[lucide--calendar]" />
-        <div>更新时间</div>
-        {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
-        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
-      </KlButton>
-    )
-  },
-  { children: '', uid: 'actions' }
-]
-
-export const datas = [
-  {
-    id: 1,
-    tagName: 'Vue',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年10月7日 星期一 22:56:54',
-    updateTime: '2024年10月7日 星期一 22:56:54'
-  },
-  {
-    id: 2,
-    tagName: 'iOS',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年6月25日 星期二 19:48:34',
-    updateTime: '2024年6月25日 星期二 19:48:34'
-  },
-  {
-    id: 3,
-    tagName: 'Xcode',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年6月25日 星期二 19:48:24',
-    updateTime: '2024年6月25日 星期二 19:48:24'
-  },
-  {
-    id: 4,
-    tagName: '项目工程化',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年5月22日 星期三 23:36:25',
-    updateTime: '2024年5月22日 星期三 23:36:25'
-  },
-  {
-    id: 5,
-    tagName: '名词解释',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年5月19日 星期日 22:27:12',
-    updateTime: '2024年5月19日 星期日 22:27:12'
-  },
-  {
-    id: 6,
-    tagName: 'Flutter',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年4月27日 星期六 15:12:30',
-    updateTime: '2024年4月27日 星期六 15:12:30'
-  },
-  {
-    id: 7,
-    tagName: 'Caddy',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年4月3日 星期三 17:02:47',
-    updateTime: '2024年4月3日 星期三 17:02:47'
-  },
-  {
-    id: 8,
-    tagName: 'Docker',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年4月1日 星期一 13:23:30',
-    updateTime: '2024年4月1日 星期一 13:23:30'
-  },
-  {
-    id: 9,
-    tagName: 'Git',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年3月31日 星期日 12:37:39',
-    updateTime: '2024年3月31日 星期日 12:37:39'
-  },
-  {
-    id: 10,
-    tagName: 'Rocky Linux',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年3月28日 星期四 22:57:06',
-    updateTime: '2024年3月28日 星期四 22:57:06'
-  },
-  {
-    id: 11,
-    tagName: 'NextAuth.js',
-    lightIcon: 'N/A',
-    darkIcon: 'N/A',
-    createTime: '2024年3月27日 星期三 21:41:31',
-    updateTime: '2024年3月27日 星期三 21:41:31'
-  }
-]
+import { searchTags } from '@/actions/backend/backend-tag'
 
 const INITIAL_VISIBLE_COLUMNS = [
   'tagName',
@@ -182,11 +28,18 @@ const INITIAL_VISIBLE_COLUMNS = [
   'actions'
 ]
 
-type Datas = (typeof datas)[0]
+type Datas = {
+  id: string
+  tagName: string
+  lightIcon: string | null
+  darkIcon: string | null
+  createTime: string
+  updateTime: string
+}
 
 export interface TagTableHandle {
   selectedKeys: 'all' | Iterable<React.Key> | undefined
-  allRowKeys: number[]
+  allRowKeys: string[]
 }
 
 export interface TagTableProps {
@@ -195,12 +48,14 @@ export interface TagTableProps {
 
 export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTagModal }, ref) => {
   const Toast = useToast()
+  // 表格数据
+  const [tagInfos, setTagInfos] = React.useState<Datas[]>([])
   // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
   // 获取当前点击actions时表格的key
-  const [currentID, setCurrentID] = React.useState<number | null>(null)
+  const [currentID, setCurrentID] = React.useState<string | null>(null)
   // 提示框状态
   const [open, setOpen] = React.useState(false)
   // 表格每页的行数
@@ -208,13 +63,100 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   // 表格当前页码
   const [page, setPage] = React.useState(1)
   // 表格总页数
-  const pages = Math.ceil(datas.length / rowsPerPage) || 1
+  const pages = Math.ceil(tagInfos.length / rowsPerPage) || 1
 
   // 暴露给父组件的变量和方法
   useImperativeHandle(ref, () => ({
     selectedKeys,
-    allRowKeys: datas.map((row) => row.id)
+    allRowKeys: tagInfos.map((row) => row.id)
   }))
+
+  // 首次展示加载所有tag数据
+  useEffect(() => {
+    searchTags().then((res) => {
+      console.log('searchTags res: ', res)
+      const res_info = res.map((item) => {
+        return {
+          id: item.id,
+          tagName: item.name,
+          lightIcon: item.icon,
+          darkIcon: item.iconDark,
+          createTime: formatChineseDateTime(item.createdAt),
+          updateTime: formatChineseDateTime(item.updatedAt)
+        }
+      })
+
+      setTagInfos(res_info)
+    })
+  }, [setTagInfos])
+
+  // 每一列的样式格式设置
+  const columns = useMemo(
+    () => [
+      { children: 'ID', uid: 'id' },
+      {
+        uid: 'tagName',
+        children: (
+          <div className="flex items-center gap-1 text-[14px]">
+            <IconSelf iconName="icon-[lucide--type]" />
+            <div>名称</div>
+          </div>
+        )
+      },
+      {
+        uid: 'lightIcon',
+        children: (
+          <div className="flex items-center gap-1 text-[14px]">
+            <IconSelf iconName="icon-[lucide--image]" />
+            <div>浅色标签</div>
+          </div>
+        )
+      },
+      {
+        uid: 'darkIcon',
+        children: (
+          <div className="flex items-center gap-1 text-[14px]  font-semibold">
+            <IconSelf iconName="icon-[lucide--image]" />
+            <div>深色标签</div>
+          </div>
+        )
+      },
+      {
+        uid: 'createTime',
+        children: (
+          <KlButton
+            className={clm(
+              'gap-1 text-[14px] border-0 h-8 font-semibold',
+              'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
+            )}
+          >
+            <IconSelf iconName="icon-[lucide--calendar]" />
+            <div>创建时间</div>
+            {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
+        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
+          </KlButton>
+        )
+      },
+      {
+        uid: 'updateTime',
+        children: (
+          <KlButton
+            className={clm(
+              'gap-1 text-[14px] border-0 h-8 font-semibold',
+              'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
+            )}
+          >
+            <IconSelf iconName="icon-[lucide--calendar]" />
+            <div>更新时间</div>
+            {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
+        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
+          </KlButton>
+        )
+      },
+      { children: '', uid: 'actions' }
+    ],
+    []
+  )
 
   // 处理表格删除事件
   const ModalHandler = useCallback(() => {
@@ -234,8 +176,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
     const start = (page - 1) * rowsPerPage
     const end = start + rowsPerPage
 
-    return datas.slice(start, end)
-  }, [page, rowsPerPage])
+    return tagInfos.slice(start, end)
+  }, [page, rowsPerPage, tagInfos])
 
   // 表格行单元格的渲染设置方法
   const renderCell = React.useCallback((datas: Datas, columnKey: React.Key) => {
@@ -267,6 +209,16 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
             </KlButton>
           </div>
         )
+      case 'lightIcon':
+        return (
+          <div className="flex flex-col w-8">{cellValue ? <img src={cellValue} /> : 'N/A'}</div>
+        )
+      case 'darkIcon':
+        return (
+          <div className="flex flex-col w-8">
+            <div className="flex flex-col w-8">{cellValue ? <img src={cellValue} /> : 'N/A'}</div>
+          </div>
+        )
       default:
         return (
           <div className="flex flex-col">
@@ -288,8 +240,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-secondary dark:text-darksecondary">
           {selectedKeys === 'all'
-            ? `已全选，总共 ${datas.length} 项`
-            : `已选择 ${selectedKeys.size} 项，总共 ${datas.length} 项`}
+            ? `已全选，总共 ${tagInfos.length} 项`
+            : `已选择 ${selectedKeys.size} 项，总共 ${tagInfos.length} 项`}
         </span>
         <div className="flex gap-10 justify-end items-center min-w-100">
           <KlPagination page={page} total={pages} onChange={setPage} />
