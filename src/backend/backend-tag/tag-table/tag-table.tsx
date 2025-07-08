@@ -52,6 +52,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   const Toast = useToast()
   // 表格数据
   const [tagInfos, setTagInfos] = React.useState<Datas[]>([])
+  // 是否正在加载表格数据
+  const [isLoading, setIsLoading] = React.useState<Boolean>(false)
   // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
   // 实际显示的行表头属性值
@@ -75,6 +77,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
   // 首次展示加载所有tag数据
   useEffect(() => {
+    setIsLoading(true)
+
     searchTags().then((res) => {
       console.log('searchTags res: ', res)
       const res_info = res.map((item) => {
@@ -88,7 +92,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         }
       })
 
-      // setTagInfos(res_info)
+      setIsLoading(false)
+      setTagInfos(res_info)
     })
   }, [setTagInfos])
 
@@ -277,7 +282,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         </KlTableHeader>
         <KlTableBody
           emptyContent={<EmptyContent />}
-          isLoading={false}
+          isLoading={isLoading as boolean}
           loadingContent={<TableSkeleton />}
           items={items}
         >
