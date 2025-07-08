@@ -58,7 +58,7 @@ export const BackendAvatar = () => {
         )
       }
     ],
-    [user]
+    [dispatch, user]
   )
 
   return (

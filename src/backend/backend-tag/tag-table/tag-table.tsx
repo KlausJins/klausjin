@@ -53,7 +53,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   // 表格数据
   const [tagInfos, setTagInfos] = React.useState<Datas[]>([])
   // 是否正在加载表格数据
-  const [isLoading, setIsLoading] = React.useState<Boolean>(false)
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
   // 表格行选择的keys
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
   // 实际显示的行表头属性值
@@ -176,7 +176,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
     if (visibleColumns === 'all') return columns
 
     return columns.filter((column) => Array.from(visibleColumns).includes(column.uid))
-  }, [visibleColumns])
+  }, [columns, visibleColumns])
 
   // 处理后的表格行数据
   const items = React.useMemo(() => {
@@ -187,53 +187,60 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   }, [page, rowsPerPage, tagInfos])
 
   // 表格行单元格的渲染设置方法
-  const renderCell = React.useCallback((datas: Datas, columnKey: React.Key) => {
-    const cellValue = datas[columnKey as keyof Datas]
+  const renderCell = React.useCallback(
+    (datas: Datas, columnKey: React.Key) => {
+      const cellValue = datas[columnKey as keyof Datas]
 
-    switch (columnKey) {
-      case 'actions':
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            {/* 编辑按钮 */}
-            <KlButton
-              isIconOnly={true}
-              onPress={() => {
-                openEditTagModal()
-                setCurrentID(datas.id)
-              }}
-            >
-              <IconSelf iconName="icon-[lucide--edit-2]" />
-            </KlButton>
-            {/* 删除按钮 */}
-            <KlButton
-              isIconOnly={true}
-              onPress={() => {
-                setOpen(true)
-                setCurrentID(datas.id)
-              }}
-            >
-              <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
-            </KlButton>
-          </div>
-        )
-      case 'lightIcon':
-        return (
-          <div className="flex flex-col w-8">{cellValue ? <img src={cellValue} /> : 'N/A'}</div>
-        )
-      case 'darkIcon':
-        return (
-          <div className="flex flex-col w-8">
-            <div className="flex flex-col w-8">{cellValue ? <img src={cellValue} /> : 'N/A'}</div>
-          </div>
-        )
-      default:
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        )
-    }
-  }, [])
+      switch (columnKey) {
+        case 'actions':
+          return (
+            <div className="relative flex justify-end items-center gap-2">
+              {/* 编辑按钮 */}
+              <KlButton
+                isIconOnly={true}
+                onPress={() => {
+                  openEditTagModal()
+                  setCurrentID(datas.id)
+                }}
+              >
+                <IconSelf iconName="icon-[lucide--edit-2]" />
+              </KlButton>
+              {/* 删除按钮 */}
+              <KlButton
+                isIconOnly={true}
+                onPress={() => {
+                  setOpen(true)
+                  setCurrentID(datas.id)
+                }}
+              >
+                <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
+              </KlButton>
+            </div>
+          )
+        case 'lightIcon':
+          return (
+            <div className="flex flex-col w-8">
+              {cellValue ? <img src={cellValue} alt="" /> : 'N/A'}
+            </div>
+          )
+        case 'darkIcon':
+          return (
+            <div className="flex flex-col w-8">
+              <div className="flex flex-col w-8">
+                {cellValue ? <img src={cellValue} alt="" /> : 'N/A'}
+              </div>
+            </div>
+          )
+        default:
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">{cellValue}</p>
+            </div>
+          )
+      }
+    },
+    [openEditTagModal]
+  )
 
   // 分页器条数设置方法
   const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -256,7 +263,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         </div>
       </div>
     )
-  }, [selectedKeys, onRowsPerPageChange, page, pages])
+  }, [tagInfos.length, selectedKeys, onRowsPerPageChange, page, pages])
 
   return (
     <>

@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface TagStateProps {}
+interface TagStateProps {
+  name: string
+}
 
-const initialState: TagStateProps = {}
+const initialState: TagStateProps = { name: '' }
 
 export const backendTagSlice = createSlice({
   name: 'backendTag',

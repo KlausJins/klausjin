@@ -22,8 +22,7 @@ export const EmptyContent = ({ width = '400' }: EmptyContentProps) => {
       setSecondFColor('#71717A')
       // setSecondFColor('#A1A1AA')
     }
-    console.log('fillColor: ', fillColor)
-  }, [resolvedTheme])
+  }, [resolvedTheme, setFillColor, setSecondFColor])
 
   return (
     <div className="flex flex-col justify-center items-center h-full">

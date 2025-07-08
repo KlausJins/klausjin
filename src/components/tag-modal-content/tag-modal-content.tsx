@@ -5,12 +5,11 @@ import KlButton from '../ui/button'
 import KlField from '../ui/field'
 import KlTextarea from '../ui/textarea'
 import { useCallback, useState } from 'react'
-import { Form } from '@heroui/react'
 import { useToast } from '@/hooks'
 import { createTag, hasRepeatTag } from '@/actions/backend/backend-tag'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
-import KlForm from '../ui/form'
+import KlForm from '@/components/ui/form'
 
 export interface TagContentProps {
   closeModal?: () => void
@@ -75,11 +74,11 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
       })
 
       // 关闭弹窗
-      closeModal && closeModal()
+      if (closeModal) closeModal()
 
       Toast({ type: 'success', description: '标签创建成功' })
     },
-    [userStore, closeModal]
+    [userStore, closeModal, Toast]
   )
 
   return (

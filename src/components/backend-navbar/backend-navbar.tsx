@@ -39,7 +39,7 @@ export const BackendNavbar = () => {
         dispatch(setUserSession(user))
       }
     })()
-  }, [session])
+  }, [dispatch, session, userStore.id])
 
   return (
     <header

@@ -13,7 +13,7 @@ import React, { ReactNode, useCallback, useEffect } from 'react'
 import KlButton from './button'
 import { clm } from '@/utils'
 
-interface KlModalProps<ST, CT, OC> {
+interface KlModalProps {
   children?: ReactNode
   title?: string
   content?: ReactNode
@@ -25,12 +25,12 @@ interface KlModalProps<ST, CT, OC> {
   confirmName?: string
   cancelName?: string
   isTitleCenter?: boolean
-  successCallback?: (SE?: any) => void
-  cancelCallback?: (CE?: any) => void
-  onCloseCallback?: (OC?: any) => void
+  successCallback?: () => void
+  cancelCallback?: () => void
+  onCloseCallback?: () => void
 }
 
-export default function KlModal<SE, CE, OC>(props: KlModalProps<SE, CE, OC>) {
+export default function KlModal(props: KlModalProps) {
   const {
     children,
     title = '提示',
@@ -70,7 +70,7 @@ export default function KlModal<SE, CE, OC>(props: KlModalProps<SE, CE, OC>) {
     } else {
       onClose()
     }
-  }, [open, onOpen])
+  }, [open, onOpen, onClose])
 
   // 处理内部的isOpen状态，使其余关闭效果正常
   useEffect(() => {
