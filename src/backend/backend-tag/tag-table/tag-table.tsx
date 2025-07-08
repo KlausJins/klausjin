@@ -18,6 +18,8 @@ import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { searchTags } from '@/actions/backend/backend-tag'
+import { TableSkeleton } from '@/components/ui/table-skeleton'
+import { EmptyContent } from '@/components/icons/empty-content'
 
 const INITIAL_VISIBLE_COLUMNS = [
   'tagName',
@@ -86,7 +88,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         }
       })
 
-      setTagInfos(res_info)
+      // setTagInfos(res_info)
     })
   }, [setTagInfos])
 
@@ -273,7 +275,12 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
             </KlTableColumn>
           )}
         </KlTableHeader>
-        <KlTableBody emptyContent={'No users found'} items={items}>
+        <KlTableBody
+          emptyContent={<EmptyContent />}
+          isLoading={false}
+          loadingContent={<TableSkeleton />}
+          items={items}
+        >
           {(item) => (
             <KlTableRow key={item.id}>
               {(columnKey) => <KlTableCell>{renderCell(item, columnKey)}</KlTableCell>}

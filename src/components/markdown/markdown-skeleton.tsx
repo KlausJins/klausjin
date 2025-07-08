@@ -4,20 +4,20 @@ export const MarkdownSkeleton = () => {
       <div className="flex flex-col animate-pulse space-x-4">
         {/* 文档基本信息 */}
         <div className="flex-1 space-y-8 py-1 mb-20">
-          <div className="h-10 w-[40vw] rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
+          <div className="h-10 w-[40vw] rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
           <div className="space-y-6">
-            <div className="col-span-1 h-8 rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
-            <div className="h-6 w-[30vw] rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
+            <div className="col-span-1 h-8 rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
+            <div className="h-6 w-[30vw] rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
           </div>
         </div>
         {/* 文档内容 */}
         <div className="flex-1 space-y-8 py-1">
-          <div className="h-8 w-[20vw] rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
-          <div className="h-6 w-[40vw] rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
+          <div className="h-8 w-[20vw] rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
+          <div className="h-6 w-[40vw] rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
           <div className="space-y-6">
             <div className="grid grid-cols-24 gap-4">
-              <div className="col-span-4 h-6 rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
-              <div className="col-span-12 h-6 rounded bg-[#FAFAFA] dark:bg-[#2D2D2D]"></div>
+              <div className="col-span-4 h-6 rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
+              <div className="col-span-12 h-6 rounded bg-[#F4F4F5] dark:bg-[#2D2D2D]"></div>
             </div>
           </div>
         </div>
