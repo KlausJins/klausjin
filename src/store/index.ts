@@ -3,15 +3,13 @@ import userReducer from './features/user-slice'
 import backendTagSlice from './features/backend-tag-slice'
 import backendNoteSlice from './features/backend-note-slice'
 
-const isDev = process.env.NODE_ENV === 'development' // 是否是开发环境
-
 export const store = configureStore({
   reducer: {
     user: userReducer,
     backendTag: backendTagSlice,
     backendNote: backendNoteSlice
   },
-  devTools: isDev
+  devTools: process.env.NODE_ENV !== 'production'
 })
 
 // 类型推导
