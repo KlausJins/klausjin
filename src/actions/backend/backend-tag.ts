@@ -49,7 +49,7 @@ export const updateTag = async (tagInfo: { [k: string]: FormDataEntryValue }) =>
 }
 
 // 查询标签数据
-export const searchTags = async (name?: string) => {
+export const searchTags = async (name?: string, paging?: { pageIndex: number; limit: number }) => {
   return prisma.tag.findMany({
     select: {
       id: true,
@@ -64,7 +64,12 @@ export const searchTags = async (name?: string) => {
         contains: name,
         mode: 'insensitive' // 不区分大小写
       }
-    }
+    },
+    orderBy: {
+      updatedAt: 'desc'
+    },
+    take: paging?.limit,
+    skip: paging && paging.limit * (paging.pageIndex - 1)
   })
 }
 
