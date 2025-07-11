@@ -108,7 +108,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
 
       Toast({ type: 'success', description: '标签创建成功' })
     },
-    [userStore, closeModal, Toast]
+    [userStore, closeModal, Toast, dispatch, backendTagStore.editId]
   )
 
   return (

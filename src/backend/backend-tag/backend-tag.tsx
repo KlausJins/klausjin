@@ -12,7 +12,7 @@ import { AppDispatch } from '@/store'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
 import { TableRowsToArray } from '@/utils'
 import { debounce } from 'lodash-es'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 export const BackendTag = () => {
@@ -42,7 +42,7 @@ export const BackendTag = () => {
         Toast({ type: 'success', description: '删除成功！' })
       })
     }
-  }, [Toast])
+  }, [dispatch, Toast])
 
   // 点击删除标签按钮时候校验
   const delTag = useCallback(() => {
@@ -61,23 +61,21 @@ export const BackendTag = () => {
   }, [Toast])
 
   // 搜索标签
-  const searchHandler = useCallback(
-    debounce(() => {
+  const searchHandler = useMemo(() => {
+    return debounce(() => {
       if (TagTableRef.current) {
         TagTableRef.current.loadTagTable(searchValue?.trim())
       }
-    }, 300),
-    [searchValue]
-  )
+    }, 300)
+  }, [searchValue])
 
   // 输入框值改变
-  const onSearchValueChange = useCallback(
-    debounce((e) => {
+  const onSearchValueChange = useMemo(() => {
+    return debounce((e) => {
       console.log('e.target.value: ', e.target.value)
       setSearchValue(e.target.value)
-    }, 300),
-    []
-  )
+    }, 300)
+  }, [])
 
   return (
     <div className="h-[88vh] w-[95vw] flex flex-col">

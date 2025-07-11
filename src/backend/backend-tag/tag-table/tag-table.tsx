@@ -104,7 +104,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         setTagInfos(res_info)
       })
     },
-    [setIsLoading, formatChineseDateTime, setTagInfos, searchTags]
+    [setIsLoading, setTagInfos]
   )
 
   // 首次展示加载所有tag数据
@@ -193,7 +193,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
     } else {
       Toast({ type: 'warning', description: '没有找到对应的id！' })
     }
-  }, [deleteId, Toast])
+  }, [deleteId, Toast, dispatch])
 
   // 处理后的表头（过滤掉不相交的表头属性数据）
   const headerColumns = React.useMemo(() => {
@@ -264,7 +264,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
           )
       }
     },
-    [openEditTagModal]
+    [openEditTagModal, dispatch]
   )
 
   // 分页器条数设置方法
