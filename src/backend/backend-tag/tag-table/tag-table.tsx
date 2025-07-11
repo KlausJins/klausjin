@@ -23,6 +23,7 @@ import { EmptyContent } from '@/components/icons/empty-content'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
+import IconLoading from '@/components/icons/icon-loading'
 
 const INITIAL_VISIBLE_COLUMNS = [
   'tagName',
@@ -315,7 +316,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         <KlTableBody
           emptyContent={<EmptyContent />}
           isLoading={isLoading as boolean}
-          // loadingContent={<TableSkeleton />}
+          loadingContent={<IconLoading />}
           items={items}
         >
           {(item) => (
