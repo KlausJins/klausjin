@@ -17,9 +17,12 @@ import { KlPagination } from '@/components/ui/pagination'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-import { searchTags } from '@/actions/backend/backend-tag'
-import { TableSkeleton } from '@/components/ui/table-skeleton'
+import { deleteTags, searchTags } from '@/actions/backend/backend-tag'
+// import { TableSkeleton } from '@/components/ui/table-skeleton'
 import { EmptyContent } from '@/components/icons/empty-content'
+import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store'
 
 const INITIAL_VISIBLE_COLUMNS = [
   'tagName',
@@ -42,6 +45,7 @@ type Datas = {
 export interface TagTableHandle {
   selectedKeys: 'all' | Iterable<React.Key> | undefined
   allRowKeys: string[]
+  loadTagTable: (payload?: string) => void
 }
 
 export interface TagTableProps {
@@ -50,6 +54,8 @@ export interface TagTableProps {
 
 export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTagModal }, ref) => {
   const Toast = useToast()
+  const backendTagStore = useSelector((state: RootState) => state.backendTag)
+  const dispatch = useDispatch<AppDispatch>()
   // 表格数据
   const [tagInfos, setTagInfos] = React.useState<Datas[]>([])
   // 是否正在加载表格数据
@@ -59,7 +65,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
   // 获取当前点击actions时表格的key
-  const [currentID, setCurrentID] = React.useState<string | null>(null)
+  const [deleteId, setDeleteId] = React.useState<string>('')
   // 提示框状态
   const [open, setOpen] = React.useState(false)
   // 表格每页的行数
@@ -72,30 +78,39 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   // 暴露给父组件的变量和方法
   useImperativeHandle(ref, () => ({
     selectedKeys,
-    allRowKeys: tagInfos.map((row) => row.id)
+    allRowKeys: tagInfos.map((row) => row.id),
+    loadTagTable
   }))
+
+  // 刷新页面（加载页面）
+  const loadTagTable = useCallback(
+    (payload?: string) => {
+      setIsLoading(true)
+
+      searchTags(payload).then((res) => {
+        console.log('searchTags res: ', res)
+        const res_info = res.map((item) => {
+          return {
+            id: item.id,
+            tagName: item.name,
+            lightIcon: item.icon,
+            darkIcon: item.iconDark,
+            createTime: formatChineseDateTime(item.createdAt),
+            updateTime: formatChineseDateTime(item.updatedAt)
+          }
+        })
+
+        setIsLoading(false)
+        setTagInfos(res_info)
+      })
+    },
+    [setIsLoading, formatChineseDateTime, setTagInfos, searchTags]
+  )
 
   // 首次展示加载所有tag数据
   useEffect(() => {
-    setIsLoading(true)
-
-    searchTags().then((res) => {
-      console.log('searchTags res: ', res)
-      const res_info = res.map((item) => {
-        return {
-          id: item.id,
-          tagName: item.name,
-          lightIcon: item.icon,
-          darkIcon: item.iconDark,
-          createTime: formatChineseDateTime(item.createdAt),
-          updateTime: formatChineseDateTime(item.updatedAt)
-        }
-      })
-
-      setIsLoading(false)
-      setTagInfos(res_info)
-    })
-  }, [setTagInfos])
+    loadTagTable()
+  }, [loadTagTable, backendTagStore.isRefreshTable])
 
   // 每一列的样式格式设置
   const columns = useMemo(
@@ -167,9 +182,18 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
   // 处理表格删除事件
   const ModalHandler = useCallback(() => {
-    console.log('currentID: ', currentID)
-    Toast({ type: 'success', description: '删除成功！' })
-  }, [currentID, Toast])
+    console.log('deleteId: ', deleteId)
+    if (deleteId) {
+      deleteTags([deleteId]).then(() => {
+        // 刷新页面
+        dispatch(toggleIsRefreshTable())
+
+        Toast({ type: 'success', description: '删除成功！' })
+      })
+    } else {
+      Toast({ type: 'warning', description: '没有找到对应的id！' })
+    }
+  }, [deleteId, Toast])
 
   // 处理后的表头（过滤掉不相交的表头属性数据）
   const headerColumns = React.useMemo(() => {
@@ -200,7 +224,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
                 isIconOnly={true}
                 onPress={() => {
                   openEditTagModal()
-                  setCurrentID(datas.id)
+                  // 存储编辑id
+                  dispatch(setEditId(datas.id))
                 }}
               >
                 <IconSelf iconName="icon-[lucide--edit-2]" />
@@ -210,7 +235,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
                 isIconOnly={true}
                 onPress={() => {
                   setOpen(true)
-                  setCurrentID(datas.id)
+                  setDeleteId(datas.id)
                 }}
               >
                 <IconSelf iconName="icon-[lucide--trash]" className="text-[#EF4444]" />
@@ -290,7 +315,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
         <KlTableBody
           emptyContent={<EmptyContent />}
           isLoading={isLoading as boolean}
-          loadingContent={<TableSkeleton />}
+          // loadingContent={<TableSkeleton />}
           items={items}
         >
           {(item) => (

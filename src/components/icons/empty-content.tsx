@@ -745,7 +745,7 @@ export const EmptyContent = ({ width = '400' }: EmptyContentProps) => {
           target-y="499"
         />
       </svg>
-      <span className="text-primary dark:text-secondary">没有找到数据哦，去创建一些数据吧～</span>
+      <span className="text-primary dark:text-secondary">没有找到数据哦～</span>
     </div>
   )
 }

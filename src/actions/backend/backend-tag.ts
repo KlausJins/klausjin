@@ -32,7 +32,23 @@ export const createTag = async (tagInfo: { [k: string]: FormDataEntryValue }) =>
   })
 }
 
-// 查询所有标签数据
+// 更新标签
+export const updateTag = async (tagInfo: { [k: string]: FormDataEntryValue }) => {
+  // 更新标签
+  return prisma.tag.update({
+    data: {
+      name: tagInfo.tagName as string,
+      icon: tagInfo.icon as string,
+      iconDark: tagInfo.darkIcon as string,
+      userId: tagInfo.userId as string
+    },
+    where: {
+      id: tagInfo.tagId as string
+    }
+  })
+}
+
+// 查询标签数据
 export const searchTags = async (name?: string) => {
   return prisma.tag.findMany({
     select: {
@@ -47,6 +63,32 @@ export const searchTags = async (name?: string) => {
       name: {
         contains: name,
         mode: 'insensitive' // 不区分大小写
+      }
+    }
+  })
+}
+
+// 加载标签详情数据
+export const getTagDetail = async (id: string) => {
+  return prisma.tag.findUnique({
+    select: {
+      id: true,
+      name: true,
+      icon: true,
+      iconDark: true
+    },
+    where: {
+      id
+    }
+  })
+}
+
+// 删除标签
+export const deleteTags = async (id: string[]) => {
+  return prisma.tag.deleteMany({
+    where: {
+      id: {
+        in: id
       }
     }
   })

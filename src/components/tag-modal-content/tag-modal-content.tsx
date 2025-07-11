@@ -1,27 +1,43 @@
 'use client'
 
 import { isSVGString, svgToDataURL } from '@/utils'
-import KlButton from '../ui/button'
-import KlField from '../ui/field'
-import KlTextarea from '../ui/textarea'
-import { useCallback, useState } from 'react'
+import KlButton from '@/components/ui/button'
+import KlField from '@/components/ui/field'
+import KlTextarea from '@/components/ui/textarea'
+import { useCallback, useEffect, useState } from 'react'
 import { useToast } from '@/hooks'
-import { createTag, hasRepeatTag } from '@/actions/backend/backend-tag'
+import { createTag, getTagDetail, hasRepeatTag, updateTag } from '@/actions/backend/backend-tag'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store'
 import KlForm from '@/components/ui/form'
+import { useDispatch } from 'react-redux'
+import { toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
 
 export interface TagContentProps {
   closeModal?: () => void
 }
 
 export const TagModalContent = ({ closeModal }: TagContentProps) => {
+  const backendTagStore = useSelector((state: RootState) => state.backendTag)
+  const dispatch = useDispatch<AppDispatch>()
+  const [nameStr, setNameStr] = useState('')
   const [lightIconStr, setLightIconStr] = useState('')
   const [darkIconStr, setDarkIconStr] = useState('')
 
   const Toast = useToast()
 
   const userStore = useSelector((state: RootState) => state.user)
+
+  useEffect(() => {
+    if (backendTagStore.editId) {
+      getTagDetail(backendTagStore.editId).then((res) => {
+        console.log('getTagDetail res: ', res)
+        setNameStr(res?.name || '')
+        setLightIconStr(res?.icon || '')
+        setDarkIconStr(res?.iconDark || '')
+      })
+    }
+  }, [setNameStr, backendTagStore.editId])
 
   // 浅色标签转换数据格式方法
   const lightIconTurnToDataUrl = useCallback(() => {
@@ -35,12 +51,14 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
 
   // 校验标签格式
   const validateTagIcon = useCallback((value: string) => {
-    if (
-      !isSVGString(value) &&
-      !value.startsWith('data:image/svg+xml') &&
-      !value.startsWith('http')
-    ) {
-      return '标签图标格式不对，必须为svg字符串或者data url或者一个图片地址'
+    if (value) {
+      if (
+        !isSVGString(value) &&
+        !value.startsWith('data:image/svg+xml') &&
+        !value.startsWith('http')
+      ) {
+        return '标签图标格式不对，必须为svg字符串或者data url或者一个图片地址'
+      }
     }
   }, [])
 
@@ -67,11 +85,23 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
         data.darkIcon = svgToDataURL(data.darkIcon as string)
       }
 
-      // 创建标签
-      await createTag({
-        ...data,
-        userId: userStore.id as string
-      })
+      if (backendTagStore.editId) {
+        // 更新标签
+        await updateTag({
+          ...data,
+          tagId: backendTagStore.editId,
+          userId: userStore.id as string
+        })
+      } else {
+        // 创建标签
+        await createTag({
+          ...data,
+          userId: userStore.id as string
+        })
+      }
+
+      // 刷新标签表格数据
+      dispatch(toggleIsRefreshTable())
 
       // 关闭弹窗
       if (closeModal) closeModal()
@@ -92,6 +122,9 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
             placeholder="请输入名称"
             isRequired
             errorMessage="标签名称必填！"
+            value={nameStr}
+            onChange={(e) => setNameStr(e.target.value)}
+            onClear={() => setNameStr('')}
           />
 
           <div className="w-full">
