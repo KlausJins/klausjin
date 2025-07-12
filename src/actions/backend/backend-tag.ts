@@ -48,8 +48,36 @@ export const updateTag = async (tagInfo: { [k: string]: FormDataEntryValue }) =>
   })
 }
 
+export type searchTagsParams = {
+  name?: string
+  paging?: { pageIndex: number; limit: number }
+  orderByType?: 'CREATEASC' | 'CREATEDESC' | 'UPDATEASC' | 'UPDATEDESC'
+}
+
 // 查询标签数据
-export const searchTags = async (name?: string, paging?: { pageIndex: number; limit: number }) => {
+export const searchTags = async (params: searchTagsParams) => {
+  const { name, paging, orderByType } = params
+
+  // 设置排序变量
+  let orderByName: 'createdAt' | 'updatedAt' = 'updatedAt'
+  let orderByValue: 'asc' | 'desc' = 'desc'
+
+  // 根据排序变量设置排序规则
+  if (orderByType == 'CREATEASC') {
+    orderByName = 'createdAt'
+    orderByValue = 'asc'
+  } else if (orderByType == 'CREATEDESC') {
+    orderByName = 'createdAt'
+    orderByValue = 'desc'
+  } else if (orderByType == 'UPDATEASC') {
+    orderByName = 'updatedAt'
+    orderByValue = 'asc'
+  } else if (orderByType == 'UPDATEDESC') {
+    orderByName = 'updatedAt'
+    orderByValue = 'desc'
+  }
+
+  // 查询数据
   return prisma.tag.findMany({
     select: {
       id: true,
@@ -66,7 +94,7 @@ export const searchTags = async (name?: string, paging?: { pageIndex: number; li
       }
     },
     orderBy: {
-      updatedAt: 'desc'
+      [orderByName]: orderByValue
     },
     take: paging?.limit,
     skip: paging && paging.limit * (paging.pageIndex - 1)

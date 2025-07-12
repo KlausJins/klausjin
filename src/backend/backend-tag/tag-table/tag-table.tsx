@@ -1,10 +1,17 @@
 'use client'
 
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo } from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState
+} from 'react'
 import { Selection } from '@heroui/react'
 import KlButton from '@/components/ui/button'
 import IconSelf from '@/components/icons/icon-self'
-import { clm, formatChineseDateTime } from '@/utils'
+import { clm, formatChineseDateTime, getTimeValue } from '@/utils'
 import {
   KlTable,
   KlTableBody,
@@ -17,13 +24,20 @@ import { KlPagination } from '@/components/ui/pagination'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-import { deleteTags, searchTags } from '@/actions/backend/backend-tag'
+import { deleteTags, searchTags, searchTagsParams } from '@/actions/backend/backend-tag'
 // import { TableSkeleton } from '@/components/ui/table-skeleton'
 import { EmptyContent } from '@/components/icons/empty-content'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import IconLoading from '@/components/icons/icon-loading'
+
+export const enum TIME_ASC_DESC {
+  CREATEASC = 'CREATEASC',
+  CREATEDESC = 'CREATEDESC',
+  UPDATEASC = 'UPDATEASC',
+  UPDATEDESC = 'UPDATEDESC'
+}
 
 const INITIAL_VISIBLE_COLUMNS = [
   'tagName',
@@ -39,14 +53,18 @@ type Datas = {
   tagName: string
   lightIcon: string | null
   darkIcon: string | null
+  createTS: number
   createTime: string
+  updateTS: number
   updateTime: string
 }
 
 export interface TagTableHandle {
   selectedKeys: 'all' | Iterable<React.Key> | undefined
   allRowKeys: string[]
-  loadTagTable: (payload?: string) => void
+  loadTagTable: (payload: searchTagsParams) => void
+  setTagInfos: React.Dispatch<React.SetStateAction<Datas[]>>
+  timeAscDesc: TIME_ASC_DESC
 }
 
 export interface TagTableProps {
@@ -65,6 +83,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]))
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
+  // 表头时间的状态
+  const [timeAscDesc, setTimeAscDesc] = useState<TIME_ASC_DESC>(TIME_ASC_DESC.UPDATEDESC)
   // 获取当前点击actions时表格的key
   const [deleteId, setDeleteId] = React.useState<string>('')
   // 提示框状态
@@ -80,12 +100,14 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   useImperativeHandle(ref, () => ({
     selectedKeys,
     allRowKeys: tagInfos.map((row) => row.id),
-    loadTagTable
+    loadTagTable,
+    setTagInfos,
+    timeAscDesc
   }))
 
   // 刷新页面（加载页面）
   const loadTagTable = useCallback(
-    (payload?: string) => {
+    (payload: searchTagsParams) => {
       setIsLoading(true)
 
       searchTags(payload).then((res) => {
@@ -96,7 +118,9 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
             tagName: item.name,
             lightIcon: item.icon,
             darkIcon: item.iconDark,
+            createTS: getTimeValue(item.createdAt),
             createTime: formatChineseDateTime(item.createdAt),
+            updateTS: getTimeValue(item.updatedAt),
             updateTime: formatChineseDateTime(item.updatedAt)
           }
         })
@@ -110,8 +134,39 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
   // 首次展示加载所有tag数据
   useEffect(() => {
-    loadTagTable()
+    loadTagTable({ name: '' })
   }, [loadTagTable, backendTagStore.isRefreshTable])
+
+  const timerHandler = useCallback(
+    (type: 'create' | 'update') => {
+      const temp_tagInfos = [...tagInfos]
+
+      if (type === 'create') {
+        // 创建时间变换
+        if (timeAscDesc == 'CREATEDESC') {
+          // 升序
+          setTimeAscDesc(TIME_ASC_DESC.CREATEASC)
+          setTagInfos(temp_tagInfos.sort((a, b) => a.createTS - b.createTS))
+        } else {
+          // 降序
+          setTimeAscDesc(TIME_ASC_DESC.CREATEDESC)
+          setTagInfos(temp_tagInfos.sort((a, b) => b.createTS - a.createTS))
+        }
+      } else if (type === 'update') {
+        // 更新时间变换
+        if (timeAscDesc == 'UPDATEDESC') {
+          // 升序
+          setTimeAscDesc(TIME_ASC_DESC.UPDATEASC)
+          setTagInfos(temp_tagInfos.sort((a, b) => a.updateTS - b.updateTS))
+        } else {
+          // 降序
+          setTimeAscDesc(TIME_ASC_DESC.UPDATEDESC)
+          setTagInfos(temp_tagInfos.sort((a, b) => b.updateTS - a.updateTS))
+        }
+      }
+    },
+    [tagInfos, setTagInfos, timeAscDesc, setTimeAscDesc]
+  )
 
   // 每一列的样式格式设置
   const columns = useMemo(
@@ -152,11 +207,17 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
               'gap-1 text-[14px] border-0 h-8 font-semibold',
               'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
             )}
+            onPress={() => timerHandler('create')}
           >
             <IconSelf iconName="icon-[lucide--calendar]" />
             <div>创建时间</div>
-            {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
-        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
+            {/* 创建时间的图形变换 */}
+            {timeAscDesc == TIME_ASC_DESC.CREATEASC && (
+              <IconSelf iconName="icon-[lucide--sort-asc]" />
+            )}
+            {timeAscDesc == TIME_ASC_DESC.CREATEDESC && (
+              <IconSelf iconName="icon-[lucide--sort-desc]" />
+            )}
           </KlButton>
         )
       },
@@ -168,17 +229,23 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
               'gap-1 text-[14px] border-0 h-8 font-semibold',
               'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
             )}
+            onPress={() => timerHandler('update')}
           >
             <IconSelf iconName="icon-[lucide--calendar]" />
             <div>更新时间</div>
-            {/* <IconSelf iconName="icon-[lucide--sort-asc]" />
-        <IconSelf iconName="icon-[lucide--sort-desc]" /> */}
+            {/* 更新时间的图形变换 */}
+            {timeAscDesc == TIME_ASC_DESC.UPDATEASC && (
+              <IconSelf iconName="icon-[lucide--sort-asc]" />
+            )}
+            {timeAscDesc == TIME_ASC_DESC.UPDATEDESC && (
+              <IconSelf iconName="icon-[lucide--sort-desc]" />
+            )}
           </KlButton>
         )
       },
       { children: '', uid: 'actions' }
     ],
-    []
+    [timeAscDesc, timerHandler]
   )
 
   // 处理表格删除事件
@@ -213,8 +280,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
   // 表格行单元格的渲染设置方法
   const renderCell = React.useCallback(
-    (datas: Datas, columnKey: React.Key) => {
-      const cellValue = datas[columnKey as keyof Datas]
+    (datas: Omit<Datas, 'createTS' | 'updateTS'>, columnKey: React.Key) => {
+      const cellValue = datas[columnKey as keyof Omit<Datas, 'createTS' | 'updateTS'>]
 
       switch (columnKey) {
         case 'actions':

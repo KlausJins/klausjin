@@ -47,12 +47,11 @@ export const BackendTag = () => {
   // 点击删除标签按钮时候校验
   const delTag = useCallback(() => {
     if (TagTableRef.current) {
-      const selectedKeys = TableRowsToArray(
-        TagTableRef.current.selectedKeys,
-        TagTableRef.current.allRowKeys
-      )
-      console.log('删除多条数据', selectedKeys)
-      if (selectedKeys.length > 0) {
+      const { selectedKeys, allRowKeys } = TagTableRef.current
+
+      const getSelectedKeys = TableRowsToArray(selectedKeys, allRowKeys)
+      console.log('删除多条数据', getSelectedKeys)
+      if (getSelectedKeys.length > 0) {
         setOpen(true)
       } else {
         Toast({ type: 'warning', description: '请选择要删除的标签！' })
@@ -64,7 +63,11 @@ export const BackendTag = () => {
   const searchHandler = useMemo(() => {
     return debounce(() => {
       if (TagTableRef.current) {
-        TagTableRef.current.loadTagTable(searchValue?.trim())
+        const { setTagInfos, loadTagTable, timeAscDesc } = TagTableRef.current
+
+        setTagInfos([])
+        console.log('timeAscDesc: ', timeAscDesc)
+        loadTagTable({ name: searchValue?.trim() || '', orderByType: timeAscDesc })
       }
     }, 300)
   }, [searchValue])

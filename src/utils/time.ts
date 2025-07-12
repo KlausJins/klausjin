@@ -11,7 +11,11 @@ export const formatTime = (time: string | Date, format = 'YYYY-MM-DD HH:mm:ss') 
 
 export const formatChineseDateTime = (
   time: string | Date,
-  format = 'YYYY年M月D日 dddd HH:mm:ss'
+  format = 'YYYY年MM月DD日 dddd HH:mm:ss'
 ) => {
   return dayjs(time).format(format)
+}
+
+export const getTimeValue = (time: string | Date) => {
+  return dayjs(time).valueOf()
 }
