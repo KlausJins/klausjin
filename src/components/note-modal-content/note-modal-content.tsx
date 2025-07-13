@@ -70,14 +70,6 @@ export const NoteModalContent = () => {
         return Toast({ type: 'warning', description: '请选择标签！' })
       }
 
-      if (!formData.content) {
-        const inst = document.getElementById('contentInstance')
-        if (inst) {
-          inst.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-        return Toast({ type: 'warning', description: '请选择输入笔记内容！' })
-      }
-
       // 获取表单的已选择标签数据
       if (SelectXRef.current) {
         console.log(SelectXRef.current.selectedIds)
@@ -90,9 +82,17 @@ export const NoteModalContent = () => {
         submitDatas.content = MDEditorRef.current.MDValue
       }
 
+      if (!submitDatas.content) {
+        const inst = document.getElementById('contentInstance')
+        if (inst) {
+          inst.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+        return Toast({ type: 'warning', description: '请选择输入笔记内容！' })
+      }
+
       console.log('submitDatas: ', submitDatas)
     },
-    [formData, SelectXRef.current]
+    [formData, SelectXRef.current, Toast, setIsTagErr, MDEditorRef.current]
   )
 
   // 搜索标签
@@ -136,7 +136,7 @@ export const NoteModalContent = () => {
         [type]: value
       })
     },
-    [formData, setFormData]
+    [formData, setFormData, setIsTagErr]
   )
 
   // 表单数据清空
@@ -265,12 +265,20 @@ export const NoteModalContent = () => {
         open={openCreateTag}
         setOpen={setOpenCreateTag}
         title="创建标签"
-        content={<TagModalContent closeModal={() => setOpenCreateTag(false)} />}
+        content={
+          <TagModalContent
+            closeModal={() => {
+              console.log('创建标签1')
+              getTagsList('')
+              setOpenCreateTag(false)
+            }}
+          />
+        }
         isTitleCenter={true}
         size="2xl"
         showCancelButton={false}
         showConfirmButton={false}
-        successCallback={() => console.log('创建标签')}
+        successCallback={() => console.log('创建标签2')}
       />
     </>
   )
