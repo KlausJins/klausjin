@@ -19,6 +19,8 @@ import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { KlSwitch } from '@/components/ui/switch'
+import { EmptyContent } from '@/components/icons/empty-content'
+import IconLoading from '@/components/icons/icon-loading'
 
 export const columns = [
   { children: 'ID', uid: 'id' },
@@ -221,6 +223,8 @@ export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
   // 获取当前点击actions时表格的key
   const [currentID, setCurrentID] = React.useState<number | null>(null)
+  // 是否正在加载表格数据 setIsLoading
+  const [isLoading] = React.useState<boolean>(false)
   // 提示框状态
   const [open, setOpen] = React.useState(false)
   // 表格每页的行数
@@ -375,7 +379,12 @@ export const NoteTable = forwardRef<NoteTableHandle>((_props, ref) => {
             </KlTableColumn>
           )}
         </KlTableHeader>
-        <KlTableBody emptyContent={'No users found'} items={items}>
+        <KlTableBody
+          emptyContent={<EmptyContent />}
+          isLoading={isLoading as boolean}
+          loadingContent={<IconLoading />}
+          items={items}
+        >
           {(item) => (
             <KlTableRow key={item.id}>
               {(columnKey) => <KlTableCell>{renderCell(item, columnKey)}</KlTableCell>}

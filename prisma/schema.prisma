@@ -92,26 +92,25 @@ model Tag {
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  notes     Note[]
+  notes     Note[]   @relation("NoteTags")
 
   User User @relation(fields: [userId], references: [id])
 }
 
 // 笔记
 model Note {
-  id          String   @id @default(cuid())
-  title       String   @unique
+  id          String  @id @default(cuid())
+  title       String  @unique
   description String
-  content     String   @db.Text
+  content     String  @db.Text
   cover       String?
   author      String?
-  published   Boolean  @default(false)
+  published   Boolean @default(false)
   // 关联用户id
   userId      String
-  tagIds      String[]
+  tags        Tag[]   @relation("NoteTags")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Tag       Tag      @relation(fields: [tagIds], references: [id])
   User      User     @relation(fields: [userId], references: [id])
 }

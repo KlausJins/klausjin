@@ -6,18 +6,13 @@ import KlField from '@/components/ui/field'
 import { NoteTable, NoteTableHandle } from './note-table'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
-
-const options = [
-  { value: '苹果', id: 'apple' },
-  { value: '香蕉', id: 'banana' },
-  { value: '橙子', id: 'orange' },
-  { value: '榴莲', id: 'durian' },
-  { value: '西瓜', id: 'watermelon' }
-]
+import { searchNotes, searchTags } from '@/actions/backend'
+import { debounce, divide } from 'lodash-es'
+import { createPortal } from 'react-dom'
 
 export const BackendNote = () => {
   const Toast = useToast()
@@ -26,9 +21,15 @@ export const BackendNote = () => {
   // 创建笔记模态框状态
   const [openCreateNote, setOpenCreateNote] = useState(false)
 
-  const [selectedFruits, setSelectedFruits] = useState<string[]>([])
-
+  // 标签下拉框数据
+  const [tagsOptions, setTagsOptions] = useState<{ id: string; value: string }[]>([])
+  // 标签下拉框选中值
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  // 搜索关键词 searchValue
+  const [, setSearchValue] = useState<string | null>(null)
+  // 笔记表格实例
   const NoteTableRef = useRef<NoteTableHandle>(null)
+
   // 处理表格删除事件
   const ModalHandler = useCallback(() => {
     if (NoteTableRef.current) {
@@ -57,26 +58,78 @@ export const BackendNote = () => {
     }
   }, [Toast])
 
+  // 搜索标签
+  const getTagsList = useMemo(() => {
+    return debounce((name) => {
+      searchTags({ name }).then((res) => {
+        console.log('notePage searchTags res: ', res)
+        // 处理返回来的标签数据
+        const temp_info = res.map((item) => {
+          return {
+            id: item.id,
+            value: item.name
+          }
+        })
+
+        // 设置标签数据
+        setTagsOptions(temp_info)
+      })
+    }, 500)
+  }, [setTagsOptions])
+
+  // 输入框值改变
+  const onSearchValueChange = useMemo(() => {
+    return debounce((e) => {
+      console.log('e.target.value: ', e.target.value)
+      setSearchValue(e.target.value)
+    }, 300)
+  }, [])
+
+  // 搜索笔记
+  const searchHandler = useMemo(() => {
+    return debounce(() => {
+      if (NoteTableRef.current) {
+        searchNotes({}).then((res) => {
+          console.log('searchNotes res: ', res)
+        })
+        // const { setTagInfos, loadTagTable, timeAscDesc } = NoteTableRef.current
+        // setTagInfos([])
+        // console.log('timeAscDesc: ', timeAscDesc)
+        // loadTagTable({ name: searchValue?.trim() || '', orderByType: timeAscDesc })
+      }
+    }, 300)
+  }, [])
+
+  // 首次进入页面加载所有标签
+  useEffect(() => {
+    getTagsList('')
+  }, [getTagsList])
+
   return (
     <div className="h-[88vh] w-[95vw] flex flex-col">
       {/* 搜索栏 */}
       <div className="flex items-center justify-between gap-6">
         <div className="flex items-center justify-between gap-6">
           {/* 名称 */}
-          <KlField className="w-80" placeholder="请输入笔记名称" />
+          <KlField
+            className="w-80"
+            placeholder="请输入笔记名称"
+            onChange={(e) => onSearchValueChange(e)}
+            onClear={() => setSearchValue(null)}
+          />
 
           {/* 下拉框 */}
           <SelectX
-            options={options}
-            value={selectedFruits}
-            onChange={setSelectedFruits}
+            options={tagsOptions}
+            value={selectedTags}
+            onChange={setSelectedTags}
             placeholder="请选择标签"
           />
         </div>
 
         <div className="flex gap-6">
           {/* 搜索按钮 */}
-          <KlButton fill={true}>
+          <KlButton fill={true} onPress={searchHandler}>
             <div className="flex items-center gap-2">
               <IconSelf iconName="icon-[lucide--search]" />
               <span>搜索</span>

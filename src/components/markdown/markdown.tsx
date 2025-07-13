@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, useState } from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Editor, Viewer } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
@@ -27,14 +27,23 @@ interface MDEditorPropsType {
   onChange: (value: string, setMDValue: (value: string) => void) => void
 }
 
-export const MDEditor = forwardRef<HTMLDivElement, MDEditorPropsType>(
+export type MDEditorHandle = {
+  MDValue: string
+}
+
+export const MDEditor = forwardRef<MDEditorHandle, MDEditorPropsType>(
   ({ className, value, onChange }, ref) => {
     const [MDValue, setMDValue] = useState(value)
+
+    // 暴露给父组件的变量和方法
+    useImperativeHandle(ref, () => ({
+      MDValue
+    }))
 
     return (
       <div
         id="note-editor"
-        ref={ref}
+        // ref={ref}
         className={clm('flex flex-col h-full w-full items-center', className)}
       >
         <Editor

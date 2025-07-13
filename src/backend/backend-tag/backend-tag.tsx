@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteTags } from '@/actions/backend/backend-tag'
+import { deleteTags } from '@/actions/backend'
 import { TagTable, TagTableHandle } from '@/backend/backend-tag/tag-table'
 import IconSelf from '@/components/icons/icon-self'
 import { TagModalContent } from '@/components/tag-modal-content'
