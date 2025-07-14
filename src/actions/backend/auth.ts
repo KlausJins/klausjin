@@ -19,3 +19,27 @@ export const getCurrentUserId = async (email: string) => {
 
   return user?.id
 }
+
+// 判断权限是否为管理员
+export const isAdmin = async (id: string) => {
+  const user = await prisma.user.findFirst({
+    select: {
+      id: true,
+      role: true,
+      accounts: {
+        select: {
+          providerAccountId: true
+        }
+      }
+    },
+    where: {
+      accounts: {
+        some: {
+          providerAccountId: id
+        }
+      }
+    }
+  })
+
+  return user?.role === 'admin'
+}

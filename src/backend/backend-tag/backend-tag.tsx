@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteTags } from '@/actions/backend'
+import { deleteTags, isAdmin } from '@/actions/backend'
 import { TagTable, TagTableHandle } from '@/backend/backend-tag/tag-table'
 import IconSelf from '@/components/icons/icon-self'
 import { TagModalContent } from '@/components/tag-modal-content'
@@ -30,12 +30,20 @@ export const BackendTag = () => {
   const [searchValue, setSearchValue] = useState<string | null>(null)
 
   // 处理表格删除事件
-  const ModalHandler = useCallback(() => {
+  const ModalHandler = useCallback(async () => {
     if (TagTableRef.current) {
       const selectedKeys = TableRowsToArray(
         TagTableRef.current.selectedKeys,
         TagTableRef.current.allRowKeys
       )
+
+      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        return Toast({ description: '无操作权限！' })
+      }
+
       console.log('删除多条数据', selectedKeys)
       deleteTags(selectedKeys as string[]).then(() => {
         dispatch(toggleIsRefreshTable())

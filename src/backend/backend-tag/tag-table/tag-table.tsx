@@ -24,7 +24,7 @@ import { KlPagination } from '@/components/ui/pagination'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-import { deleteTags, searchTags, searchTagsParams } from '@/actions/backend'
+import { deleteTags, isAdmin, searchTags, searchTagsParams } from '@/actions/backend'
 // import { TableSkeleton } from '@/components/ui/table-skeleton'
 import { EmptyContent } from '@/components/icons/empty-content'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
@@ -249,9 +249,16 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   )
 
   // 处理表格删除事件
-  const ModalHandler = useCallback(() => {
+  const ModalHandler = useCallback(async () => {
     console.log('deleteId: ', deleteId)
     if (deleteId) {
+      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        return Toast({ description: '无操作权限！' })
+      }
+
       deleteTags([deleteId]).then(() => {
         // 刷新页面
         dispatch(toggleIsRefreshTable())

@@ -13,7 +13,7 @@ import KlModal from '@/components/ui/modal'
 import { KlUploader } from '@/components/ui/uploader'
 import KlForm from '@/components/ui/form'
 import { debounce } from 'lodash-es'
-import { searchTags } from '@/actions/backend'
+import { isAdmin, searchTags } from '@/actions/backend'
 import { useToast } from '@/hooks'
 import { clm } from '@/utils'
 
@@ -65,9 +65,9 @@ export const NoteModalContent = () => {
         setIsTagErr(true)
         const inst = document.getElementById('tagsInstance')
         if (inst) {
-          inst.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          inst.scrollIntoView({ behavior: 'auto', block: 'start' })
         }
-        return Toast({ type: 'warning', description: '请选择标签！' })
+        return
       }
 
       // 获取表单的已选择标签数据
@@ -85,12 +85,18 @@ export const NoteModalContent = () => {
       if (!submitDatas.content) {
         const inst = document.getElementById('contentInstance')
         if (inst) {
-          inst.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          inst.scrollIntoView({ behavior: 'auto', block: 'start' })
         }
         return Toast({ type: 'warning', description: '请选择输入笔记内容！' })
       }
 
-      console.log('submitDatas: ', submitDatas)
+      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        return Toast({ description: '无操作权限！' })
+      }
+      console.log('提交数据： ', submitDatas)
     },
     [formData, SelectXRef.current, Toast, setIsTagErr, MDEditorRef.current]
   )
@@ -254,7 +260,7 @@ export const NoteModalContent = () => {
         </div>
 
         <div className="w-full bg-bgPrimary dark:bg-darkBgPrimary absolute bottom-0 left-0 pt-2 pb-4 px-6 flex justify-end">
-          <KlButton fill={true} type="submit">
+          <KlButton fill={true} type="submit" isLoading={false}>
             提交
           </KlButton>
         </div>

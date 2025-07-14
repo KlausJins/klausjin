@@ -6,7 +6,7 @@ import KlField from '@/components/ui/field'
 import KlTextarea from '@/components/ui/textarea'
 import { useCallback, useEffect, useState } from 'react'
 import { useToast } from '@/hooks'
-import { createTag, getTagDetail, hasRepeatTag, updateTag } from '@/actions/backend'
+import { createTag, getTagDetail, hasRepeatTag, isAdmin, updateTag } from '@/actions/backend'
 import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import KlForm from '@/components/ui/form'
@@ -23,6 +23,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
   const [nameStr, setNameStr] = useState('')
   const [lightIconStr, setLightIconStr] = useState('')
   const [darkIconStr, setDarkIconStr] = useState('')
+  const [isSubmiting, setIsSubmiting] = useState(false)
 
   const Toast = useToast()
 
@@ -66,14 +67,26 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
+      setIsSubmiting(true)
 
       const data = Object.fromEntries(new FormData(e.currentTarget))
       console.log('data: ', data)
+
+      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        // 接触提交按钮加载状态
+        setIsSubmiting(false)
+        return Toast({ description: '无操作权限！' })
+      }
 
       // 检查标签名是否重复
       const hasRepeat = await hasRepeatTag(data.tagName as string)
 
       if (hasRepeat) {
+        // 接触提交按钮加载状态
+        setIsSubmiting(false)
         return Toast({ description: '已存在相同的标签名，请修改后再提交！' })
       }
 
@@ -99,6 +112,9 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
           userId: userStore.id as string
         })
       }
+
+      // 接触提交按钮加载状态
+      setIsSubmiting(false)
 
       // 刷新标签表格数据
       dispatch(toggleIsRefreshTable())
@@ -172,7 +188,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
           </div>
         </div>
         <div className="w-full bg-bgPrimary dark:bg-darkBgPrimary absolute bottom-0 left-0 pt-2 pb-4 px-6 flex justify-end">
-          <KlButton fill={true} type="submit">
+          <KlButton fill={true} type="submit" isLoading={isSubmiting}>
             提交
           </KlButton>
         </div>
