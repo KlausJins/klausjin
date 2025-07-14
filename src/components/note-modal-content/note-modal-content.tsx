@@ -107,7 +107,7 @@ export const NoteModalContent = () => {
       // 接触提交按钮加载状态
       setIsSubmiting(false)
     },
-    [formData, SelectXRef.current, Toast, setIsTagErr, MDEditorRef.current]
+    [formData, Toast, setIsTagErr]
   )
 
   // 搜索标签

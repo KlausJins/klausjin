@@ -11,8 +11,7 @@ import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
 import { searchNotes, searchTags } from '@/actions/backend'
-import { debounce, divide } from 'lodash-es'
-import { createPortal } from 'react-dom'
+import { debounce } from 'lodash-es'
 
 export const BackendNote = () => {
   const Toast = useToast()

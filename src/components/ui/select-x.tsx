@@ -202,3 +202,4 @@ export const SelectX = forwardRef<SelectXHandle, SelectXProps>(
     )
   }
 )
+SelectX.displayName = 'SelectX'
