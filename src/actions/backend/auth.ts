@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { User } from 'next-auth'
+import { auth } from '@/lib/auth'
 
 // 将用户设置为管理员
 export const setAdmin = async (user: User) => {
@@ -21,25 +22,26 @@ export const getCurrentUserId = async (email: string) => {
 }
 
 // 判断权限是否为管理员
-export const isAdmin = async (id: string) => {
+export const isAdmin = async () => {
+  const authInfo = await auth()
+
   const user = await prisma.user.findFirst({
     select: {
       id: true,
       role: true,
       accounts: {
         select: {
-          providerAccountId: true
+          secret: true
         }
       }
     },
     where: {
-      accounts: {
-        some: {
-          providerAccountId: id
-        }
-      }
+      email: authInfo?.user.email as string
     }
   })
 
-  return user?.role === 'admin'
+  // console.log('user: ', user)
+
+  // 判断是否为管理员
+  return user?.role === 'admin' && user?.accounts[0].secret === process.env.ADMIN_GITHUB_SECRET
 }

@@ -252,7 +252,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   const ModalHandler = useCallback(async () => {
     console.log('deleteId: ', deleteId)
     if (deleteId) {
-      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      const isAdminPermission = await isAdmin()
       console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {

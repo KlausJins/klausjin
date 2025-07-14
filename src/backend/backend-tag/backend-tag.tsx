@@ -37,7 +37,7 @@ export const BackendTag = () => {
         TagTableRef.current.allRowKeys
       )
 
-      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      const isAdminPermission = await isAdmin()
       console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {

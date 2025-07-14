@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, profile, isNewUser }) {
       if (isNewUser) {
         // 如果是新用户
-        if (profile?.id && process.env.ADMIN_GITHUB_IDS.includes(profile.id.toString())) {
+        if (profile?.id && process.env.ADMIN_GITHUB_ROLEID.includes(profile.id.toString())) {
           // 匹配为管理员，自动设置为管理员
           setAdmin(user)
         }

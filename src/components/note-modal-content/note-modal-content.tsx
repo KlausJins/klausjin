@@ -37,6 +37,8 @@ export const NoteModalContent = () => {
   const MDEditorRef = useRef<MDEditorHandle>(null)
   // 标签栏是否报错
   const [isTagsErr, setIsTagErr] = useState(false)
+  // 提交按钮的加载状态
+  const [isSubmiting, setIsSubmiting] = useState(false)
 
   // 表单数据
   const [formData, setFormData] = useState<NoteFormProps>({
@@ -87,16 +89,23 @@ export const NoteModalContent = () => {
         if (inst) {
           inst.scrollIntoView({ behavior: 'auto', block: 'start' })
         }
+
         return Toast({ type: 'warning', description: '请选择输入笔记内容！' })
       }
 
-      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      setIsSubmiting(true)
+
+      const isAdminPermission = await isAdmin()
       console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
+        setIsSubmiting(false)
         return Toast({ description: '无操作权限！' })
       }
       console.log('提交数据： ', submitDatas)
+
+      // 接触提交按钮加载状态
+      setIsSubmiting(false)
     },
     [formData, SelectXRef.current, Toast, setIsTagErr, MDEditorRef.current]
   )
@@ -260,7 +269,7 @@ export const NoteModalContent = () => {
         </div>
 
         <div className="w-full bg-bgPrimary dark:bg-darkBgPrimary absolute bottom-0 left-0 pt-2 pb-4 px-6 flex justify-end">
-          <KlButton fill={true} type="submit" isLoading={false}>
+          <KlButton fill={true} type="submit" isLoading={isSubmiting}>
             提交
           </KlButton>
         </div>

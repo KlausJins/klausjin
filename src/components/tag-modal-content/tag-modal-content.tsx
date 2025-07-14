@@ -23,6 +23,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
   const [nameStr, setNameStr] = useState('')
   const [lightIconStr, setLightIconStr] = useState('')
   const [darkIconStr, setDarkIconStr] = useState('')
+  // 提交按钮的加载状态
   const [isSubmiting, setIsSubmiting] = useState(false)
 
   const Toast = useToast()
@@ -72,7 +73,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
       const data = Object.fromEntries(new FormData(e.currentTarget))
       console.log('data: ', data)
 
-      const isAdminPermission = await isAdmin(process.env.ADMIN_GITHUB_IDS)
+      const isAdminPermission = await isAdmin()
       console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
@@ -82,12 +83,14 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
       }
 
       // 检查标签名是否重复
-      const hasRepeat = await hasRepeatTag(data.tagName as string)
+      if (!backendTagStore.editId) {
+        const hasRepeat = await hasRepeatTag(data.tagName as string)
 
-      if (hasRepeat) {
-        // 接触提交按钮加载状态
-        setIsSubmiting(false)
-        return Toast({ description: '已存在相同的标签名，请修改后再提交！' })
+        if (hasRepeat) {
+          // 接触提交按钮加载状态
+          setIsSubmiting(false)
+          return Toast({ description: '已存在相同的标签名，请修改后再提交！' })
+        }
       }
 
       // 如果图标为svg，则自动转为data url

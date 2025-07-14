@@ -38,6 +38,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
+  secret            String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
