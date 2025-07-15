@@ -60,3 +60,44 @@ export const searchNotes = async (params: searchNotesParams) => {
     skip: paging && paging.limit * (paging.pageIndex - 1)
   })
 }
+
+type NoteInfoType = {
+  id: string
+  title: string
+  description: string
+  content: string
+  cover?: string
+  isPublished: boolean
+  userId: string
+  userName: string
+  tags: string[]
+}
+
+// 创建笔记
+export const createNote = async (noteInfo: NoteInfoType) => {
+  return prisma.note.create({
+    data: {
+      title: noteInfo.title as string,
+      description: noteInfo.description as string,
+      content: noteInfo.content as string,
+      cover: noteInfo.cover as string,
+      author: noteInfo.userName as string,
+      published: noteInfo.isPublished as boolean,
+      userId: noteInfo.userId as string,
+      tags: {
+        connect: noteInfo.tags.map((item) => ({ id: item }))
+      }
+    }
+  })
+}
+
+// 删除标签
+export const deleteNotes = async (id: string[]) => {
+  return prisma.note.deleteMany({
+    where: {
+      id: {
+        in: id
+      }
+    }
+  })
+}

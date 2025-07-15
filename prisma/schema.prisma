@@ -105,7 +105,7 @@ model Note {
   description String
   content     String  @db.Text
   cover       String?
-  author      String?
+  author      String
   published   Boolean @default(false)
   // 关联用户id
   userId      String

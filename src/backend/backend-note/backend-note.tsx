@@ -12,11 +12,17 @@ import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
 import { searchNotes, searchTags } from '@/actions/backend'
 import { debounce } from 'lodash-es'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { setEditId } from '@/store/features/backend-note-slice'
 
 export const BackendNote = () => {
   const Toast = useToast()
+  const dispatch = useDispatch<AppDispatch>()
   // 提示框状态
   const [open, setOpen] = useState(false)
+  // 标签模态框标题
+  const [noteModalTitle, setNoteModalTitle] = useState('创建笔记')
   // 创建笔记模态框状态
   const [openCreateNote, setOpenCreateNote] = useState(false)
 
@@ -153,7 +159,13 @@ export const BackendNote = () => {
       </div>
 
       {/* 表格 */}
-      <NoteTable ref={NoteTableRef} />
+      <NoteTable
+        ref={NoteTableRef}
+        openEditNoteModal={() => {
+          setNoteModalTitle('编辑标签')
+          setOpenCreateNote(true)
+        }}
+      />
 
       {/* modal提示框 */}
       <KlModal
@@ -167,13 +179,26 @@ export const BackendNote = () => {
       <KlModal
         open={openCreateNote}
         setOpen={setOpenCreateNote}
-        title="创建笔记"
+        title={noteModalTitle}
         isTitleCenter={true}
-        content={<NoteModalContent />}
+        content={
+          <NoteModalContent
+            closeModal={() => {
+              // 清空编辑id，防止下次打开模态框时，显示的是上一次的编辑内容
+              dispatch(setEditId(''))
+              setOpenCreateNote(false)
+            }}
+          />
+        }
         size="full"
         showCancelButton={false}
         showConfirmButton={false}
-        successCallback={() => console.log('创建标签')}
+        // modal关闭时，恢复默认标题
+        onCloseCallback={() => {
+          // 清空编辑id，防止下次打开模态框时，显示的是上一次的编辑内容
+          dispatch(setEditId(''))
+          setNoteModalTitle('创建标签')
+        }}
       />
     </div>
   )

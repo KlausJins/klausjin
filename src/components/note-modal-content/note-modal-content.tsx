@@ -13,9 +13,11 @@ import KlModal from '@/components/ui/modal'
 import { KlUploader } from '@/components/ui/uploader'
 import KlForm from '@/components/ui/form'
 import { debounce } from 'lodash-es'
-import { isAdmin, searchTags } from '@/actions/backend'
+import { createNote, isAdmin, searchTags } from '@/actions/backend'
 import { useToast } from '@/hooks'
 import { clm } from '@/utils'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
 
 type NoteFormProps = {
   id: string
@@ -27,7 +29,11 @@ type NoteFormProps = {
   content: string
 }
 
-export const NoteModalContent = () => {
+export interface NoteModalContentProps {
+  closeModal?: () => void
+}
+
+export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   const Toast = useToast()
   // 创建标签模态框状态
   const [openCreateTag, setOpenCreateTag] = useState(false)
@@ -39,6 +45,8 @@ export const NoteModalContent = () => {
   const [isTagsErr, setIsTagErr] = useState(false)
   // 提交按钮的加载状态
   const [isSubmiting, setIsSubmiting] = useState(false)
+
+  const userStore = useSelector((state: RootState) => state.user)
 
   // 表单数据
   const [formData, setFormData] = useState<NoteFormProps>({
@@ -104,8 +112,19 @@ export const NoteModalContent = () => {
       }
       console.log('提交数据： ', submitDatas)
 
+      await createNote({
+        ...submitDatas,
+        userName: userStore.name as string,
+        userId: userStore.id as string
+      })
+
       // 接触提交按钮加载状态
       setIsSubmiting(false)
+
+      // 关闭弹窗
+      if (closeModal) closeModal()
+
+      Toast({ type: 'success', description: '提交成功！' })
     },
     [formData, Toast, setIsTagErr]
   )
