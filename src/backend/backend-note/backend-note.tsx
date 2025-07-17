@@ -10,11 +10,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
-import { searchTags } from '@/actions/backend'
+import { deleteNotes, isAdmin, searchTags } from '@/actions/backend'
 import { debounce } from 'lodash-es'
 import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
-import { setEditId, setFilterValue } from '@/store/features/backend-note-slice'
+import {
+  setEditId,
+  setFilterValue,
+  toggleIsRefreshTable
+} from '@/store/features/backend-note-slice'
 import { useSelector } from 'react-redux'
 
 export const BackendNote = () => {
@@ -30,24 +34,31 @@ export const BackendNote = () => {
 
   // 标签下拉框数据
   const [tagsOptions, setTagsOptions] = useState<{ id: string; value: string }[]>([])
-  // 标签下拉框选中值
-  // const [selectedTags, setSelectedTags] = useState<string[]>([])
-  // 搜索关键词
-  // const [searchValue, setSearchValue] = useState<string | null>(null)
   // 笔记表格实例
   const NoteTableRef = useRef<NoteTableHandle>(null)
 
   // 处理表格删除事件
-  const ModalHandler = useCallback(() => {
+  const ModalHandler = useCallback(async () => {
     if (NoteTableRef.current) {
       const selectedKeys = TableRowsToArray(
         NoteTableRef.current.selectedKeys,
         NoteTableRef.current.allRowKeys
       )
+
+      const isAdminPermission = await isAdmin()
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        return Toast({ description: '无操作权限！' })
+      }
+
       console.log('删除多条数据', selectedKeys)
-      Toast({ type: 'success', description: '删除成功！' })
+      deleteNotes(selectedKeys as string[]).then(() => {
+        dispatch(toggleIsRefreshTable())
+        Toast({ type: 'success', description: '删除成功！' })
+      })
     }
-  }, [Toast])
+  }, [Toast, dispatch])
 
   // 点击删除标签按钮时候校验
   const delTag = useCallback(() => {
@@ -88,7 +99,6 @@ export const BackendNote = () => {
   const onSearchValueChange = useMemo(() => {
     return debounce((e) => {
       console.log('e.target.value: ', e.target.value)
-      // setSearchValue(e.target.value)
       dispatch(setFilterValue({ title: e.target.value })) // 设置搜索值
     }, 300)
   }, [dispatch])
@@ -122,7 +132,6 @@ export const BackendNote = () => {
             placeholder="请输入笔记名称"
             onChange={(e) => onSearchValueChange(e)}
             onClear={() => {
-              // setSearchValue(null)
               dispatch(setFilterValue({ title: '' }))
             }}
           />
@@ -132,7 +141,6 @@ export const BackendNote = () => {
             options={tagsOptions}
             value={backendNoteStore.filterValue?.selectedTags as string[]}
             onChange={(value) => {
-              // setSelectedTags(value)
               dispatch(setFilterValue({ selectedTags: value }))
             }}
             placeholder="请选择标签"

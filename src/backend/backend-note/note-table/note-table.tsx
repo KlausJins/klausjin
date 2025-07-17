@@ -144,7 +144,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
           setNoteInfos(res_info)
         })
       },
-      [setIsLoading, setNoteInfos, timeAscDesc, backendNoteStore.filterValue]
+      [setIsLoading, setNoteInfos, backendNoteStore.filterValue]
     )
 
     // 暴露给父组件的变量和方法
@@ -205,7 +205,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
     // 首次进来加载数据
     useEffect(() => {
       loadNoteTable({})
-    }, [])
+    }, [backendNoteStore.isRefreshTable])
 
     const timerHandler = useCallback(
       (type: 'create' | 'update') => {

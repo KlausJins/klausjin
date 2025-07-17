@@ -17,7 +17,9 @@ import { createNote, isAdmin, searchTags } from '@/actions/backend'
 import { useToast } from '@/hooks'
 import { clm } from '@/utils'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store'
+import { useDispatch } from 'react-redux'
+import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
 
 type NoteFormProps = {
   id: string
@@ -35,6 +37,7 @@ export interface NoteModalContentProps {
 
 export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   const Toast = useToast()
+  const dispatch = useDispatch<AppDispatch>()
   // 创建标签模态框状态
   const [openCreateTag, setOpenCreateTag] = useState(false)
   // 标签下拉框数据
@@ -121,12 +124,15 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       // 接触提交按钮加载状态
       setIsSubmiting(false)
 
+      // 刷新标签表格数据
+      dispatch(toggleIsRefreshTable())
+
       // 关闭弹窗
       if (closeModal) closeModal()
 
       Toast({ type: 'success', description: '提交成功！' })
     },
-    [formData, Toast, setIsTagErr, userStore.name, userStore.id, closeModal]
+    [formData, Toast, setIsTagErr, userStore.name, userStore.id, closeModal, dispatch]
   )
 
   // 搜索标签

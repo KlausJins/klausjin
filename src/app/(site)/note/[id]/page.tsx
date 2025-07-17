@@ -2,13 +2,7 @@ import { ContainerLayout } from '@/components/container-layout/container-layout'
 import { GoBackToTop } from '@/components/goback-to-top'
 import { NoteInfo } from '@/features/note/note-info'
 
-interface NoteDetailProps {
-  params: {
-    id: string
-  }
-}
-
-export default async function NoteDetail({ params }: NoteDetailProps) {
+export default async function NoteDetail({ params }: { params: Promise<{ id: string }> }) {
   const paramsInfo = await params
 
   return (
