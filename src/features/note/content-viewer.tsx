@@ -51,11 +51,11 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   // 获取本地的md文档
   useEffect(() => {
-    fetch(`/api/md/${id}`).then((res) =>
+    fetch(`/api/md/${id}`).then((res) => {
       res.json().then((res) => {
         setMDContent(res.content)
       })
-    )
+    })
   }, [id])
 
   useEffect(() => {

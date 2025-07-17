@@ -1,9 +1,9 @@
 import { ContentViewer } from './content-viewer'
 
-export const NoteInfo = () => {
+export const NoteInfo = ({ id }: { id: string }) => {
   return (
     <>
-      <ContentViewer id="test" />
+      <ContentViewer id={id || 'test'} />
     </>
   )
 }
