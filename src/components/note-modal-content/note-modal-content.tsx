@@ -126,7 +126,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
 
       Toast({ type: 'success', description: '提交成功！' })
     },
-    [formData, Toast, setIsTagErr]
+    [formData, Toast, setIsTagErr, userStore.name, userStore.id, closeModal]
   )
 
   // 搜索标签

@@ -59,7 +59,7 @@ export const searchTags = async (params: searchTagsParams) => {
   const { name, paging, orderByType } = params
 
   // 设置排序变量
-  let orderByName: 'createdAt' | 'updatedAt' = 'updatedAt'
+  let orderByName: 'createdAt' | 'updatedAt' = 'createdAt'
   let orderByValue: 'asc' | 'desc' = 'desc'
 
   // 根据排序变量设置排序规则

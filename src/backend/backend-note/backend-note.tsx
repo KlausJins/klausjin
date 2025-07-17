@@ -10,14 +10,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SelectX } from '@/components/ui/select-x'
 import { TableRowsToArray } from '@/utils'
 import { NoteModalContent } from '@/components/note-modal-content'
-import { searchNotes, searchTags } from '@/actions/backend'
+import { searchTags } from '@/actions/backend'
 import { debounce } from 'lodash-es'
 import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-import { setEditId } from '@/store/features/backend-note-slice'
+import { AppDispatch, RootState } from '@/store'
+import { setEditId, setFilterValue } from '@/store/features/backend-note-slice'
+import { useSelector } from 'react-redux'
 
 export const BackendNote = () => {
   const Toast = useToast()
+  const backendNoteStore = useSelector((state: RootState) => state.backendNote)
   const dispatch = useDispatch<AppDispatch>()
   // 提示框状态
   const [open, setOpen] = useState(false)
@@ -29,9 +31,9 @@ export const BackendNote = () => {
   // 标签下拉框数据
   const [tagsOptions, setTagsOptions] = useState<{ id: string; value: string }[]>([])
   // 标签下拉框选中值
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  // 搜索关键词 searchValue
-  const [, setSearchValue] = useState<string | null>(null)
+  // const [selectedTags, setSelectedTags] = useState<string[]>([])
+  // 搜索关键词
+  // const [searchValue, setSearchValue] = useState<string | null>(null)
   // 笔记表格实例
   const NoteTableRef = useRef<NoteTableHandle>(null)
 
@@ -86,21 +88,20 @@ export const BackendNote = () => {
   const onSearchValueChange = useMemo(() => {
     return debounce((e) => {
       console.log('e.target.value: ', e.target.value)
-      setSearchValue(e.target.value)
+      // setSearchValue(e.target.value)
+      dispatch(setFilterValue({ title: e.target.value })) // 设置搜索值
     }, 300)
-  }, [])
+  }, [dispatch])
 
   // 搜索笔记
   const searchHandler = useMemo(() => {
     return debounce(() => {
       if (NoteTableRef.current) {
-        searchNotes({}).then((res) => {
-          console.log('searchNotes res: ', res)
-        })
-        // const { setTagInfos, loadTagTable, timeAscDesc } = NoteTableRef.current
-        // setTagInfos([])
-        // console.log('timeAscDesc: ', timeAscDesc)
-        // loadTagTable({ name: searchValue?.trim() || '', orderByType: timeAscDesc })
+        const { setNoteInfos, loadNoteTable, timeAscDesc } = NoteTableRef.current
+        // 清空笔记列表
+        setNoteInfos([])
+        // 加载笔记列表
+        loadNoteTable({ orderByType: timeAscDesc })
       }
     }, 300)
   }, [])
@@ -120,14 +121,20 @@ export const BackendNote = () => {
             className="w-80"
             placeholder="请输入笔记名称"
             onChange={(e) => onSearchValueChange(e)}
-            onClear={() => setSearchValue(null)}
+            onClear={() => {
+              // setSearchValue(null)
+              dispatch(setFilterValue({ title: '' }))
+            }}
           />
 
           {/* 下拉框 */}
           <SelectX
             options={tagsOptions}
-            value={selectedTags}
-            onChange={setSelectedTags}
+            value={backendNoteStore.filterValue?.selectedTags as string[]}
+            onChange={(value) => {
+              // setSelectedTags(value)
+              dispatch(setFilterValue({ selectedTags: value }))
+            }}
             placeholder="请选择标签"
           />
         </div>

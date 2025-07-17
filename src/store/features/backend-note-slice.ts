@@ -1,14 +1,21 @@
-import { Datas } from '@/backend/backend-note/note-table'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface UserStateProps {
   editId: string
-  noteInfos: Datas[]
+  filterValue?: {
+    title?: string
+    selectedTags?: string[]
+    paging?: { pageIndex: number; limit: number }
+  }
   // 值不重要，主要是为了触发useEffect的触发
   isRefreshTable: boolean
 }
 
-const initialState: UserStateProps = { editId: '', isRefreshTable: false, noteInfos: [] }
+const initialState: UserStateProps = {
+  editId: '',
+  isRefreshTable: false,
+  filterValue: { title: '', selectedTags: [] }
+}
 
 export const backendNoteSlice = createSlice({
   name: 'backendNote',
@@ -20,11 +27,14 @@ export const backendNoteSlice = createSlice({
     toggleIsRefreshTable(state) {
       state.isRefreshTable = !state.isRefreshTable
     },
-    setNoteInfos(state, action: PayloadAction<Datas[]>) {
-      state.noteInfos = action.payload
+    setFilterValue(state, action: PayloadAction<UserStateProps['filterValue']>) {
+      state.filterValue = {
+        ...state.filterValue,
+        ...action.payload
+      }
     }
   }
 })
 
-export const { setEditId, toggleIsRefreshTable, setNoteInfos } = backendNoteSlice.actions
+export const { setEditId, toggleIsRefreshTable, setFilterValue } = backendNoteSlice.actions
 export default backendNoteSlice.reducer

@@ -4,16 +4,17 @@ import { prisma } from '@/lib/prisma'
 
 export type searchNotesParams = {
   title?: string
+  selectedTags?: string[]
   paging?: { pageIndex: number; limit: number }
   orderByType?: 'CREATEASC' | 'CREATEDESC' | 'UPDATEASC' | 'UPDATEDESC'
 }
 
 // 查询标签数据
 export const searchNotes = async (params: searchNotesParams) => {
-  const { title, paging, orderByType } = params
+  const { title, selectedTags, paging, orderByType } = params
 
   // 设置排序变量
-  let orderByName: 'createdAt' | 'updatedAt' = 'updatedAt'
+  let orderByName: 'createdAt' | 'updatedAt' = 'createdAt'
   let orderByValue: 'asc' | 'desc' = 'desc'
 
   // 根据排序变量设置排序规则
@@ -51,6 +52,13 @@ export const searchNotes = async (params: searchNotesParams) => {
       title: {
         contains: title,
         mode: 'insensitive' // 不区分大小写
+      },
+      tags: {
+        some: {
+          name: {
+            in: selectedTags?.length ? selectedTags : undefined
+          }
+        }
       }
     },
     orderBy: {

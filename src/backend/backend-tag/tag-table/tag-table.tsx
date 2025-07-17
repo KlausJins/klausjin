@@ -84,7 +84,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
   // 实际显示的行表头属性值
   const [visibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS))
   // 表头时间的状态
-  const [timeAscDesc, setTimeAscDesc] = useState<TIME_ASC_DESC>(TIME_ASC_DESC.UPDATEDESC)
+  const [timeAscDesc, setTimeAscDesc] = useState<TIME_ASC_DESC>(TIME_ASC_DESC.CREATEDESC)
   // 获取当前点击actions时表格的key
   const [deleteId, setDeleteId] = React.useState<string>('')
   // 提示框状态
