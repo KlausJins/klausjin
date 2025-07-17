@@ -3,10 +3,12 @@
 import React, {
   ChangeEvent,
   forwardRef,
+  RefObject,
   useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState
 } from 'react'
 import { Selection } from '@heroui/react'
@@ -33,7 +35,14 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-note-slice'
 import { useSelector } from 'react-redux'
-import { deleteNotes, isAdmin, searchNotes, searchNotesParams } from '@/actions/backend'
+import {
+  changeNotePublishStatus,
+  deleteNotes,
+  isAdmin,
+  searchNotes,
+  searchNotesParams
+} from '@/actions/backend'
+import Link from 'next/link'
 
 const enum TIME_ASC_DESC {
   CREATEASC = 'CREATEASC',
@@ -52,7 +61,7 @@ const INITIAL_VISIBLE_COLUMNS = [
   'actions'
 ]
 
-type Datas = {
+export type Datas = {
   id: string
   title: string
   author: string
@@ -106,7 +115,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
     useImperativeHandle(ref, () => ({
       selectedKeys,
       allRowKeys: noteInfos.map((row) => row.id),
-      // loadNoteTable,
+      loadNoteTable,
       setNoteInfos,
       timeAscDesc
     }))
@@ -131,19 +140,26 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
       } else {
         Toast({ type: 'warning', description: '没有找到对应的id！' })
       }
-    }, [deleteId, Toast, dispatch])
+    }, [deleteId, Toast, dispatch, toggleIsRefreshTable])
 
     // 处理表格删除事件
     const publishNote = useCallback(
-      (e: ChangeEvent<HTMLInputElement>, id: string) => {
-        console.log('id: ', id)
-        if (e.target.checked) {
+      async (e: ChangeEvent<HTMLInputElement>, id: string) => {
+        const checkedValue = e.target.checked
+
+        // 切换笔记发布状态
+        await changeNotePublishStatus(id, checkedValue)
+
+        if (checkedValue) {
           Toast({ type: 'success', description: '笔记发布成功！' })
         } else {
           Toast({ type: 'success', description: '笔记取消发布！' })
         }
+
+        // 刷新页面
+        dispatch(toggleIsRefreshTable())
       },
-      [Toast]
+      [Toast, dispatch, toggleIsRefreshTable]
     )
 
     // 刷新页面（加载页面）
@@ -179,39 +195,6 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
       loadNoteTable({ title: '' })
     }, [loadNoteTable, backendNoteStore.isRefreshTable])
 
-    const timerHandler = useCallback(
-      (type: 'create' | 'update') => {
-        const temp_noteInfos = [...noteInfos]
-
-        console.log('timerHandler', noteInfos, temp_noteInfos)
-
-        if (type === 'create') {
-          // 创建时间变换
-          if (timeAscDesc == 'CREATEDESC') {
-            // 升序
-            setTimeAscDesc(TIME_ASC_DESC.CREATEASC)
-            setNoteInfos(temp_noteInfos.sort((a, b) => a.createTS - b.createTS))
-          } else {
-            // 降序
-            setTimeAscDesc(TIME_ASC_DESC.CREATEDESC)
-            setNoteInfos(temp_noteInfos.sort((a, b) => b.createTS - a.createTS))
-          }
-        } else if (type === 'update') {
-          // 更新时间变换
-          if (timeAscDesc == 'UPDATEDESC') {
-            // 升序
-            setTimeAscDesc(TIME_ASC_DESC.UPDATEASC)
-            setNoteInfos(temp_noteInfos.sort((a, b) => a.updateTS - b.updateTS))
-          } else {
-            // 降序
-            setTimeAscDesc(TIME_ASC_DESC.UPDATEDESC)
-            setNoteInfos(temp_noteInfos.sort((a, b) => b.updateTS - a.updateTS))
-          }
-        }
-      },
-      [noteInfos, setNoteInfos, timeAscDesc, setTimeAscDesc]
-    )
-
     // 每一列的样式格式设置
     const columns = useMemo(
       () => [
@@ -237,7 +220,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
         {
           uid: 'tags',
           children: (
-            <div className="flex items-center gap-1 text-[14px]  font-semibold">
+            <div className="flex items-center gap-1 text-[14px] font-semibold">
               <IconSelf iconName="icon-[lucide--tags]" />
               <div>标签</div>
             </div>
@@ -246,7 +229,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
         {
           uid: 'publishStatus',
           children: (
-            <div className="flex items-center gap-1 text-[14px]  font-semibold">
+            <div className="flex items-center gap-1 text-[14px] font-semibold">
               <IconSelf iconName="icon-[lucide--stars]" />
               <div>发布状态</div>
             </div>
@@ -260,17 +243,12 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
                 'gap-1 text-[14px] border-0 h-8 font-semibold',
                 'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
               )}
-              onPress={() => timerHandler('create')}
             >
               <IconSelf iconName="icon-[lucide--calendar]" />
-              <div>创建时间</div>
+              <div>创建时间{timeAscDesc}</div>
               {/* 创建时间的图形变换 */}
-              {timeAscDesc == TIME_ASC_DESC.CREATEASC && (
-                <IconSelf iconName="icon-[lucide--sort-asc]" />
-              )}
-              {timeAscDesc == TIME_ASC_DESC.CREATEDESC && (
-                <IconSelf iconName="icon-[lucide--sort-desc]" />
-              )}
+              <IconSelf iconName="icon-[lucide--sort-asc]" />
+              <IconSelf iconName="icon-[lucide--sort-desc]" />
             </KlButton>
           )
         },
@@ -282,23 +260,19 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
                 'gap-1 text-[14px] border-0 h-8 font-semibold',
                 'bg-darkBgPrimary text-darkprimary dark:bg-bgPrimary dark:text-primary hover:bg-transparent hover:dark:bg-hoverColor'
               )}
-              onPress={() => timerHandler('update')}
             >
               <IconSelf iconName="icon-[lucide--calendar]" />
               <div>更新时间</div>
               {/* 更新时间的图形变换 */}
-              {timeAscDesc == TIME_ASC_DESC.UPDATEASC && (
-                <IconSelf iconName="icon-[lucide--sort-asc]" />
-              )}
-              {timeAscDesc == TIME_ASC_DESC.UPDATEDESC && (
-                <IconSelf iconName="icon-[lucide--sort-desc]" />
-              )}
+              <IconSelf iconName="icon-[lucide--sort-asc]" />
+
+              <IconSelf iconName="icon-[lucide--sort-desc]" />
             </KlButton>
           )
         },
         { children: '', uid: 'actions' }
       ],
-      [timeAscDesc, timerHandler]
+      [timeAscDesc]
     )
 
     // 处理后的表头（过滤掉不相交的表头属性数据）
@@ -354,9 +328,11 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
             return (
               <div className="relative flex justify-end items-center gap-2">
                 {/* 查看笔记按钮 */}
-                <KlButton isIconOnly={true}>
-                  <IconSelf iconName="icon-[lucide--eye]" />
-                </KlButton>
+                <Link href={`/note/${datas.id}`} target="_blank">
+                  <KlButton isIconOnly={true}>
+                    <IconSelf iconName="icon-[lucide--eye]" />
+                  </KlButton>
+                </Link>
                 {/* 编辑按钮 */}
                 <KlButton
                   isIconOnly={true}
@@ -388,7 +364,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
             )
         }
       },
-      [publishNote]
+      [publishNote, openEditNoteModal, dispatch]
     )
 
     // 分页器条数设置方法
@@ -412,7 +388,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
           </div>
         </div>
       )
-    }, [selectedKeys, onRowsPerPageChange, page, pages])
+    }, [noteInfos.length, selectedKeys, onRowsPerPageChange, page, pages])
 
     return (
       <>

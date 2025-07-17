@@ -101,3 +101,15 @@ export const deleteNotes = async (id: string[]) => {
     }
   })
 }
+
+// 切换笔记发布状态
+export const changeNotePublishStatus = async (id: string, status: boolean) => {
+  return prisma.note.update({
+    where: {
+      id
+    },
+    data: {
+      published: status
+    }
+  })
+}

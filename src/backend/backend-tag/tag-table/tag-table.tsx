@@ -141,6 +141,8 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
     (type: 'create' | 'update') => {
       const temp_tagInfos = [...tagInfos]
 
+      console.log('tagInfos: ', tagInfos)
+
       if (type === 'create') {
         // 创建时间变换
         if (timeAscDesc == 'CREATEDESC') {
