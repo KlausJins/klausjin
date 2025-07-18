@@ -29,6 +29,7 @@ interface MDEditorPropsType {
 
 export type MDEditorHandle = {
   MDValue: string
+  setMDValue: (value: string) => void
 }
 
 export const MDEditor = forwardRef<MDEditorHandle, MDEditorPropsType>(
@@ -37,7 +38,8 @@ export const MDEditor = forwardRef<MDEditorHandle, MDEditorPropsType>(
 
     // 暴露给父组件的变量和方法
     useImperativeHandle(ref, () => ({
-      MDValue
+      MDValue,
+      setMDValue
     }))
 
     return (

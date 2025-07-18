@@ -13,7 +13,7 @@ import KlModal from '@/components/ui/modal'
 import { KlUploader } from '@/components/ui/uploader'
 import KlForm from '@/components/ui/form'
 import { debounce } from 'lodash-es'
-import { createNote, isAdmin, searchTags } from '@/actions/backend'
+import { createNote, getNoteDetail, isAdmin, searchTags, updateNote } from '@/actions/backend'
 import { useToast } from '@/hooks'
 import { clm } from '@/utils'
 import { useSelector } from 'react-redux'
@@ -37,6 +37,7 @@ export interface NoteModalContentProps {
 
 export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   const Toast = useToast()
+  const backendNoteStore = useSelector((state: RootState) => state.backendNote)
   const dispatch = useDispatch<AppDispatch>()
   // 创建标签模态框状态
   const [openCreateTag, setOpenCreateTag] = useState(false)
@@ -113,13 +114,24 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         setIsSubmiting(false)
         return Toast({ description: '无操作权限！' })
       }
+
       console.log('提交数据： ', submitDatas)
 
-      await createNote({
-        ...submitDatas,
-        userName: userStore.name as string,
-        userId: userStore.id as string
-      })
+      if (backendNoteStore.editId) {
+        // 更新标签
+        await updateNote({
+          ...submitDatas,
+          userName: userStore.name as string,
+          userId: userStore.id as string
+        })
+      } else {
+        // 创建笔记
+        await createNote({
+          ...submitDatas,
+          userName: userStore.name as string,
+          userId: userStore.id as string
+        })
+      }
 
       // 接触提交按钮加载状态
       setIsSubmiting(false)
@@ -132,7 +144,16 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
 
       Toast({ type: 'success', description: '提交成功！' })
     },
-    [formData, Toast, setIsTagErr, userStore.name, userStore.id, closeModal, dispatch]
+    [
+      formData,
+      Toast,
+      setIsTagErr,
+      userStore.name,
+      userStore.id,
+      closeModal,
+      dispatch,
+      backendNoteStore.editId
+    ]
   )
 
   // 搜索标签
@@ -158,6 +179,29 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   useEffect(() => {
     getTagsList('')
   }, [getTagsList])
+
+  useEffect(() => {
+    if (backendNoteStore.editId) {
+      getNoteDetail(backendNoteStore.editId).then((res) => {
+        console.log('getNoteDetail res: ', res)
+
+        setFormData({
+          id: res?.id as string,
+          title: res?.title as string,
+          description: res?.description as string,
+          cover: res?.cover as string,
+          isPublished: res?.published as boolean,
+          tags: res?.tags.map((item) => item.name) as string[],
+          content: res?.content as string
+        })
+
+        // 设置表单的文档内容
+        if (MDEditorRef.current) {
+          MDEditorRef.current.setMDValue(res?.content as string)
+        }
+      })
+    }
+  }, [backendNoteStore.editId, setFormData])
 
   // 表单数据变化
   const formDataOnChange = useCallback(
@@ -308,7 +352,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         content={
           <TagModalContent
             closeModal={() => {
-              console.log('创建标签1')
+              console.log('创建标签模态框关闭')
               getTagsList('')
               setOpenCreateTag(false)
             }}
@@ -318,7 +362,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         size="2xl"
         showCancelButton={false}
         showConfirmButton={false}
-        successCallback={() => console.log('创建标签2')}
+        successCallback={() => console.log('创建标签模态框关闭')}
       />
     </>
   )

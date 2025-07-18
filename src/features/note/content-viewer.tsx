@@ -12,9 +12,7 @@ import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import KlDropdown, { DropdownItemType } from '@/components/ui/dropdown'
 import { getNoteDetail } from '@/actions/backend'
-import dayjs from 'dayjs'
 import { formatTime } from '@/utils'
-import { title } from 'process'
 
 type noteDetailInfo = {
   id: string

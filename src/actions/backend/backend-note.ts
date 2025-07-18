@@ -146,3 +146,36 @@ export const getNoteDetail = async (id: string) => {
     }
   })
 }
+
+type UpdateNoteInfoType = {
+  id: string
+  userId: string
+  title: string
+  description: string
+  content: string
+  cover?: string
+  userName: string
+  tags: string[]
+  isPublished: boolean
+}
+
+// 更新笔记
+export const updateNote = async (noteInfo: UpdateNoteInfoType) => {
+  // 更新标签
+  return prisma.note.update({
+    data: {
+      title: noteInfo.title as string,
+      description: noteInfo.description as string,
+      content: noteInfo.content as string,
+      cover: noteInfo.cover as string,
+      published: noteInfo.isPublished as boolean,
+      userId: noteInfo.userId as string,
+      tags: {
+        connect: noteInfo.tags.map((item) => ({ id: item }))
+      }
+    },
+    where: {
+      id: noteInfo.id as string
+    }
+  })
+}
