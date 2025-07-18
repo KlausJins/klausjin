@@ -116,8 +116,8 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
 
     // 刷新页面（加载页面）
     const loadNoteTable = useCallback(
-      (payload: searchNotesParams) => {
-        setIsLoading(true)
+      (payload: searchNotesParams, isLoading = true) => {
+        isLoading && setIsLoading(true)
 
         searchNotes({
           // 筛选条件放到store中，以便操作发布状态时刷新页面保留筛选条件内容
@@ -140,7 +140,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
             }
           })
 
-          setIsLoading(false)
+          isLoading && setIsLoading(false)
           setNoteInfos(res_info)
         })
       },
@@ -197,7 +197,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
 
         // 刷新页面
         // dispatch(toggleIsRefreshTable())
-        loadNoteTable({})
+        loadNoteTable({}, false)
       },
       [Toast, loadNoteTable]
     )

@@ -71,10 +71,8 @@ export const BackendTag = () => {
   const searchHandler = useMemo(() => {
     return debounce(() => {
       if (TagTableRef.current) {
-        const { setTagInfos, loadTagTable, timeAscDesc } = TagTableRef.current
-
-        setTagInfos([])
-        console.log('timeAscDesc: ', timeAscDesc)
+        const { loadTagTable, timeAscDesc } = TagTableRef.current
+        // 加载标签列表
         loadTagTable({ name: searchValue?.trim() || '', orderByType: timeAscDesc })
       }
     }, 300)

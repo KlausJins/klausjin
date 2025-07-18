@@ -61,7 +61,7 @@ export const BackendNote = () => {
   }, [Toast, dispatch])
 
   // 点击删除标签按钮时候校验
-  const delTag = useCallback(() => {
+  const delNote = useCallback(() => {
     if (NoteTableRef.current) {
       const selectedKeys = TableRowsToArray(
         NoteTableRef.current.selectedKeys,
@@ -71,7 +71,7 @@ export const BackendNote = () => {
       if (selectedKeys.length > 0) {
         setOpen(true)
       } else {
-        Toast({ type: 'warning', description: '请选择要删除的标签！' })
+        Toast({ type: 'warning', description: '请选择要删除的笔记！' })
       }
     }
   }, [Toast])
@@ -107,9 +107,7 @@ export const BackendNote = () => {
   const searchHandler = useMemo(() => {
     return debounce(() => {
       if (NoteTableRef.current) {
-        const { setNoteInfos, loadNoteTable, timeAscDesc } = NoteTableRef.current
-        // 清空笔记列表
-        setNoteInfos([])
+        const { loadNoteTable, timeAscDesc } = NoteTableRef.current
         // 加载笔记列表
         loadNoteTable({ orderByType: timeAscDesc })
       }
@@ -164,7 +162,7 @@ export const BackendNote = () => {
           </KlButton>
 
           {/* 删除按钮 */}
-          <KlButton fill={true} onPress={() => delTag()}>
+          <KlButton fill={true} onPress={() => delNote()}>
             <div className="flex items-center gap-2">
               <IconSelf iconName="icon-[lucide--trash]" />
               <span>删除</span>
