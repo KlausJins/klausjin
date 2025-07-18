@@ -121,3 +121,28 @@ export const changeNotePublishStatus = async (id: string, status: boolean) => {
     }
   })
 }
+
+// 加载笔记详情数据
+export const getNoteDetail = async (id: string) => {
+  return prisma.note.findUnique({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      content: true,
+      cover: true,
+      author: true,
+      published: true,
+      createdAt: true,
+      tags: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
+    where: {
+      id
+    }
+  })
+}

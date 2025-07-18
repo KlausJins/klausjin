@@ -11,6 +11,22 @@ import { listenScrollHandler, useGenerateDocDir } from './content-hooks'
 import IconSelf from '@/components/icons/icon-self'
 import KlButton from '@/components/ui/button'
 import KlDropdown, { DropdownItemType } from '@/components/ui/dropdown'
+import { getNoteDetail } from '@/actions/backend'
+import dayjs from 'dayjs'
+import { formatTime } from '@/utils'
+import { title } from 'process'
+
+type noteDetailInfo = {
+  id: string
+  title: string
+  description: string
+  author?: string
+  cover?: string
+  published?: boolean
+  tags: string[]
+  createDate: string
+  createTime: string
+}
 
 export const ContentViewer = ({ id }: { id: string }) => {
   const [MDContent, setMDContent] = useState('')
@@ -18,6 +34,8 @@ export const ContentViewer = ({ id }: { id: string }) => {
   const MDViewerRef = useRef<HTMLDivElement>(null)
   const [hasMounted, setHasMounted] = useState(false)
   const { anchorListInfo, setAnchorListInfo } = useGenerateDocDir(setActiveId)
+  // 页面数据
+  const [noteDetailInfo, setNoteDetailInfo] = useState<noteDetailInfo>()
 
   const ContentViewerDropdownTrigger = useMemo(
     () => (
@@ -51,12 +69,25 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   // 获取本地的md文档
   useEffect(() => {
-    fetch(`/api/md/${id}`).then((res) => {
-      res.json().then((res) => {
+    ;(async () => {
+      const res = await getNoteDetail(id)
+      console.log('getNoteDetail res: ', res)
+      if (res) {
+        // 保存笔记其余信息
+        const handled_info: noteDetailInfo = {
+          id: res.id,
+          title: res.title,
+          description: res.description,
+          tags: res.tags.map((item) => item.name),
+          createDate: formatTime(res.createdAt, 'dddd'),
+          createTime: formatTime(res.createdAt, 'MMMM DD YYYY')
+        }
+        setNoteDetailInfo(handled_info)
+        // 给MD文档赋值
         setMDContent(res.content)
-      })
-    })
-  }, [id])
+      }
+    })()
+  }, [id, setMDContent, setNoteDetailInfo])
 
   useEffect(() => {
     const MDViewerContainer = MDViewerRef.current!
@@ -104,12 +135,11 @@ export const ContentViewer = ({ id }: { id: string }) => {
         <div className="mx-auto flex flex-col flex-wrap !max-w-detail-content pb-10 overflow-wrap-anywhere">
           {/* 文档标题 */}
           <div className="flex flex-col gap-10 max-md:gap-4">
-            <div className="text-4xl font-black">在浏览器中使用 js 获取视频和图片的信息</div>
-            <div className="text-secondary">
-              本文简单介绍了如何在浏览器中使用 js 获取视频和图片大小、视频时长等信息，同时提供 ts
-              版本的实现
+            <div className="text-4xl font-black">{noteDetailInfo?.title}</div>
+            <div className="text-secondary">{noteDetailInfo?.description}</div>
+            <div className="text-secondary text-sm">
+              {`发布于 ${noteDetailInfo?.createDate}，${noteDetailInfo?.createTime}`}
             </div>
-            <div className="text-secondary text-sm">发布于 星期五，六月 6 2025</div>
           </div>
 
           {/* 文档内容 */}
