@@ -174,7 +174,7 @@ export const SelectX = forwardRef<SelectXHandle, SelectXProps>(
               className="w-full px-2 pb-1"
               emptyContent={
                 <div className="flex flex-col items-center justify-center">
-                  <IconEmpty className="w-50 h-50 opacity-50" />
+                  <IconEmpty />
                 </div>
               }
             >
