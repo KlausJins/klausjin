@@ -1,2 +1,5 @@
 export * from './icon-self'
 export * from './icon-empty'
+export * from './icon-empty-content'
+export * from './icon-loading'
+export * from './icon-notfound'

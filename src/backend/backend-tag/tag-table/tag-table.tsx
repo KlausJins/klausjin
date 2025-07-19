@@ -26,7 +26,7 @@ import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { deleteTags, isAdmin, searchTags, searchTagsParams } from '@/actions/backend'
 // import { TableSkeleton } from '@/components/ui/table-skeleton'
-import { EmptyContent } from '@/components/icons/empty-content'
+import { IconEmptyContent } from '@/components/icons/icon-empty-content'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
@@ -390,7 +390,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
           )}
         </KlTableHeader>
         <KlTableBody
-          emptyContent={<EmptyContent />}
+          emptyContent={<IconEmptyContent />}
           isLoading={isLoading as boolean}
           loadingContent={<IconLoading />}
           items={items}

@@ -28,7 +28,7 @@ import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
 import { KlSwitch } from '@/components/ui/switch'
-import { EmptyContent } from '@/components/icons/empty-content'
+import { IconEmptyContent } from '@/components/icons'
 import IconLoading from '@/components/icons/icon-loading'
 import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
@@ -474,7 +474,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
             )}
           </KlTableHeader>
           <KlTableBody
-            emptyContent={<EmptyContent />}
+            emptyContent={<IconEmptyContent />}
             isLoading={isLoading as boolean}
             loadingContent={<IconLoading />}
             items={items}
