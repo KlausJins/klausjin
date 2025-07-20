@@ -1,26 +1,26 @@
 import Image from 'next/image'
 
-type IconNotFoundProps = {
+type IconEmptySiteProps = {
   width?: number
   height?: number
 }
 
-export const IconNotFound = ({ width = 400, height = 400 }: IconNotFoundProps) => {
+export const IconEmptySite = ({ width = 400, height = 400 }: IconEmptySiteProps) => {
   return (
     <>
       <Image
         className="flex dark:hidden max-md:w-[300px]"
-        src={'/not-found/404-light.svg'}
+        src={'/empty/emptySite-light.svg'}
         width={width}
         height={height}
-        alt="404 Not Found"
+        alt="empty"
       />
       <Image
         className="hidden dark:flex max-md:w-[300px]"
-        src={'/not-found/404-dark.svg'}
+        src={'/empty/emptySite-dark.svg'}
         width={width}
         height={height}
-        alt="404 Not Found"
+        alt="empty"
       />
     </>
   )

@@ -20,7 +20,7 @@ export const MobileOff = () => {
         </div>
         <Link href="/" className="w-full">
           <KlButton className="w-full py-2 border-0 bg-darkBgPrimary dark:bg-bgPrimary text-darkprimary dark:text-primary">
-            回首页
+            返回首页
           </KlButton>
         </Link>
       </div>
