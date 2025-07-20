@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import { NoteInfo } from './note-info'
 import { useCloseModal, useIsMobile, useListenModalOpen, usePreventPageScroll } from './modal-hooks'
 
-const ModalDetail = () => {
+const ModalDetail = ({ id }: { id?: string }) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const overLayRef = useRef<HTMLDivElement>(null)
 
@@ -63,7 +63,7 @@ const ModalDetail = () => {
 
           {/* 笔记内容 */}
           <div className="relative min-h-[92%] w-full px-6">
-            <NoteInfo />
+            <NoteInfo id={id} />
           </div>
         </div>,
         document.body
