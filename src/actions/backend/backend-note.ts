@@ -137,7 +137,9 @@ export const getNoteDetail = async (id: string) => {
       tags: {
         select: {
           id: true,
-          name: true
+          name: true,
+          icon: true,
+          iconDark: true
         }
       }
     },
