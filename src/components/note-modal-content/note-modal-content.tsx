@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
+import { uploadFile } from '@/utils/oss'
 
 type NoteFormProps = {
   id: string
@@ -238,6 +239,14 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
     [formData, setFormData]
   )
 
+  // 处理上传图片的逻辑
+  const uploaderHandler = (file: File | null) => {
+    if (file) {
+      console.log('uploaderHandler: ', file)
+      uploadFile(file)
+    }
+  }
+
   return (
     <>
       <KlForm onSubmit={onSubmit}>
@@ -280,7 +289,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
               onChange={(e) => formDataOnChange('cover', e.target.value)}
               onClear={() => formDataOnClear('cover', '')}
             />
-            <KlUploader />
+            <KlUploader onChange={(file) => uploaderHandler(file)} />
           </div>
 
           <div className="flex flex-col gap-2">
