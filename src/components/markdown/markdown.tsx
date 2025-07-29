@@ -1,7 +1,7 @@
 'use client'
 
 import { forwardRef, useImperativeHandle, useState } from 'react'
-import { Editor, Viewer } from '@bytemd/react'
+import { Editor, EditorProps, Viewer } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import breaks from '@bytemd/plugin-breaks'
@@ -25,6 +25,7 @@ interface MDEditorPropsType {
   className?: string
   value: string
   onChange: (value: string, setMDValue: (value: string) => void) => void
+  uploadImages?: EditorProps['uploadImages']
 }
 
 export type MDEditorHandle = {
@@ -33,7 +34,7 @@ export type MDEditorHandle = {
 }
 
 export const MDEditor = forwardRef<MDEditorHandle, MDEditorPropsType>(
-  ({ className, value, onChange }, ref) => {
+  ({ className, value, onChange, uploadImages }, ref) => {
     const [MDValue, setMDValue] = useState(value)
 
     // 暴露给父组件的变量和方法
@@ -52,6 +53,7 @@ export const MDEditor = forwardRef<MDEditorHandle, MDEditorPropsType>(
           value={MDValue}
           plugins={plugins}
           locale={zh_Hans}
+          uploadImages={uploadImages}
           onChange={(v) => onChange(v, setMDValue)}
         />
       </div>

@@ -20,7 +20,8 @@ import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
-import { uploadFile } from '@/utils/oss'
+import { deleteFiles, signatureUrl, uploadFile } from '@/utils/oss'
+import { EditorProps } from '@bytemd/react'
 
 type NoteFormProps = {
   id: string
@@ -119,7 +120,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       console.log('提交数据： ', submitDatas)
 
       if (backendNoteStore.editId) {
-        // 更新标签
+        // 更新笔记
         await updateNote({
           ...submitDatas,
           userName: userStore.name as string,
@@ -240,12 +241,69 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   )
 
   // 处理上传图片的逻辑
-  const uploaderHandler = (file: File | null) => {
+  const uploaderHandler = async (file: File | null) => {
     if (file) {
       console.log('uploaderHandler: ', file)
-      uploadFile(file)
+
+      const isAdminPermission = await isAdmin()
+      console.log('isAdminPermission: ', isAdminPermission)
+
+      if (!isAdminPermission) {
+        setIsSubmiting(false)
+        return Toast({ description: '无操作权限！' })
+      }
+
+      const uploadInfo = await uploadFile(file)
+      console.log('uploadInfo: ', uploadInfo)
+
+      if (uploadInfo) {
+        if (uploadInfo.err != '') {
+          return Toast({ description: uploadInfo.err })
+        } else {
+          setFormData({
+            ...formData,
+            cover: uploadInfo.url
+          })
+        }
+      }
     }
   }
+
+  // md编辑器图片内容改变
+  const uploadImages: EditorProps['uploadImages'] = useCallback(
+    async (files: File[]) => {
+      console.log('uploadImages!!!', files)
+      const file = files[0]
+      if (file) {
+        const isAdminPermission = await isAdmin()
+        console.log('isAdminPermission: ', isAdminPermission)
+
+        if (!isAdminPermission) {
+          setIsSubmiting(false)
+          Toast({ description: '无操作权限！' })
+          return []
+        }
+
+        const uploadInfo = await uploadFile(file)
+        console.log('uploadImages uploadInfo: ', uploadInfo)
+
+        if (uploadInfo) {
+          if (uploadInfo.err != '') {
+            // 提示报错内容
+            Toast({ description: uploadInfo.err })
+            return []
+          } else {
+            return [{ url: await signatureUrl(uploadInfo.name) }]
+          }
+        }
+
+        return []
+      } else {
+        return []
+      }
+    },
+    [uploadFile]
+  )
 
   return (
     <>
@@ -340,6 +398,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
             <MDEditor
               ref={MDEditorRef}
               value={formData.content}
+              uploadImages={uploadImages}
               // 必须填写，否则内容不会变
               onChange={(value, setValue) => setValue(value)}
             />

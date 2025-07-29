@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   compiler: {
     // 去掉生产环境的console，但是保留error
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'klausjin.oss-cn-guangzhou.aliyuncs.com'
+      }
+    ]
   }
 }
 
