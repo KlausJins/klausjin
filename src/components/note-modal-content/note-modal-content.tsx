@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
-import { deleteFiles, signatureUrl, uploadFile } from '@/utils/oss'
+import { signatureUrl, uploadFile } from '@/utils/oss'
 import { EditorProps } from '@bytemd/react'
 
 type NoteFormProps = {
@@ -302,7 +302,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         return []
       }
     },
-    [uploadFile]
+    [Toast]
   )
 
   return (
