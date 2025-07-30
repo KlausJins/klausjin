@@ -2,14 +2,16 @@
 
 import aliOSS from '@/lib/oss'
 import { v4 as uuidv4 } from 'uuid'
-// import path from 'path'
+import sharp from 'sharp'
 
-// 文件路径
-const fileToBuffer = async (file: File) => {
+// 压缩图片质量，并将图片转换为webp格式
+const compressAndConvertImage = async (file: File) => {
   const arrayBuffer = await file.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
 
-  return buffer
+  const webpBuffer = await sharp(buffer).webp({ quality: 80 }).toBuffer()
+
+  return webpBuffer
 }
 
 // 上传文件
@@ -23,8 +25,10 @@ export const uploadFile = async (file: File) => {
       lastModified: file.lastModified
     })
 
-    const buffer = await fileToBuffer(newFile)
-    const filename = newFile.name
+    // 压缩图片质量，并将图片转换为webp格式
+    const buffer = await compressAndConvertImage(newFile)
+    // 直接修改图片名称的后缀为webp
+    const filename = newFile.name.replace(/\.[^/.]+$/, '.webp')
 
     // 填写OSS文件完整路径和本地文件的完整路径。OSS文件完整路径中不能包含Bucket名称。
     // 如果本地文件的完整路径中未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件。
