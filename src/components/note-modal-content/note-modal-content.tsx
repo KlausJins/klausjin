@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
-import { signatureUrl, uploadFile } from '@/utils/oss'
+import { signatureUrl, stripOssSignedUrls, uploadFile } from '@/utils/oss'
 import { EditorProps } from '@bytemd/react'
 
 type NoteFormProps = {
@@ -85,7 +85,6 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         }
         return
       }
-
       // 获取表单的已选择标签数据
       if (SelectXRef.current) {
         console.log(SelectXRef.current.selectedIds)
@@ -95,7 +94,8 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       // 获取表单的文档内容
       if (MDEditorRef.current) {
         console.log(MDEditorRef.current.MDValue)
-        submitDatas.content = MDEditorRef.current.MDValue
+        // 处理掉oss url的临时签名
+        submitDatas.content = await stripOssSignedUrls(MDEditorRef.current.MDValue)
       }
 
       if (!submitDatas.content) {

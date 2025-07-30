@@ -14,6 +14,7 @@ import KlDropdown, { DropdownItemType } from '@/components/ui/dropdown'
 import { getNoteDetail } from '@/actions/backend'
 import { formatTime } from '@/utils'
 import { IconEmptyNoteDetail } from '@/components/icons/icon-empty-note-detail'
+import { replaceMarkdownOssImages } from '@/utils/oss'
 
 type noteDetailInfo = {
   id: string
@@ -93,8 +94,10 @@ export const ContentViewer = ({ id }: { id: string }) => {
           // 如果笔记已经发布了就展示出来
           // 给笔记页赋值
           setNoteDetailInfo(handled_info)
+          // 给文档的图片签名
+          const newContent = await replaceMarkdownOssImages(res.content)
           // 给MD文档赋值
-          setMDContent(res.content)
+          setMDContent(newContent)
         }
       }
       setHasContent(true)

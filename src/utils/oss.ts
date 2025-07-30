@@ -84,3 +84,52 @@ export const signatureUrl = async (objectKey: string, expires: number = 1800): P
     throw err
   }
 }
+
+// 清洗临时签名 URL 为原始 OSS 地址（用于数据库保存）
+export const stripOssSignedUrls = async (markdownContent: string): Promise<string> => {
+  // 匹配所有 OSS 签名地址，并移除查询参数
+  return markdownContent.replace(
+    /(https:\/\/[\w\-\.]+\.oss-[\w\-]+\.aliyuncs\.com\/[^\s)]+\?[^)\s]+)/g,
+    (fullUrl) => {
+      const [baseUrl] = fullUrl.split('?') // 去掉 ? 后的部分
+      return baseUrl
+    }
+  )
+}
+
+// 替换 Markdown 中的 OSS 图片链接为临时签名链接
+export const replaceMarkdownOssImages = async (markdownContent: string): Promise<string> => {
+  // 匹配 Markdown 图片语法中的 URL，例如 ![](https://xxx)
+  const imageRegex = /!\[([^\]]*)\]\((https:\/\/[\w\-\.]+\.oss-[\w\-]+\.aliyuncs\.com\/[^\s)]+)\)/g
+
+  const matches = [...markdownContent.matchAll(imageRegex)]
+
+  console.log('matches: ', matches)
+
+  // 存储旧地址到新签名地址的映射
+  const replacementMap: Record<string, string> = {}
+
+  for (const match of matches) {
+    const originalUrl = match[2]
+    try {
+      // 提取 objectKey（去掉域名部分）
+      const objectKey = originalUrl.replace(
+        /^https:\/\/[\w\-\.]+\.oss-[\w\-]+\.aliyuncs\.com\//,
+        ''
+      )
+
+      const signedUrl = await signatureUrl(objectKey, 1800) // 有效期半小时
+      replacementMap[originalUrl] = signedUrl
+    } catch (err) {
+      console.warn(`生成签名地址失败：${originalUrl}`, err)
+    }
+  }
+
+  // 批量替换url地址
+  let updatedMarkdown = markdownContent
+  for (const [originalUrl, signedUrl] of Object.entries(replacementMap)) {
+    updatedMarkdown = updatedMarkdown.replaceAll(originalUrl, signedUrl)
+  }
+
+  return updatedMarkdown
+}
