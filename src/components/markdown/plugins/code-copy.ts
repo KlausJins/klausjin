@@ -13,6 +13,12 @@ const copyBtnNode = fromHtmlIsomorphic(`
 </div>
 `)
 
+const languageNode = (language) => {
+  return fromHtmlIsomorphic(
+    `<div class="code-lang-label absolute flex justify-start h-6 items-center text-primary dark:text-darkprimary">${language}</div>`
+  )
+}
+
 const clipboardCheckIcon = `
 <div class="w-full flex justify-end h-6 items-center">
   <div class="copy-code-button hover:cursor-pointer flex justify-end gap-2 items-center text-primary dark:text-darkprimary">
@@ -37,20 +43,14 @@ export const codeCopyPlugin = (): BytemdPlugin => {
               ?.replace('language-', '')
 
             if (language) {
-              // 添加语言标签（右上角）
-              node.children.unshift(
-                fromHtmlIsomorphic(
-                  `<div class="code-lang-label absolute flex justify-start h-6 items-center text-primary dark:text-darkprimary">${language}</div>`
-                )
-              )
+              // 添加语言标签
+              node.children.unshift(languageNode(language))
             }
           }
 
-          let language
-
           visit(tree, 'element', (code, idx, parent) => {
             if (code.tagName === 'code') {
-              language = code.properties?.className
+              const language = code.properties?.className
                 ?.filter((cs) => cs.startsWith('language'))[0]
                 ?.split('-')[1]
                 ?.split(':')[0]
@@ -69,28 +69,46 @@ export const codeCopyPlugin = (): BytemdPlugin => {
         return
       }
 
-      const elements = markdownBody.querySelectorAll('.copy-code-button')
-      for (const element of elements) {
-        // 点击按钮复制代码到粘贴板
-        element.addEventListener('click', () => {
-          let codeText = element.textContent ?? ''
-          // 复制代码时去除开头的$符号，然后trim一下，一般是复制shell命令的代码块会用到
-          if (codeText.startsWith('$')) {
-            codeText = codeText.slice(1).trim()
+      /**
+       * MD 内容异步插，会导致事件监听没有注册成功
+       * 使用 MutationObserver 会在 DOM 发生变化时被调用，以确保事件监听成功
+       *  */
+      const observer = new MutationObserver(() => {
+        const elements = markdownBody.querySelectorAll('.copy-code-button')
+        if (!elements.length) return
+
+        elements.forEach((element) => {
+          // 避免重复绑定
+          if ((element as any)._copyBound) {
+            return
           }
-          copyToClipboard(element.parentElement?.textContent?.trim() || '')
 
-          const tmp = element.innerHTML
-          element.innerHTML = clipboardCheckIcon
-          let timer = 0
+          ;(element as any)._copyBound = true
 
-          timer = window.setTimeout(() => {
-            element.innerHTML = tmp
-            window.clearTimeout(timer)
-            timer = 0
-          }, 3 * 1000)
+          // 点击按钮复制代码到粘贴板
+          element.addEventListener('click', () => {
+            const pre = element.closest('pre')
+            const code = pre?.querySelector('code')
+            let codeText = code?.textContent?.trim() || ''
+
+            // 复制代码时去除开头的$符号，然后trim一下，一般是复制shell命令的代码块会用到
+            if (codeText.startsWith('$')) {
+              codeText = codeText.slice(1).trim()
+            }
+
+            copyToClipboard(codeText)
+
+            const tmp = element.innerHTML
+            element.innerHTML = clipboardCheckIcon
+            let timer = window.setTimeout(() => {
+              element.innerHTML = tmp
+              clearTimeout(timer)
+            }, 3000)
+          })
         })
-      }
+      })
+
+      observer.observe(markdownBody, { childList: true, subtree: true })
     }
   }
 }
