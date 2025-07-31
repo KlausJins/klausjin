@@ -4,21 +4,38 @@ import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Editor, EditorProps, Viewer } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
+import { common } from 'lowlight'
 import breaks from '@bytemd/plugin-breaks'
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gemoji from '@bytemd/plugin-gemoji'
 import gfm_zhHans from '@bytemd/plugin-gfm/lib/locales/zh_Hans.json'
 import zh_Hans from 'bytemd/locales/zh_Hans.json'
-import { headingsPlugins } from './plugins'
+import { codeCopyPlugin, headingsPlugins, prettyLinkPlugin } from './plugins'
 import { clm } from '@/utils'
+
+// highlight需要额外扩充的高亮语言
+import asciidoc from 'highlight.js/lib/languages/asciidoc'
+import dart from 'highlight.js/lib/languages/dart'
+import nginx from 'highlight.js/lib/languages/nginx'
 
 const plugins = [
   gfm({ locale: gfm_zhHans }),
-  highlight(),
+  highlight({
+    languages: {
+      ...common,
+
+      // 默认common配置中没有以下几个语言高亮配置，这里我们自己加上
+      dart: dart, // flutter代码会用到dart
+      nginx: nginx, // nginx配置文件高亮
+      asciidoc: asciidoc // asciidoc高亮, 控制台输出信息高亮
+    }
+  }),
   breaks(),
   frontmatter(),
   gemoji(),
-  headingsPlugins()
+  headingsPlugins(),
+  codeCopyPlugin(),
+  prettyLinkPlugin()
 ]
 
 interface MDEditorPropsType {

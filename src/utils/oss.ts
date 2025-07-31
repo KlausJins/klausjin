@@ -16,8 +16,6 @@ const compressAndConvertImage = async (file: File) => {
 
 // 上传文件
 export const uploadFile = async (file: File) => {
-  console.log(file)
-
   try {
     // 重命名文件，使图片文件为唯一
     const newFile = new File([file], `${uuidv4()}-${file.name}`, {
@@ -107,8 +105,6 @@ export const replaceMarkdownOssImages = async (markdownContent: string): Promise
   const imageRegex = /!\[([^\]]*)\]\((https:\/\/[\w\-\.]+\.oss-[\w\-]+\.aliyuncs\.com\/[^\s)]+)\)/g
 
   const matches = [...markdownContent.matchAll(imageRegex)]
-
-  console.log('matches: ', matches)
 
   // 存储旧地址到新签名地址的映射
   const replacementMap: Record<string, string> = {}

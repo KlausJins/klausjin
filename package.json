@@ -38,8 +38,10 @@
     "dayjs": "^1.11.13",
     "framer-motion": "^12.17.3",
     "geist": "^1.4.2",
+    "hast-util-from-html-isomorphic": "^2.0.0",
     "highlight.js": "^11.11.1",
     "lodash-es": "^4.17.21",
+    "lowlight": "^3.3.0",
     "medium-zoom": "^1.1.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "15.3.2",
@@ -55,6 +57,7 @@
     "sharp": "^0.34.3",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animated": "^2.0.0",
+    "unist-util-visit": "^5.0.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
