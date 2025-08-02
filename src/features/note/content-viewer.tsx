@@ -119,12 +119,14 @@ export const ContentViewer = ({ id }: { id: string }) => {
       // 滚动监听高亮
       scrollHandler = throttle(
         () => listenScrollHandler(MDViewerContainer, activeId, setActiveId),
-        100
+        80
       )
 
       contentDetail.addEventListener('scroll', scrollHandler)
     }
-    return () => contentDetail?.removeEventListener('scroll', scrollHandler)
+    return () => {
+      contentDetail?.removeEventListener('scroll', scrollHandler)
+    }
   }, [MDContent])
 
   // 组件渲染几次就执行几次，避免图片缩放功能失效

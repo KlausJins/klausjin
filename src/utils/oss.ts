@@ -121,7 +121,9 @@ export const replaceMarkdownOssImages = async (
         ''
       )
 
-      const signedUrl = await signatureUrl(objectKey, (signexpires = 1800)) // 有效期半小时
+      if (!signexpires) signexpires = 1800 // 默认有效期半小时
+
+      const signedUrl = await signatureUrl(objectKey, signexpires) // 有效期半小时
       replacementMap[originalUrl] = signedUrl
     } catch (err) {
       console.warn(`生成签名地址失败：${originalUrl}`, err)

@@ -48,7 +48,7 @@
 }
 
 .markdown-body pre {
-  @apply relative whitespace-break-spaces rounded-2xl bg-[#FAFAFA] text-primary text-sm p-4;
+  @apply relative whitespace-break-spaces rounded-2xl bg-[#FAFAFA] text-primary text-sm p-4 overflow-x-auto;
 }
 
 .markdown-body code::-webkit-scrollbar {

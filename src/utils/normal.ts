@@ -42,7 +42,6 @@ export const isImageURL = (input: string): boolean => {
 // 判断是否为浏览器环境
 export const isBrowser = () => {
   // 代码来自：https://ahooks.js.org/zh-CN/guide/blog/ssr
-  /* eslint-disable @typescript-eslint/prefer-optional-chain */
   return !!(typeof window !== 'undefined' && window.document && window.document.createElement)
 }
 
