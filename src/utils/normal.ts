@@ -48,18 +48,11 @@ export const isBrowser = () => {
 
 // 复制到粘贴板
 export const copyToClipboard = (text: string) => {
-  console.log('copyToClipboard: ', text)
   // Clipboard API 在 iPhone 上不支持
   if (navigator.clipboard) {
     navigator.clipboard
       // 去除首尾空白字符
       .writeText(text.trim())
-      .then(() => {
-        // showSuccessToast("已复制到粘贴板");
-      })
-      .catch((error) => {
-        // showErrorToast(error as string);
-      })
   } else {
     // 以下代码来自：https://www.zhangxinxu.com/wordpress/2021/10/js-copy-paste-clipboard/
     const textarea = document.createElement('textarea')
@@ -72,9 +65,9 @@ export const copyToClipboard = (text: string) => {
     textarea.value = text.trim()
     // 选中
     textarea.select()
+
     // 复制
     document.execCommand('copy', true)
-    // showSuccessToast("已复制到粘贴板");
     // 移除输入框
     document.body.removeChild(textarea)
   }

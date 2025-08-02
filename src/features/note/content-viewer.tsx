@@ -95,7 +95,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
           // 给笔记页赋值
           setNoteDetailInfo(handled_info)
           // 给文档的图片签名
-          const newContent = await replaceMarkdownOssImages(res.content)
+          const newContent = await replaceMarkdownOssImages(res.content, 300)
           // 给MD文档赋值
           setMDContent(newContent)
         }

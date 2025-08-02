@@ -4,7 +4,10 @@ import { BACKEND_WEBSITE, BACKEND_WEBSITE_DESCRIPTION } from '@/constants/backen
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: BACKEND_WEBSITE,
+  title: {
+    template: `${BACKEND_WEBSITE} - %s`,
+    default: BACKEND_WEBSITE
+  },
   description: BACKEND_WEBSITE_DESCRIPTION
 }
 

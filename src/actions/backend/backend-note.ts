@@ -149,6 +149,27 @@ export const getNoteDetail = async (id: string) => {
   })
 }
 
+// 加载笔记详情数据
+export const getNoteTitleDesc = async (id: string) => {
+  return prisma.note.findUnique({
+    select: {
+      title: true,
+      description: true,
+      tags: {
+        select: {
+          id: true,
+          name: true,
+          icon: true,
+          iconDark: true
+        }
+      }
+    },
+    where: {
+      id
+    }
+  })
+}
+
 type UpdateNoteInfoType = {
   id: string
   userId: string

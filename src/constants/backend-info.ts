@@ -2,7 +2,7 @@
 export const BACKEND_WEBSITE = 'KlausJin后台管理'
 /** 网页后台描述 */
 export const BACKEND_WEBSITE_DESCRIPTION =
-  '🚀 一个用于记录自己成长的简单的个人博客网站，使用 Next.js 构建。'
+  '【后台管理】欢迎回来，要努力学习嗷～，在这里对 标签和笔记进行 增、删、改、查操作，在这里尽情地创作吧！'
 
 /** 管理后台常量 */
 export const BACKEND_MOBILE_OFF_TEXT = {

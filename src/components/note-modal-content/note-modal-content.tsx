@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
-import { signatureUrl, stripOssSignedUrls, uploadFile } from '@/utils/oss'
+import { replaceMarkdownOssImages, signatureUrl, stripOssSignedUrls, uploadFile } from '@/utils/oss'
 import { EditorProps } from '@bytemd/react'
 
 type NoteFormProps = {
@@ -184,7 +184,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
 
   useEffect(() => {
     if (backendNoteStore.editId) {
-      getNoteDetail(backendNoteStore.editId).then((res) => {
+      getNoteDetail(backendNoteStore.editId).then(async (res) => {
         console.log('getNoteDetail res: ', res)
 
         setFormData({
@@ -199,7 +199,8 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
 
         // 设置表单的文档内容
         if (MDEditorRef.current) {
-          MDEditorRef.current.setMDValue(res?.content as string)
+          const MDcontent = await replaceMarkdownOssImages(res?.content as string)
+          MDEditorRef.current.setMDValue(MDcontent)
         }
       })
     }

@@ -100,7 +100,10 @@ export const stripOssSignedUrls = async (markdownContent: string): Promise<strin
 }
 
 // 替换 Markdown 中的 OSS 图片链接为临时签名链接
-export const replaceMarkdownOssImages = async (markdownContent: string): Promise<string> => {
+export const replaceMarkdownOssImages = async (
+  markdownContent: string,
+  signexpires?: number
+): Promise<string> => {
   // 匹配 Markdown 图片语法中的 URL，例如 ![](https://xxx)
   const imageRegex = /!\[([^\]]*)\]\((https:\/\/[\w\-\.]+\.oss-[\w\-]+\.aliyuncs\.com\/[^\s)]+)\)/g
 
@@ -118,7 +121,7 @@ export const replaceMarkdownOssImages = async (markdownContent: string): Promise
         ''
       )
 
-      const signedUrl = await signatureUrl(objectKey, 1800) // 有效期半小时
+      const signedUrl = await signatureUrl(objectKey, (signexpires = 1800)) // 有效期半小时
       replacementMap[originalUrl] = signedUrl
     } catch (err) {
       console.warn(`生成签名地址失败：${originalUrl}`, err)
