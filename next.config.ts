@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'klausjin.oss-cn-guangzhou.aliyuncs.com'
+        hostname: '*.oss-cn-guangzhou.aliyuncs.com'
       }
     ]
   }
