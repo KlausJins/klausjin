@@ -126,3 +126,16 @@ export const deleteTags = async (id: string[]) => {
     }
   })
 }
+
+// 查看有多少笔记关联了此标签
+export const hasAssociatedTag = async (id: string) => {
+  return prisma.note.count({
+    where: {
+      tags: {
+        some: {
+          id
+        }
+      }
+    }
+  })
+}

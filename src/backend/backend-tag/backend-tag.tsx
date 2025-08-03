@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteTags, isAdmin } from '@/actions/backend'
+import { deleteTags, hasAssociatedTag, isAdmin } from '@/actions/backend'
 import { TagTable, TagTableHandle } from '@/backend/backend-tag/tag-table'
 import IconSelf from '@/components/icons/icon-self'
 import { TagModalContent } from '@/components/tag-modal-content'
@@ -42,6 +42,15 @@ export const BackendTag = () => {
 
       if (!isAdminPermission) {
         return Toast({ description: '无操作权限！' })
+      }
+
+      // 删除标签前，先查询有无关联的笔记，如果有则不可以删除
+      for (const deleteId of selectedKeys) {
+        const associatedNum = await hasAssociatedTag(deleteId as string)
+
+        if (associatedNum > 0) {
+          return Toast({ description: '所选择的标签中存在关联笔记，不可删除！' })
+        }
       }
 
       console.log('删除多条数据', selectedKeys)

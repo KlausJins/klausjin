@@ -24,7 +24,13 @@ import { KlPagination } from '@/components/ui/pagination'
 import { PerPage } from '@/components/ui/per-page'
 import KlModal from '@/components/ui/modal'
 import { useToast } from '@/hooks'
-import { deleteTags, isAdmin, searchTags, searchTagsParams } from '@/actions/backend'
+import {
+  deleteTags,
+  hasAssociatedTag,
+  isAdmin,
+  searchTags,
+  searchTagsParams
+} from '@/actions/backend'
 // import { TableSkeleton } from '@/components/ui/table-skeleton'
 import { IconEmptyContent } from '@/components/icons/icon-empty-content'
 import { setEditId, toggleIsRefreshTable } from '@/store/features/backend-tag-slice'
@@ -259,6 +265,12 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
       if (!isAdminPermission) {
         return Toast({ description: '无操作权限！' })
+      }
+
+      // 删除标签前，先查询有无关联的笔记，如果有则不可以删除
+      const associatedNum = await hasAssociatedTag(deleteId)
+      if (associatedNum > 0) {
+        return Toast({ description: '此标签存在关联笔记，不可删除！' })
       }
 
       deleteTags([deleteId]).then(() => {
