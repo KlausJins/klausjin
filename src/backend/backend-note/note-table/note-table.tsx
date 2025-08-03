@@ -158,10 +158,10 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
 
     // 处理表格删除事件
     const ModalHandler = useCallback(async () => {
-      console.log('deleteId: ', deleteId)
+      // console.log('deleteId: ', deleteId)
       if (deleteId) {
         const isAdminPermission = await isAdmin()
-        console.log('isAdminPermission: ', isAdminPermission)
+        // console.log('isAdminPermission: ', isAdminPermission)
 
         if (!isAdminPermission) {
           return Toast({ description: '无操作权限！' })
@@ -179,12 +179,12 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
       }
     }, [deleteId, Toast, loadNoteTable])
 
-    // 处理表格删除事件
+    // 处理笔记发布事件
     const publishNote = useCallback(
-      async (e: ChangeEvent<HTMLInputElement>, id: string, timeType: TIME_SORT_TYPE) => {
+      async (e: ChangeEvent<HTMLInputElement>, id: string) => {
         const checkedValue = e.target.checked
 
-        console.log('timeType: ', timeType)
+        // console.log('timeType: ', timeType)
 
         // 切换笔记发布状态
         await changeNotePublishStatus(id, checkedValue)
@@ -211,7 +211,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
       (type: 'create' | 'update') => {
         const temp_noteInfos = [...noteInfos]
 
-        console.log('noteInfos: ', noteInfos, timeAscDesc)
+        // console.log('noteInfos: ', noteInfos, timeAscDesc)
 
         if (type === 'create') {
           // 创建时间变换
@@ -381,7 +381,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
             return (
               <KlSwitch
                 isSelected={cellValue as boolean}
-                onChange={(e) => publishNote(e, datas.id, timeAscDesc)}
+                onChange={(e) => publishNote(e, datas.id)}
               ></KlSwitch>
             )
           case 'actions':

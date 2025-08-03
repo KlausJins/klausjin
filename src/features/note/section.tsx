@@ -27,7 +27,7 @@ export default function Section() {
     setIsLoading(true)
     ;(async () => {
       await getNotesList().then((res) => {
-        console.log(res)
+        // console.log(res)
         setNotesList(
           res.map((item) => ({
             id: item.id,

@@ -38,7 +38,7 @@ export const BackendTag = () => {
       )
 
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         return Toast({ description: '无操作权限！' })
@@ -53,7 +53,7 @@ export const BackendTag = () => {
         }
       }
 
-      console.log('删除多条数据', selectedKeys)
+      // console.log('删除多条数据', selectedKeys)
       deleteTags(selectedKeys as string[]).then(() => {
         dispatch(toggleIsRefreshTable())
         Toast({ type: 'success', description: '删除成功！' })
@@ -67,7 +67,7 @@ export const BackendTag = () => {
       const { selectedKeys, allRowKeys } = TagTableRef.current
 
       const getSelectedKeys = TableRowsToArray(selectedKeys, allRowKeys)
-      console.log('删除多条数据', getSelectedKeys)
+      // console.log('删除多条数据', getSelectedKeys)
       if (getSelectedKeys.length > 0) {
         setOpen(true)
       } else {
@@ -90,7 +90,7 @@ export const BackendTag = () => {
   // 输入框值改变
   const onSearchValueChange = useMemo(() => {
     return debounce((e) => {
-      console.log('e.target.value: ', e.target.value)
+      // console.log('e.target.value: ', e.target.value)
       setSearchValue(e.target.value)
     }, 300)
   }, [])

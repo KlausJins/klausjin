@@ -74,7 +74,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       // console.log('data: ', data)
 
       // 获取表单数据
-      console.log('formData: ', formData)
+      // console.log('formData: ', formData)
       const submitDatas = { ...formData }
 
       if (formData.tags.length === 0) {
@@ -87,13 +87,13 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       }
       // 获取表单的已选择标签数据
       if (SelectXRef.current) {
-        console.log(SelectXRef.current.selectedIds)
+        // console.log(SelectXRef.current.selectedIds)
         submitDatas.tags = SelectXRef.current.selectedIds
       }
 
       // 获取表单的文档内容
       if (MDEditorRef.current) {
-        console.log(MDEditorRef.current.MDValue)
+        // console.log(MDEditorRef.current.MDValue)
         // 处理掉oss url的临时签名
         submitDatas.content = await stripOssSignedUrls(MDEditorRef.current.MDValue)
       }
@@ -110,14 +110,14 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       setIsSubmiting(true)
 
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         setIsSubmiting(false)
         return Toast({ description: '无操作权限！' })
       }
 
-      console.log('提交数据： ', submitDatas)
+      // console.log('提交数据： ', submitDatas)
 
       if (backendNoteStore.editId) {
         // 更新笔记
@@ -162,7 +162,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   const getTagsList = useMemo(() => {
     return debounce((name) => {
       searchTags({ name }).then((res) => {
-        console.log('notePage searchTags res: ', res)
+        // console.log('notePage searchTags res: ', res)
         // 处理返回来的标签数据
         const temp_info = res.map((item) => {
           return {
@@ -185,7 +185,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   useEffect(() => {
     if (backendNoteStore.editId) {
       getNoteDetail(backendNoteStore.editId).then(async (res) => {
-        console.log('getNoteDetail res: ', res)
+        // console.log('getNoteDetail res: ', res)
 
         setFormData({
           id: res?.id as string,
@@ -217,7 +217,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         setIsTagErr(false)
       }
 
-      console.log(type, value)
+      // console.log(type, value)
       setFormData({
         ...formData,
         [type]: value
@@ -232,7 +232,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       type: 'title' | 'description' | 'cover' | 'isPublished' | 'tags' | 'content',
       value: string | boolean | string[]
     ) => {
-      console.log(type, value)
+      // console.log(type, value)
       setFormData({
         ...formData,
         [type]: value
@@ -244,10 +244,10 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   // 处理上传图片的逻辑
   const uploaderHandler = async (file: File | null) => {
     if (file) {
-      console.log('uploaderHandler: ', file)
+      // console.log('uploaderHandler: ', file)
 
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         setIsSubmiting(false)
@@ -255,7 +255,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       }
 
       const uploadInfo = await uploadFile(file)
-      console.log('uploadInfo: ', uploadInfo)
+      // console.log('uploadInfo: ', uploadInfo)
 
       if (uploadInfo) {
         if (uploadInfo.err != '') {
@@ -273,11 +273,11 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
   // md编辑器图片内容改变
   const uploadImages: EditorProps['uploadImages'] = useCallback(
     async (files: File[]) => {
-      console.log('uploadImages!!!', files)
+      // console.log('uploadImages!!!', files)
       const file = files[0]
       if (file) {
         const isAdminPermission = await isAdmin()
-        console.log('isAdminPermission: ', isAdminPermission)
+        // console.log('isAdminPermission: ', isAdminPermission)
 
         if (!isAdminPermission) {
           setIsSubmiting(false)
@@ -286,7 +286,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         }
 
         const uploadInfo = await uploadFile(file)
-        console.log('uploadImages uploadInfo: ', uploadInfo)
+        // console.log('uploadImages uploadInfo: ', uploadInfo)
 
         if (uploadInfo) {
           if (uploadInfo.err != '') {
@@ -421,7 +421,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         content={
           <TagModalContent
             closeModal={() => {
-              console.log('创建标签模态框关闭')
+              // console.log('创建标签模态框关闭')
               getTagsList('')
               setOpenCreateTag(false)
             }}
@@ -431,7 +431,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         size="2xl"
         showCancelButton={false}
         showConfirmButton={false}
-        successCallback={() => console.log('创建标签模态框关闭')}
+        // successCallback={() => console.log('创建标签模态框关闭')}
       />
     </>
   )

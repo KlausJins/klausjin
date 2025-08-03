@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 
 // 查询是否有同名标签
 export const hasRepeatTag = async (tagName: string) => {
-  console.log('tagName: ', tagName)
+  // console.log('tagName: ', tagName)
   // 先查询是否有同名标签
   const tag = await prisma.tag.findMany({
     select: {
@@ -14,7 +14,7 @@ export const hasRepeatTag = async (tagName: string) => {
       name: tagName.trim()
     }
   })
-  console.log('hasRepeatTag: ', tag.length > 0)
+  // console.log('hasRepeatTag: ', tag.length > 0)
 
   return tag.length > 0
 }

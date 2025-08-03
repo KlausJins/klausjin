@@ -46,13 +46,13 @@ export const BackendNote = () => {
       )
 
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         return Toast({ description: '无操作权限！' })
       }
 
-      console.log('删除多条数据', selectedKeys)
+      // console.log('删除多条数据', selectedKeys)
       deleteNotes(selectedKeys as string[]).then(() => {
         dispatch(toggleIsRefreshTable())
         Toast({ type: 'success', description: '删除成功！' })
@@ -67,7 +67,7 @@ export const BackendNote = () => {
         NoteTableRef.current.selectedKeys,
         NoteTableRef.current.allRowKeys
       )
-      console.log('删除多条数据', selectedKeys)
+      // console.log('删除多条数据', selectedKeys)
       if (selectedKeys.length > 0) {
         setOpen(true)
       } else {
@@ -80,7 +80,7 @@ export const BackendNote = () => {
   const getTagsList = useMemo(() => {
     return debounce((name) => {
       searchTags({ name }).then((res) => {
-        console.log('notePage searchTags res: ', res)
+        // console.log('notePage searchTags res: ', res)
         // 处理返回来的标签数据
         const temp_info = res.map((item) => {
           return {
@@ -98,7 +98,7 @@ export const BackendNote = () => {
   // 输入框值改变
   const onSearchValueChange = useMemo(() => {
     return debounce((e) => {
-      console.log('e.target.value: ', e.target.value)
+      // console.log('e.target.value: ', e.target.value)
       dispatch(setFilterValue({ title: e.target.value })) // 设置搜索值
     }, 300)
   }, [dispatch])

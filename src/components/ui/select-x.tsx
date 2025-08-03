@@ -69,7 +69,7 @@ export const SelectX = forwardRef<SelectXHandle, SelectXProps>(
     }, [search, options])
 
     const toggleValue = (val: string) => {
-      console.log('toggleValue', val)
+      // console.log('toggleValue', val)
       if (value.includes(val)) {
         onChange(value.filter((v) => v !== val))
       } else {

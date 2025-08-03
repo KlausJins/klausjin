@@ -33,7 +33,7 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
   useEffect(() => {
     if (backendTagStore.editId) {
       getTagDetail(backendTagStore.editId).then((res) => {
-        console.log('getTagDetail res: ', res)
+        // console.log('getTagDetail res: ', res)
         setNameStr(res?.name || '')
         setLightIconStr(res?.icon || '')
         setDarkIconStr(res?.iconDark || '')
@@ -71,10 +71,10 @@ export const TagModalContent = ({ closeModal }: TagContentProps) => {
       setIsSubmiting(true)
 
       const data = Object.fromEntries(new FormData(e.currentTarget))
-      console.log('data: ', data)
+      // console.log('data: ', data)
 
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         // 接触提交按钮加载状态

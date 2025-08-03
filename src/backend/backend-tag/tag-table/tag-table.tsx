@@ -117,7 +117,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
       setIsLoading(true)
 
       searchTags(payload).then((res) => {
-        console.log('searchTags res: ', res)
+        // console.log('searchTags res: ', res)
         const res_info = res.map((item) => {
           return {
             id: item.id,
@@ -147,7 +147,7 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
     (type: 'create' | 'update') => {
       const temp_tagInfos = [...tagInfos]
 
-      console.log('tagInfos: ', tagInfos)
+      // console.log('tagInfos: ', tagInfos)
 
       if (type === 'create') {
         // 创建时间变换
@@ -258,10 +258,10 @@ export const TagTable = forwardRef<TagTableHandle, TagTableProps>(({ openEditTag
 
   // 处理表格删除事件
   const ModalHandler = useCallback(async () => {
-    console.log('deleteId: ', deleteId)
+    // console.log('deleteId: ', deleteId)
     if (deleteId) {
       const isAdminPermission = await isAdmin()
-      console.log('isAdminPermission: ', isAdminPermission)
+      // console.log('isAdminPermission: ', isAdminPermission)
 
       if (!isAdminPermission) {
         return Toast({ description: '无操作权限！' })

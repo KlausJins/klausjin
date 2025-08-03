@@ -36,7 +36,7 @@ export const uploadFile = async (file: File) => {
         'x-oss-forbid-overwrite': true
       }
     })
-    console.log('result: ', result)
+    // console.log('result: ', result)
     return {
       name: result.name,
       url: result.url,
@@ -60,16 +60,12 @@ export const uploadFile = async (file: File) => {
 
 // 删除文件
 export const deleteFiles = async (files: File[]) => {
-  try {
-    // 需要删除的文件名数组
-    const filesName = files.map((file) => file.name)
+  // 需要删除的文件名数组
+  const filesName = files.map((file) => file.name)
 
-    // 填写需要删除的多个Object完整路径并设置返回模式为简单模式。Object完整路径中不能包含Bucket名称。
-    const result = await aliOSS.deleteMulti(filesName, { quiet: true })
-    console.log(result)
-  } catch (error) {
-    console.log(error)
-  }
+  // 填写需要删除的多个Object完整路径并设置返回模式为简单模式。Object完整路径中不能包含Bucket名称。
+  await aliOSS.deleteMulti(filesName, { quiet: true })
+  // console.log(result)
 }
 
 // 生成临时签名URL

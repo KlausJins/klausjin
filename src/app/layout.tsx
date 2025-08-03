@@ -3,6 +3,7 @@ import { NextThemeProvider } from '@/components/providers'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { HerouiProviders } from './providers'
+import { Console } from '@/components/console-text'
 
 export default function RootLayout({
   children
@@ -17,7 +18,10 @@ export default function RootLayout({
       />
       <body className={`${GeistSans.className} ${GeistMono.className} antialiased`}>
         <HerouiProviders>
-          <NextThemeProvider>{children}</NextThemeProvider>
+          <NextThemeProvider>
+            {children}
+            <Console />
+          </NextThemeProvider>
         </HerouiProviders>
       </body>
     </html>

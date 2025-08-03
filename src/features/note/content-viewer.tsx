@@ -74,7 +74,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
       // 先判断笔记的发布状态
       // 确认发布状态无误后再展示
       const res = await getNoteDetail(id)
-      console.log('getNoteDetail res: ', res)
+      // console.log('getNoteDetail res: ', res)
       if (res) {
         // 保存笔记其余信息
         const handled_info: noteDetailInfo = {
