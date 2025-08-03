@@ -2,7 +2,7 @@
 
 import { getNotesList } from '@/actions/site'
 import { IconEmptySite } from '@/components/icons/icon-empty-site'
-// import IconSiteLoading from '@/components/icons/icon-site-loading'
+import IconSiteLoading from '@/components/icons/icon-site-loading'
 import { CardList, NoteCard } from '@/components/note-card'
 import { clm, formatTime } from '@/utils'
 import { useEffect, useState } from 'react'
@@ -46,7 +46,7 @@ export default function Section() {
   const gatNoteCardNode = () => {
     if (isLoading) {
       // 加载中（目前数据少，加载快，暂不考虑加上加载中动画）
-      return <div className="py-20">{/* <IconSiteLoading /> */}</div>
+      return <div className="py-20">{<IconSiteLoading />}</div>
     } else {
       // 加载完成
       if (notesList?.length > 0) {
