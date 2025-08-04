@@ -23,11 +23,11 @@ export const Footer = () => {
           height={20}
         />
         <a
-          href="https://beian.mps.gov.cn/#/query/webSearch?code=2025XXXXXX"
+          href="https://beian.mps.gov.cn/#/query/webSearch?code=44011102484366"
           rel="noreferrer"
           target="_blank"
         >
-          粤公网安备2025XXXXXX号
+          粤公网安备44011102484366号
         </a>
       </div>
 
