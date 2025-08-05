@@ -125,7 +125,7 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
           orderByType: timeAscDescRef.current,
           ...payload
         }).then((res) => {
-          console.log('searchNotes res: ', res)
+          // console.log('searchNotes res: ', res)
           const res_info = res.map((item) => {
             return {
               id: item.id,
