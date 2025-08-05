@@ -66,7 +66,6 @@ pnpm install
 ### 3. 配置环境变量
 
 复制 `.env.example` 文件并重命名为 `.env.local`，根据实际需求填写：
-`
 
 ```bash
 cp .env.example .env.local
