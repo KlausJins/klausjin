@@ -12,6 +12,7 @@ import KlButton from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
 import MobileNavbar from '@/components/navbar/mobile-navbar'
 import { PATHS } from '@/constants/path'
+import Search from '@/components/ui/search'
 
 export const Navbar = () => {
   const pathname = usePathname()
@@ -35,8 +36,12 @@ export const Navbar = () => {
               <span className="text-primary font-semibold dark:text-white">{WEBSITE}</span>
             </div>
           </Link>
+
           {/* 导航 */}
-          <div className="text-sm text-secondary dark:text-darksecondary flex gap-8">
+          <div className="text-sm text-secondary dark:text-darksecondary flex gap-8 items-center">
+            {/* 页面搜索功能 */}
+            <Search />
+            {/* 遍历加载导航选项 */}
             {NAVBAR_ITEMS.map((item) => {
               return (
                 <Link
