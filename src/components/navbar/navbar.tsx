@@ -12,7 +12,7 @@ import KlButton from '@/components/ui/button'
 import { ToggleMode } from '@/components/toggleMode'
 import MobileNavbar from '@/components/navbar/mobile-navbar'
 import { PATHS } from '@/constants/path'
-import Search from '@/components/ui/search'
+import { Search } from '@/components/search'
 
 export const Navbar = () => {
   const pathname = usePathname()

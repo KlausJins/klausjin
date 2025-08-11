@@ -5,10 +5,17 @@ import { clm } from '@/utils'
 
 interface InputPropsType extends InputProps {
   inputWrapper_className?: string
+  input_className?: string
 }
 
 const KlField = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) => {
-  const { variant = 'bordered', isClearable = true, inputWrapper_className, ...rest } = props
+  const {
+    variant = 'bordered',
+    isClearable = true,
+    inputWrapper_className,
+    input_className,
+    ...rest
+  } = props
   return (
     <Input
       ref={ref}
@@ -21,8 +28,10 @@ const KlField = React.forwardRef<HTMLInputElement, InputPropsType>((props, ref) 
           'group-data-[focus=true]:border-darkBgPrimary dark:group-data-[focus=true]:border-bgPrimary',
           inputWrapper_className
         ),
-        input:
-          'text-primary dark:text-darkprimary placeholder:text-secondary dark:placeholder:text-darksecondary'
+        input: clm(
+          'text-primary dark:text-darkprimary placeholder:text-secondary dark:placeholder:text-darksecondary',
+          input_className
+        )
       }}
       variant={variant}
       isClearable={isClearable}

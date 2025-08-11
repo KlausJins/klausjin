@@ -25,6 +25,10 @@ interface KlModalProps {
   confirmName?: string
   cancelName?: string
   isTitleCenter?: boolean
+  backdrop?: 'transparent' | 'opaque' | 'blur'
+  hideCloseButton?: boolean
+  searchStyle?: boolean
+  placement?: 'auto' | 'top' | 'center' | 'bottom'
   successCallback?: () => void
   cancelCallback?: () => void
   onCloseCallback?: () => void
@@ -43,6 +47,10 @@ export default function KlModal(props: KlModalProps) {
     confirmName = '确定',
     cancelName = '取消',
     isTitleCenter = false,
+    backdrop = 'opaque',
+    hideCloseButton = false,
+    searchStyle = false,
+    placement = 'auto',
     successCallback,
     cancelCallback,
     onCloseCallback
@@ -92,12 +100,17 @@ export default function KlModal(props: KlModalProps) {
       <Modal
         isOpen={isOpen}
         onOpenChange={onModalChange}
+        backdrop={backdrop}
+        hideCloseButton={hideCloseButton}
+        placement={placement}
         size={size}
         className=""
         classNames={{
           base: 'relative text-primary dark:text-darkprimary bg-bgPrimary dark:bg-darkBgPrimary',
           closeButton: 'hover:cursor-pointer',
-          body: 'overflow-auto'
+          header: clm(searchStyle && '!hidden'),
+          body: clm(searchStyle && 'pt-6', 'overflow-auto'),
+          footer: clm(searchStyle && '!hidden')
         }}
       >
         <ModalContent>
