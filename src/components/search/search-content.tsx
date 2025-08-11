@@ -80,7 +80,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           </div>
           {/* 历史记录 */}
           {searchHistory.length > 0 && (
-            <div className="flex flex-wrap   gap-2 hover:cursor-pointer select-none">
+            <div className="flex flex-wrap gap-2 hover:cursor-pointer select-none">
               {searchHistory.map((item, index) => (
                 <div key={index} onClick={() => handleHistoryClick(item)}>
                   <KlChip
@@ -95,7 +95,11 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           )}
 
           {/* 无搜索历史 */}
-          {searchHistory.length == 0 && <span>暂无搜索历史</span>}
+          {searchHistory.length == 0 && (
+            <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
+              暂无搜索历史
+            </span>
+          )}
         </div>
 
         {/* 搜索结果 */}
