@@ -25,7 +25,7 @@ export const Navbar = () => {
         scrollDisstance >= 10 && 'border-borderColor/50 dark:border-darkBorderColor/50'
       )}
     >
-      <div className="flex justify-between items-center gap-4 box-border w-full container mx-auto">
+      <div className="flex justify-between items-center box-border w-full container mx-auto">
         {/* 手机端导航 */}
         <MobileNavbar className="hidden max-sm:flex" />
         <div className="flex items-center justify-between w-full pr-8 max-sm:hidden">
@@ -39,8 +39,6 @@ export const Navbar = () => {
 
           {/* 导航 */}
           <div className="text-sm text-secondary dark:text-darksecondary flex gap-8 items-center">
-            {/* 页面搜索功能 */}
-            <Search />
             {/* 遍历加载导航选项 */}
             {NAVBAR_ITEMS.map((item) => {
               return (
@@ -58,7 +56,10 @@ export const Navbar = () => {
             })}
           </div>
         </div>
+
         <div className="flex items-center justify-between gap-4">
+          {/* 页面搜索功能 */}
+          <Search />
           {/* 明暗模式 */}
           <ToggleMode />
           {/* 源代码github按钮 */}

@@ -12,7 +12,7 @@ export const Search = () => {
   const searchContentRef = useRef<SearchContentHandle>(null)
 
   const onSearchBarClose = useCallback(() => {
-    console.log('1231313')
+    console.log('onSearchBarClose')
   }, [])
 
   // 搜索按钮的回调处理函数
@@ -68,15 +68,21 @@ export const Search = () => {
 
   return (
     <>
-      <KlButton className="rounded-2xl" onClick={() => openSearch()}>
+      <KlButton className="hidden max-md:flex" isIconOnly onClick={() => openSearch()}>
+        <div className="flex items-center gap-6 justify-between text-secondary dark:text-darksecondary">
+          {/* 搜索图标 */}
+          <IconSelf iconName="icon-[lucide--search]" />
+        </div>
+      </KlButton>
+      <KlButton className="flex max-md:hidden rounded-2xl" onClick={() => openSearch()}>
         <div className="flex items-center gap-6 justify-between text-secondary dark:text-darksecondary">
           <div className="flex items-center gap-2">
             {/* 搜索图标 */}
             <IconSelf iconName="icon-[lucide--search]" />
-            <div>搜索</div>
+            <div className="max-md:hidden">搜索</div>
           </div>
           {/* command + K 图标 */}
-          <div className="py-0.5 space-x-0.5 rtl:space-x-reverse font-sans font-normal text-center text-small shadow-small bg-default-100 rounded-2xl px-2 gap-0.5 flex items-center justify-center text-secondary dark:text-darksecondary">
+          <div className="max-md:hidden py-0.5 space-x-0.5 rtl:space-x-reverse font-sans font-normal text-center text-small shadow-small bg-default-100 rounded-2xl px-2 gap-0.5 flex items-center justify-center text-secondary dark:text-darksecondary">
             <IconSelf iconName="icon-[lucide--command]" size="text-small" />
             <span>K</span>
           </div>

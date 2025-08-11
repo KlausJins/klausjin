@@ -63,7 +63,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           onValueChange={(val) => setSearchValue(val)}
         />
         {/* ESC 图标 */}
-        <div className="py-0.5 space-x-0.5 rtl:space-x-reverse font-sans font-normal text-center text-sm shadow-small bg-default-100 rounded-lg px-2 gap-0.5 flex items-center justify-center text-secondary dark:text-darksecondary">
+        <div className="max-md:hidden py-0.5 space-x-0.5 rtl:space-x-reverse font-sans font-normal text-center text-sm shadow-small bg-default-100 rounded-lg px-2 gap-0.5 flex items-center justify-center text-secondary dark:text-darksecondary">
           <span>ESC</span>
         </div>
       </div>
@@ -97,9 +97,9 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
         </div>
 
         {/* 搜索结果 */}
-        <div className="flex flex-col items-center justify-center py-6 bg-amber-100">
+        {/* <div className="flex flex-col items-center justify-center py-6 bg-amber-100">
           <div>搜索结果</div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
