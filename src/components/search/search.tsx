@@ -12,17 +12,17 @@ export const Search = () => {
   const searchContentRef = useRef<SearchContentHandle>(null)
 
   const onSearchBarClose = useCallback(() => {
-    console.log('onSearchBarClose')
+    // console.log('onSearchBarClose')
   }, [])
 
   // 搜索按钮的回调处理函数
   const openSearch = useCallback(() => {
     // 这里写你的业务逻辑
-    console.log('Command/Ctrl + K 被按下了', isSearchOpen)
+    // console.log('Command/Ctrl + K 被按下了', isSearchOpen)
     setSearchOpen(!isSearchOpen)
 
     // 关闭搜索栏的时候执行关闭回调
-    isSearchOpen && onSearchBarClose()
+    if (isSearchOpen) onSearchBarClose()
   }, [isSearchOpen, setSearchOpen, onSearchBarClose])
 
   // 搜索按钮的回调处理函数
@@ -64,7 +64,7 @@ export const Search = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [openSearch])
+  }, [openSearch, closeSearch])
 
   return (
     <>

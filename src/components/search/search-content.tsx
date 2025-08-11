@@ -11,7 +11,9 @@ export interface SearchContentHandle {
   searchValue: string
 }
 
-export interface SearchContentProps {}
+export interface SearchContentProps {
+  className?: string
+}
 
 export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>((_props, ref) => {
   // 搜索历史（从缓存里面获取）
@@ -29,13 +31,13 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   const handleHistoryClose = useCallback(
     (info: string) => {
       const new_searchHistory = searchHistory.filter((item) => item !== info)
-      console.log('new_searchHistory: ', new_searchHistory)
+      // console.log('new_searchHistory: ', new_searchHistory)
       // 更新页面
       setSearchHistory(new_searchHistory)
       // 更新本地缓存
       setAllSearchHistoryLocal(new_searchHistory)
     },
-    [searchHistory, setSearchHistory, setAllSearchHistoryLocal]
+    [searchHistory, setSearchHistory]
   )
 
   // 搜索历史点击处理函数
@@ -104,3 +106,5 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
     </div>
   )
 })
+
+SearchContent.displayName = 'SearchContent'

@@ -31,8 +31,12 @@ export const NoteCard = ({ className, noteCardInfo }: INoteCardProps) => {
           <div key={item.name} className="flex items-center gap-1 font-medium">
             <span>#</span>
             <span>{item.name}</span>
-            {item.icon && <img className="flex dark:hidden size-4" src={item.icon} />}
-            {item.iconDark && <img className="hidden dark:flex size-4" src={item.iconDark} />}
+            {item.icon && (
+              <img className="flex dark:hidden size-4" src={item.icon} alt={item.name} />
+            )}
+            {item.iconDark && (
+              <img className="hidden dark:flex size-4" src={item.iconDark} alt={item.name} />
+            )}
           </div>
         ))}
       </>
