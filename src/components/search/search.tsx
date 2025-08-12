@@ -56,7 +56,7 @@ export const Search = () => {
 
         // 回车保存搜索记录
         updateSearchHistoryLocal(searchContentRef.current?.searchValue || '')
-        closeSearch()
+        // closeSearch()
       }
     }
 

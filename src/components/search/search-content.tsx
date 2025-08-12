@@ -48,6 +48,14 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
     [setSearchValue]
   )
 
+  // 搜索内容方法
+  const handleSearch = useCallback(() => {
+    if (searchValue) {
+      // 搜索内容
+      console.log('searchValue: ', searchValue)
+    }
+  }, [searchValue])
+
   return (
     <div className="text-secondary dark:text-darksecondary">
       {/* 搜索框 */}
