@@ -42,6 +42,7 @@ import {
   searchNotesParams
 } from '@/actions/backend'
 import Link from 'next/link'
+import { siteSaveNotesById } from '@/site/search-client'
 
 const enum TIME_ASC_DESC {
   CREATEASC = 'CREATEASC',
@@ -198,6 +199,14 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
         // 刷新页面
         // dispatch(toggleIsRefreshTable())
         loadNoteTable({}, false)
+
+        siteSaveNotesById(id)
+          .then(() => {
+            Toast({ type: 'success', description: '同步Algolia索引库成功！' })
+          })
+          .catch((err) => {
+            Toast({ type: 'danger', description: `【同步Algolia报错】: ${err.message}` })
+          })
       },
       [Toast, loadNoteTable]
     )

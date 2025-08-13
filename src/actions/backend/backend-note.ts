@@ -155,6 +155,7 @@ export const getNoteTitleDesc = async (id: string) => {
     select: {
       title: true,
       description: true,
+      published: true,
       tags: {
         select: {
           id: true,

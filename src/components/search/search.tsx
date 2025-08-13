@@ -6,8 +6,6 @@ import IconSelf from '@/components/icons/icon-self'
 import KlModal from '@/components/ui/modal'
 import { SearchContent, SearchContentHandle } from './search-content'
 import { updateSearchHistoryLocal } from './utils'
-import { algoliaSearchClient, notesIndexName } from '@/lib/algolia'
-import { siteSearchNotes } from '@/site/search-client'
 
 export const Search = () => {
   const [isSearchOpen, setSearchOpen] = useState(false)

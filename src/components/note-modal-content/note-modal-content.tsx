@@ -156,6 +156,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         id: submitDatas.id,
         title: submitDatas.title,
         description: submitDatas.description,
+        isPublished: submitDatas.isPublished,
         tags: submitTagsName
       }
       siteSaveNotes(algoliaNoteData)

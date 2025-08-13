@@ -62,6 +62,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   // 搜索历史点击处理函数
   const handleHistoryClick = useCallback(
     (info: string) => {
+      setIsShowSearchResult(true)
       setSearchValue(info)
       // 搜索
       handleSearch(info)
@@ -73,6 +74,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   const handleSearch = useCallback(
     async (searchString: string) => {
       setIsSearchLoading(true)
+      setIsShowSearchResult(true)
 
       // 搜索内容
       console.log('searchString: ', searchString)
@@ -90,10 +92,6 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           []
       }))
       setSearchResultList(searchResultList_temp)
-
-      if (searchResultList_temp.length > 0) {
-        setIsShowSearchResult(true)
-      }
 
       setIsSearchLoading(false)
     },
@@ -178,31 +176,44 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
         <div className="flex flex-col justify-center gap-2 py-2">
           {/* 加载中效果 */}
           {isSearchLoading && isShowSearchResult && (
-            <div className="flex gap-2">
-              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
-              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.3s]"></div>
-              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
+            <div className="flex justify-center items-center py-6">
+              <div className="flex gap-2">
+                <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
+                <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.3s]"></div>
+                <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
+              </div>
             </div>
           )}
 
           {/* 最终搜索结果 */}
-          {!isSearchLoading &&
-            isShowSearchResult &&
-            searchResultList.map((item) => (
-              <div
-                className="searchResult rounded-md px-3 py-2 select-none hover:cursor-pointer hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary"
-                key={item.id}
-              >
-                <div
-                  className="text-xl font-black"
-                  dangerouslySetInnerHTML={{ __html: item.title }}
-                />
-                <div
-                  className="text-sm text-content dark:text-darkContent my-2"
-                  dangerouslySetInnerHTML={{ __html: item.description }}
-                />
-              </div>
-            ))}
+          {!isSearchLoading && isShowSearchResult && (
+            <div>
+              {/* 有搜索结果 */}
+              {searchResultList.length > 0 &&
+                searchResultList.map((item) => (
+                  <div
+                    className="searchResult rounded-md px-3 py-2 select-none hover:cursor-pointer hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary"
+                    key={item.id}
+                  >
+                    <div
+                      className="text-xl font-black"
+                      dangerouslySetInnerHTML={{ __html: item.title }}
+                    />
+                    <div
+                      className="text-sm text-content dark:text-darkContent my-2"
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
+                  </div>
+                ))}
+
+              {/* 无搜索结果 */}
+              {searchResultList.length == 0 && (
+                <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
+                  没有搜索到任何数据噢～
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
