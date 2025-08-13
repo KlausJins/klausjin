@@ -77,10 +77,10 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
       setIsShowSearchResult(true)
 
       // 搜索内容
-      console.log('searchString: ', searchString)
+      // console.log('searchString: ', searchString)
       const results = await siteSearchNotes(searchString)
 
-      console.log('handleSearch: ', results)
+      // console.log('handleSearch: ', results)
 
       // 处理查询结果数据结构
       const searchResultList_temp = results.hits.map((item) => ({
@@ -100,7 +100,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
 
   // 输入框值改变
   const onFieldValueChange = (val: string) => {
-    console.log('onFieldValueChange: ', val)
+    // console.log('onFieldValueChange: ', val)
     setSearchValue(val)
     setIsShowSearchResult(false)
 

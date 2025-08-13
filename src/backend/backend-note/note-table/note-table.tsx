@@ -42,7 +42,7 @@ import {
   searchNotesParams
 } from '@/actions/backend'
 import Link from 'next/link'
-import { siteSaveNotesById } from '@/site/search-client'
+import { siteDeleteNotes, siteSaveNotesById } from '@/site/search-client'
 
 const enum TIME_ASC_DESC {
   CREATEASC = 'CREATEASC',
@@ -168,13 +168,22 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
           return Toast({ description: '无操作权限！' })
         }
 
-        deleteNotes([deleteId]).then(() => {
+        await deleteNotes([deleteId]).then(() => {
           // 刷新页面
           // dispatch(toggleIsRefreshTable())
           loadNoteTable({})
 
           Toast({ type: 'success', description: '删除成功！' })
         })
+
+        // 同步删除Algolia的数据
+        siteDeleteNotes([deleteId])
+          .then(() => {
+            Toast({ type: 'success', description: '同步删除Algolia索引库成功！' })
+          })
+          .catch((err) => {
+            Toast({ type: 'danger', description: `【同步删除Algolia报错】: ${err.message}` })
+          })
       } else {
         Toast({ type: 'warning', description: '没有找到对应的id！' })
       }
@@ -200,12 +209,13 @@ export const NoteTable = forwardRef<NoteTableHandle, NoteTableProps>(
         // dispatch(toggleIsRefreshTable())
         loadNoteTable({}, false)
 
+        // 同步更新Algolia数据
         siteSaveNotesById(id)
           .then(() => {
-            Toast({ type: 'success', description: '同步Algolia索引库成功！' })
+            Toast({ type: 'success', description: '同步更新Algolia索引库成功！' })
           })
           .catch((err) => {
-            Toast({ type: 'danger', description: `【同步Algolia报错】: ${err.message}` })
+            Toast({ type: 'danger', description: `【同步更新Algolia报错】: ${err.message}` })
           })
       },
       [Toast, loadNoteTable]

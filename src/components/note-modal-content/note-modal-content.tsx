@@ -90,7 +90,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       if (SelectXRef.current) {
         // console.log(SelectXRef.current.selectedIds)
         submitDatas.tags = SelectXRef.current.selectedIds
-        console.log('submitDatas.tags: ', submitDatas.tags)
+        // console.log('submitDatas.tags: ', submitDatas.tags)
       }
 
       // 获取表单的文档内容
@@ -161,10 +161,10 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       }
       siteSaveNotes(algoliaNoteData)
         .then(() => {
-          Toast({ type: 'success', description: '同步Algolia索引库成功！' })
+          Toast({ type: 'success', description: '同步新增编辑Algolia索引库成功！' })
         })
         .catch((err) => {
-          Toast({ type: 'danger', description: `【同步Algolia报错】: ${err.message}` })
+          Toast({ type: 'danger', description: `【同步新增编辑Algolia报错】: ${err.message}` })
         })
     },
     [

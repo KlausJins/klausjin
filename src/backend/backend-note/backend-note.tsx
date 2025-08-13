@@ -20,6 +20,7 @@ import {
   toggleIsRefreshTable
 } from '@/store/features/backend-note-slice'
 import { useSelector } from 'react-redux'
+import { siteDeleteNotes } from '@/site/search-client'
 
 export const BackendNote = () => {
   const Toast = useToast()
@@ -53,10 +54,19 @@ export const BackendNote = () => {
       }
 
       // console.log('删除多条数据', selectedKeys)
-      deleteNotes(selectedKeys as string[]).then(() => {
+      await deleteNotes(selectedKeys as string[]).then(() => {
         dispatch(toggleIsRefreshTable())
         Toast({ type: 'success', description: '删除成功！' })
       })
+
+      // 同步删除Algolia的数据
+      siteDeleteNotes(selectedKeys as string[])
+        .then(() => {
+          Toast({ type: 'success', description: '同步删除Algolia索引库成功！' })
+        })
+        .catch((err) => {
+          Toast({ type: 'danger', description: `【同步删除Algolia报错】: ${err.message}` })
+        })
     }
   }, [Toast, dispatch])
 

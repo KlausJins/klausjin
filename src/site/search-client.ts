@@ -52,3 +52,11 @@ export const siteSaveNotesById = async (id: string) => {
     }
   })
 }
+
+// 批量删除笔记索引库数据
+export const siteDeleteNotes = async (ids: string[]) => {
+  return await algoliaWriteClient.deleteObjects({
+    indexName: notesIndexName,
+    objectIDs: ids
+  })
+}
