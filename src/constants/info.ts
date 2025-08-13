@@ -14,6 +14,10 @@ export const GITHUB_PERSONAL_PAGE_LINK = 'https://github.com/KlausJins'
 /** 网站代码 Github 地址 */
 export const GITHUB_PAGE_LINK = 'https://github.com/KlausJins/klausjin'
 
+/** algolia链接 */
+export const ALGOLIA_LINK =
+  'https://www.algolia.com/ref/docsearch/?utm_source=cn.vuejs.org&amp;utm_medium=referral&amp;utm_content=powered_by&amp;utm_campaign=docsearch'
+
 /** 首页页面文本 */
 export const HOME_PRE_TEXT = '你好，我是'
 

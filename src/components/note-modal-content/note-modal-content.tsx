@@ -22,6 +22,7 @@ import { useDispatch } from 'react-redux'
 import { toggleIsRefreshTable } from '@/store/features/backend-note-slice'
 import { replaceMarkdownOssImages, signatureUrl, stripOssSignedUrls, uploadFile } from '@/utils/oss'
 import { EditorProps } from '@bytemd/react'
+import { siteSaveNotes } from '@/site/search-client'
 
 type NoteFormProps = {
   id: string
@@ -74,8 +75,8 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       // console.log('data: ', data)
 
       // 获取表单数据
-      // console.log('formData: ', formData)
       const submitDatas = { ...formData }
+      const submitTagsName = submitDatas.tags
 
       if (formData.tags.length === 0) {
         setIsTagErr(true)
@@ -89,6 +90,7 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       if (SelectXRef.current) {
         // console.log(SelectXRef.current.selectedIds)
         submitDatas.tags = SelectXRef.current.selectedIds
+        console.log('submitDatas.tags: ', submitDatas.tags)
       }
 
       // 获取表单的文档内容
@@ -128,11 +130,14 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
         })
       } else {
         // 创建笔记
-        await createNote({
+        const temp_info = await createNote({
           ...submitDatas,
           userName: userStore.name as string,
           userId: userStore.id as string
         })
+
+        // 新增成功后给提交信息添加对应的id，以便后面同步algolia使用
+        submitDatas.id = temp_info.id
       }
 
       // 接触提交按钮加载状态
@@ -145,6 +150,21 @@ export const NoteModalContent = ({ closeModal }: NoteModalContentProps) => {
       if (closeModal) closeModal()
 
       Toast({ type: 'success', description: '提交成功！' })
+
+      // 同步更新到algolia索引库
+      const algoliaNoteData = {
+        id: submitDatas.id,
+        title: submitDatas.title,
+        description: submitDatas.description,
+        tags: submitTagsName
+      }
+      siteSaveNotes(algoliaNoteData)
+        .then(() => {
+          Toast({ type: 'success', description: '同步Algolia索引库成功！' })
+        })
+        .catch((err) => {
+          Toast({ type: 'danger', description: `【同步Algolia报错】: ${err.message}` })
+        })
     },
     [
       formData,

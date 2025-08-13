@@ -3,16 +3,32 @@
 import IconSelf from '@/components/icons/icon-self'
 import KlField from '../ui/field'
 import { forwardRef, useCallback, useImperativeHandle, useState } from 'react'
-
 import { getSearchHistoryLocal, setAllSearchHistoryLocal } from './utils'
 import { KlChip } from '../ui/chip'
+import Link from 'next/link'
+import { ALGOLIA_LINK } from '@/constants/info'
+import IconAlgolia from '../icons/icon-algolia'
+import { siteSearchNotes } from '@/site/search-client'
+import { toSafeHTML } from '@/utils'
 
 export interface SearchContentHandle {
   searchValue: string
+  handleSearch: (val: string) => void
 }
 
 export interface SearchContentProps {
   className?: string
+}
+
+type HighlightItem = {
+  value: string
+}
+
+type SearchResultList = {
+  id: string
+  title: string
+  description: string
+  tags: string[]
 }
 
 export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>((_props, ref) => {
@@ -22,10 +38,13 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   // 搜索框内容
   const [searchValue, setSearchValue] = useState<string>('')
 
-  // 暴露给父组件的变量和方法
-  useImperativeHandle(ref, () => ({
-    searchValue
-  }))
+  // 是否搜索中
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false)
+  // 是否显示查询结果
+  const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
+
+  // 搜索结果列表
+  const [searchResultList, setSearchResultList] = useState<SearchResultList[]>([])
 
   // 删除搜索历史处理函数
   const handleHistoryClose = useCallback(
@@ -44,17 +63,60 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   const handleHistoryClick = useCallback(
     (info: string) => {
       setSearchValue(info)
+      // 搜索
+      handleSearch(info)
     },
     [setSearchValue]
   )
 
   // 搜索内容方法
-  const handleSearch = useCallback(() => {
-    if (searchValue) {
+  const handleSearch = useCallback(
+    async (searchString: string) => {
+      setIsSearchLoading(true)
+
       // 搜索内容
-      console.log('searchValue: ', searchValue)
+      console.log('searchString: ', searchString)
+      const results = await siteSearchNotes(searchString)
+
+      console.log('handleSearch: ', results)
+
+      // 处理查询结果数据结构
+      const searchResultList_temp = results.hits.map((item) => ({
+        id: toSafeHTML((item._highlightResult?.id as HighlightItem).value || ''),
+        title: toSafeHTML((item._highlightResult?.title as HighlightItem).value || ''),
+        description: toSafeHTML((item._highlightResult?.description as HighlightItem).value || ''),
+        tags:
+          (item._highlightResult?.tags as HighlightItem[]).map((item) => toSafeHTML(item.value)) ||
+          []
+      }))
+      setSearchResultList(searchResultList_temp)
+
+      if (searchResultList_temp.length > 0) {
+        setIsShowSearchResult(true)
+      }
+
+      setIsSearchLoading(false)
+    },
+    [searchValue]
+  )
+
+  // 输入框值改变
+  const onFieldValueChange = (val: string) => {
+    console.log('onFieldValueChange: ', val)
+    setSearchValue(val)
+    setIsShowSearchResult(false)
+
+    if (!val) {
+      // 刷新搜索历史列表
+      setSearchHistory(getSearchHistoryLocal() || [])
     }
-  }, [searchValue])
+  }
+
+  // 暴露给父组件的变量和方法
+  useImperativeHandle(ref, () => ({
+    searchValue,
+    handleSearch
+  }))
 
   return (
     <div className="text-secondary dark:text-darksecondary">
@@ -70,7 +132,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           placeholder="请输入搜索内容"
           autoFocus
           value={searchValue}
-          onValueChange={(val) => setSearchValue(val)}
+          onValueChange={(val) => onFieldValueChange(val)}
         />
         {/* ESC 图标 */}
         <div className="max-md:hidden py-0.5 space-x-0.5 rtl:space-x-reverse font-sans font-normal text-center text-sm shadow-small bg-default-100 rounded-lg px-2 gap-0.5 flex items-center justify-center text-secondary dark:text-darksecondary">
@@ -80,40 +142,80 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
 
       {/* 搜索内容 */}
       <div className="my-2">
-        <div className="flex flex-col pb-6">
-          {/* 标题 */}
-          <div className="text-sm my-2 font-bold text-secondary dark:text-darksecondary">
-            <span>搜索历史</span>
-            <span className="text-[12px] font-normal">(最多保存10条搜索记录)</span>
+        {!isSearchLoading && !isShowSearchResult && (
+          <div className="flex flex-col pb-6">
+            {/* 标题 */}
+            <div className="text-sm my-2 font-bold text-secondary dark:text-darksecondary">
+              <span>搜索历史</span>
+              <span className="text-[12px] font-normal">(最多保存10条搜索记录)</span>
+            </div>
+            {/* 历史记录 */}
+            {searchHistory.length > 0 && (
+              <div className="flex flex-wrap gap-2 select-none">
+                {searchHistory.map((item, index) => (
+                  <div key={index} onClick={() => handleHistoryClick(item)}>
+                    <KlChip
+                      classNames={{ base: 'bg-default-100 hover:cursor-pointer' }}
+                      onClose={() => handleHistoryClose(item)}
+                    >
+                      {item}
+                    </KlChip>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* 无搜索历史 */}
+            {searchHistory.length == 0 && (
+              <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
+                暂无搜索历史
+              </span>
+            )}
           </div>
-          {/* 历史记录 */}
-          {searchHistory.length > 0 && (
-            <div className="flex flex-wrap gap-2 hover:cursor-pointer select-none">
-              {searchHistory.map((item, index) => (
-                <div key={index} onClick={() => handleHistoryClick(item)}>
-                  <KlChip
-                    classNames={{ base: 'bg-default-100' }}
-                    onClose={() => handleHistoryClose(item)}
-                  >
-                    {item}
-                  </KlChip>
-                </div>
-              ))}
+        )}
+
+        {/* 搜索结果 */}
+        <div className="flex flex-col justify-center gap-2 py-2">
+          {/* 加载中效果 */}
+          {isSearchLoading && isShowSearchResult && (
+            <div className="flex gap-2">
+              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
+              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.3s]"></div>
+              <div className="w-2 h-2 dark:bg-lighterBgPrimary bg-darkerBgPrimary rounded-full animate-bounce [animation-delay:.7s]"></div>
             </div>
           )}
 
-          {/* 无搜索历史 */}
-          {searchHistory.length == 0 && (
-            <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
-              暂无搜索历史
-            </span>
-          )}
+          {/* 最终搜索结果 */}
+          {!isSearchLoading &&
+            isShowSearchResult &&
+            searchResultList.map((item) => (
+              <div
+                className="searchResult rounded-md px-3 py-2 select-none hover:cursor-pointer hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary"
+                key={item.id}
+              >
+                <div
+                  className="text-xl font-black"
+                  dangerouslySetInnerHTML={{ __html: item.title }}
+                />
+                <div
+                  className="text-sm text-content dark:text-darkContent my-2"
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                />
+              </div>
+            ))}
         </div>
+      </div>
 
-        {/* 搜索结果 */}
-        {/* <div className="flex flex-col items-center justify-center py-6 bg-amber-100">
-          <div>搜索结果</div>
-        </div> */}
+      {/* 底部展示 algolia 供应商的标识 */}
+      <div className="flex items-center justify-end">
+        <Link
+          href={ALGOLIA_LINK}
+          target="_blank"
+          className="flex items-center justify-end h-10 gap-2"
+        >
+          <span className="text-[10px]">Search by</span>
+          <IconAlgolia className="w-18" />
+        </Link>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { toSrcset } from 'mini-svg-data-uri'
+import DOMPurify from 'isomorphic-dompurify'
 
 export const clm = (...args: ClassValue[]) => {
   return twMerge(clsx(args))
@@ -82,4 +83,9 @@ export const extractDomainFromUrl = (urlString: string) => {
   } else {
     return url.hostname
   }
+}
+
+// 处理并返回安全的 HTML
+export const toSafeHTML = (html: string) => {
+  return DOMPurify.sanitize(html)
 }

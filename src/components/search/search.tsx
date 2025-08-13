@@ -6,6 +6,8 @@ import IconSelf from '@/components/icons/icon-self'
 import KlModal from '@/components/ui/modal'
 import { SearchContent, SearchContentHandle } from './search-content'
 import { updateSearchHistoryLocal } from './utils'
+import { algoliaSearchClient, notesIndexName } from '@/lib/algolia'
+import { siteSearchNotes } from '@/site/search-client'
 
 export const Search = () => {
   const [isSearchOpen, setSearchOpen] = useState(false)
@@ -30,8 +32,13 @@ export const Search = () => {
     setSearchOpen(false)
   }, [setSearchOpen])
 
+  // 处理回车函数
+  const handleEnterKey = useCallback((searchValue: string) => {
+    searchContentRef.current?.handleSearch(searchValue)
+  }, [])
+
   useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+    async function handleKeyDown(event: KeyboardEvent) {
       // Mac 下 command 是 metaKey，Windows/Linux 下 ctrl 是 ctrlKey
       const isCmdOrCtrl = event.metaKey || event.ctrlKey
 
@@ -56,7 +63,8 @@ export const Search = () => {
 
         // 回车保存搜索记录
         updateSearchHistoryLocal(searchContentRef.current?.searchValue || '')
-        // closeSearch()
+        // 执行搜索函数
+        handleEnterKey(searchContentRef.current?.searchValue || '')
       }
     }
 
@@ -64,7 +72,7 @@ export const Search = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [openSearch, closeSearch])
+  }, [openSearch, closeSearch, handleEnterKey])
 
   return (
     <>

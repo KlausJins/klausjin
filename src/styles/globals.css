@@ -682,6 +682,11 @@
     --scrollBarTrackColor: #242424;
     --scrollBarThumbColor: #27272A;
   }
+
+  /* 高亮显示搜索关键字 */
+  .searchResult em {
+    @apply text-[#003DFF] not-italic font-bold
+  }
 }
 
 /* 主要设置表格的样式 */

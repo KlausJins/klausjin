@@ -8,5 +8,8 @@ declare namespace NodeJS {
     OSS_ENDPOINT: string
     OSS_REGION: string
     OSS_ROLE_NAME: string
+    ALGOLIA_APP_ID: string
+    ALGOLIA_SEARCH_KEY: string
+    ALGOLIA_WRITE_KEY: string
   }
 }
