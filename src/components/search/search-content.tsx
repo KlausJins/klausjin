@@ -119,14 +119,14 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
   return (
     <div className="text-secondary dark:text-darksecondary">
       {/* 搜索框 */}
-      <div className="flex items-center justify-center gap-4 reactive">
+      <div className="flex items-center justify-center gap-4 relative">
         {/* 搜索图标 */}
         <IconSelf
           iconName="icon-[lucide--search]"
-          className="absolute left-8 z-10 text-secondary dark:text-darksecondary"
+          className="absolute left-2 z-10 text-secondary dark:text-darksecondary"
         />
         <KlField
-          input_className="indent-[20px]"
+          input_className="indent-[20px] max-md:text-[16px]"
           placeholder="请输入搜索内容"
           autoFocus
           value={searchValue}
