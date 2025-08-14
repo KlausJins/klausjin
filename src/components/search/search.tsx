@@ -107,7 +107,7 @@ export const Search = () => {
         searchStyle={true}
         showCancelButton={false}
         showConfirmButton={false}
-        content={<SearchContent ref={searchContentRef} />}
+        content={<SearchContent ref={searchContentRef} openModal={setSearchOpen} />}
         onCloseCallback={() => onSearchBarClose()}
       />
     </>
