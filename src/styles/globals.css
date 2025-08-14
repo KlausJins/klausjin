@@ -685,7 +685,11 @@
 
   /* 高亮显示搜索关键字 */
   .searchResult em {
-    @apply text-[#003DFF] not-italic font-bold
+    @apply text-[#003DFF] opacity-68 not-italic font-bold
+  }
+
+  .searchResult:hover em {
+    @apply opacity-100
   }
 }
 

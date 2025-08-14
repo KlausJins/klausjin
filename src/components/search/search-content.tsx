@@ -10,6 +10,7 @@ import { ALGOLIA_LINK } from '@/constants/info'
 import IconAlgolia from '../icons/icon-algolia'
 import { siteSearchNotes } from '@/site/search-client'
 import { toSafeHTML } from '@/utils'
+import { KlList } from '../ui/list'
 
 export interface SearchContentHandle {
   searchValue: string
@@ -110,6 +111,12 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
     }
   }
 
+  // 搜索列表选项点击处理函数
+  const handleSearchListItemClick = useCallback((itemId: string) => {
+    // 点击搜索列表选项，跳转到对应的笔记详情页
+    window.location.href = `/note/${itemId}`
+  }, [])
+
   // 暴露给父组件的变量和方法
   useImperativeHandle(ref, () => ({
     searchValue,
@@ -188,37 +195,40 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
           {/* 最终搜索结果 */}
           {!isSearchLoading && isShowSearchResult && (
             <div>
-              {/* 有搜索结果 */}
-              {searchResultList.length > 0 &&
-                searchResultList.map((item) => (
-                  <div
-                    className="searchResult rounded-md px-3 py-2 select-none hover:cursor-pointer hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary"
-                    key={item.id}
-                  >
-                    <div
-                      className="text-xl font-black"
-                      dangerouslySetInnerHTML={{ __html: item.title }}
-                    />
-                    <div
-                      className="text-sm text-content dark:text-darkContent my-2"
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
+              <KlList
+                listData={searchResultList}
+                onItemClick={(itemId) => handleSearchListItemClick(itemId)}
+                childrenContent={(item) => (
+                  <div className="searchResult rounded-md px-3 py-2 select-none flex items-center justify-between">
+                    <div>
+                      <div
+                        className="text-xl font-black"
+                        dangerouslySetInnerHTML={{ __html: item.title }}
+                      />
+                      <div
+                        className="text-sm text-content dark:text-darkContent my-2"
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
+                    </div>
+                    {/* 箭头图标 */}
+                    <div className="ml-10">
+                      <IconSelf iconName="icon-[lucide--corner-down-left]" />
+                    </div>
                   </div>
-                ))}
-
-              {/* 无搜索结果 */}
-              {searchResultList.length == 0 && (
-                <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
-                  没有搜索到任何数据噢～
-                </span>
-              )}
+                )}
+                emptyContent={
+                  <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
+                    没有搜索到任何数据噢～
+                  </span>
+                }
+              ></KlList>
             </div>
           )}
         </div>
       </div>
 
       {/* 底部展示 algolia 供应商的标识 */}
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end overflow-hidden">
         <Link
           href={ALGOLIA_LINK}
           target="_blank"
