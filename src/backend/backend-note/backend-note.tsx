@@ -220,7 +220,7 @@ export const BackendNote = () => {
         onCloseCallback={() => {
           // 清空编辑id，防止下次打开模态框时，显示的是上一次的编辑内容
           dispatch(setEditId(''))
-          setNoteModalTitle('创建标签')
+          setNoteModalTitle('创建笔记')
         }}
       />
     </div>

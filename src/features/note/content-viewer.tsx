@@ -171,8 +171,12 @@ export const ContentViewer = ({ id }: { id: string }) => {
           <div className="flex gap-2 mt-20">
             {noteDetailInfo?.tags.map((item) => (
               <KlButton key={item.name} className="h-10 gap-1">
-                <img className="flex dark:hidden w-4" src={item.icon || ''} alt={item.name} />
-                <img className="hidden dark:flex w-4" src={item.iconDark || ''} alt={item.name} />
+                {item.icon && (
+                  <img className="flex dark:hidden w-4" src={item.icon} alt={item.name} />
+                )}
+                {item.iconDark && (
+                  <img className="hidden dark:flex w-4" src={item.iconDark} alt={item.name} />
+                )}
                 <div>{item.name}</div>
               </KlButton>
             ))}
@@ -182,7 +186,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
       {/* pc目录 */}
       {hasContent && MDContent && (
-        <div className="max-w-50 mx-auto max-h-100 max-md:hidden shrink-0 sticky right-0 top-25">
+        <div className="max-w-50 mx-auto max-h-[80vh] max-md:hidden shrink-0 sticky right-0 top-25 overflow-auto">
           <AnchorList
             anchor={anchorListInfo}
             activeId={activeId}
