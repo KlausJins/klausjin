@@ -40,7 +40,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
 
   const ContentViewerDropdownTrigger = useMemo(
     () => (
-      <KlButton isIconOnly={true} className="size-9">
+      <KlButton isIconOnly={true} className="size-8">
         <IconSelf iconName="icon-[lucide--list-tree]" size="text-2xl" />
       </KlButton>
     ),
@@ -196,7 +196,7 @@ export const ContentViewer = ({ id }: { id: string }) => {
         hasContent &&
         MDContent &&
         ReactDOM.createPortal(
-          <div className="hidden fixed bottom-22 right-8 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0 z-35">
+          <div className="hidden fixed bottom-20 right-8 rounded-xl max-w-50 mx-auto max-h-100 max-md:flex shrink-0 z-35 size-8">
             <KlDropdown
               items={ContentViewerDropdownItems}
               trigger={ContentViewerDropdownTrigger}

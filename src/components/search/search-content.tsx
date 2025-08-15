@@ -181,7 +181,7 @@ export const SearchContent = forwardRef<SearchContentHandle, SearchContentProps>
 
               {/* 无搜索历史 */}
               {searchHistory.length == 0 && (
-                <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary">
+                <span className="flex items-center justify-center text-sm my-2 text-secondary dark:text-darksecondary mt-10">
                   暂无搜索历史
                 </span>
               )}
