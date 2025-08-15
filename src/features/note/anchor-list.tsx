@@ -24,7 +24,7 @@ export const AnchorList = ({
   ischildren?: boolean
 }) => {
   return (
-    <ScrollShadow className="max-h-[80vh]">
+    <ScrollShadow className="max-h-[75vh]" size={12}>
       <ul>
         {anchor.map((item) => (
           <li key={item.id} className={clm('flex flex-col', LiClassName)}>
