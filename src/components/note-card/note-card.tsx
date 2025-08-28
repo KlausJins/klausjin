@@ -8,9 +8,10 @@ import { NotesListType } from '@/features/note/section'
 interface INoteCardProps {
   className?: string
   noteCardInfo: NotesListType
+  style?: React.CSSProperties
 }
 
-export const NoteCard = ({ className, noteCardInfo }: INoteCardProps) => {
+export const NoteCard = ({ className, style, noteCardInfo }: INoteCardProps) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     sessionStorage.setItem('modalRect', JSON.stringify(rect))
@@ -51,6 +52,7 @@ export const NoteCard = ({ className, noteCardInfo }: INoteCardProps) => {
         'hover:bg-lighterBgPrimary dark:hover:bg-darkerBgPrimary active:bg-lighterBgPrimary dark:active:bg-darkerBgPrimary hover:cursor-pointer',
         className
       )}
+      style={style}
       onClick={(e) => handleClick(e)}
     >
       {/* 笔记标签 */}

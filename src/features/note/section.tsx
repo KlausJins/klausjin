@@ -57,9 +57,12 @@ export default function Section() {
               <NoteCard
                 key={item.id}
                 className={clm(
-                  'animate-fade-up animate-ease-in-out',
-                  `animate-delay-[${index * 200}ms]`
+                  'animate-fade-up animate-ease-in-out'
+                  // `animate-delay-[${index * 200}ms]`
                 )}
+                style={{
+                  animationDelay: `${index * 200}ms`
+                }}
                 noteCardInfo={item}
               />
             ))}
