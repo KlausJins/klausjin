@@ -77,14 +77,14 @@ export const Search = () => {
       <KlButton className="hidden max-md:flex" isIconOnly onClick={() => openSearch()}>
         <div className="flex items-center gap-6 justify-between text-secondary dark:text-darksecondary">
           {/* 搜索图标 */}
-          <IconSelf iconName="icon-[lucide--search]" />
+          <IconSelf iconName="icon-[lucide--search]" color="text-primary dark:text-darkprimary" />
         </div>
       </KlButton>
       <KlButton className="flex max-md:hidden rounded-2xl" onClick={() => openSearch()}>
         <div className="flex items-center gap-6 justify-between text-secondary dark:text-darksecondary">
           <div className="flex items-center gap-2">
             {/* 搜索图标 */}
-            <IconSelf iconName="icon-[lucide--search]" />
+            <IconSelf iconName="icon-[lucide--search]" color="text-primary dark:text-darkprimary" />
             <div className="max-md:hidden">搜索</div>
           </div>
           {/* command + K 图标 */}

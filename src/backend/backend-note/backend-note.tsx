@@ -185,7 +185,7 @@ export const BackendNote = () => {
       <NoteTable
         ref={NoteTableRef}
         openEditNoteModal={() => {
-          setNoteModalTitle('编辑标签')
+          setNoteModalTitle('编辑笔记')
           setOpenCreateNote(true)
         }}
       />
