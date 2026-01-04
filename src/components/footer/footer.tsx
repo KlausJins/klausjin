@@ -1,3 +1,4 @@
+import { ICP_NUMBER, POLICE_NUMBER } from '@/constants/info'
 import { formatTime } from '@/utils'
 import Image from 'next/image'
 
@@ -10,7 +11,7 @@ export const Footer = () => {
         target="_blank"
         className="hover:font-bold hidden max-md:flex"
       >
-        粤ICP备2025446997号
+        {ICP_NUMBER}
       </a>
 
       {/* 公安备案号 */}
@@ -27,7 +28,7 @@ export const Footer = () => {
           rel="noreferrer"
           target="_blank"
         >
-          粤公网安备44011102484366号
+          {POLICE_NUMBER}
         </a>
       </div>
 
@@ -37,7 +38,7 @@ export const Footer = () => {
         target="_blank"
         className="hover:font-bold flex max-md:hidden"
       >
-        粤ICP备2025446997号
+        {ICP_NUMBER}
       </a>
 
       {/* 版权所有 */}

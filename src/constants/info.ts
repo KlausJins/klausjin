@@ -8,6 +8,12 @@ export const WEBSITE = NICKNAME
 export const WEBSITE_DESCRIPTION =
   '🚀 一个用于记录自己成长的简单的个人博客网站，使用 Next.js 构建。'
 
+/** ICP备案号 */
+export const ICP_NUMBER = 'ICP备2025446997号'
+
+/** 公网安备案号 */
+export const POLICE_NUMBER = '粤公网安备44011102484366号'
+
 /** 个人 Github 地址 */
 export const GITHUB_PERSONAL_PAGE_LINK = 'https://github.com/KlausJins'
 
