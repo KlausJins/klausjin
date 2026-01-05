@@ -1,7 +1,7 @@
 <div align="center">
   <h1>klausjin.com</h1>
   <a href="https://klausjin.com" target="_blank">
-    <img src="./public/readme/cover.png" alt="网站截图" width="100%" />
+    <img src="./web/klausjin-site/public/readme/cover.png" alt="网站截图" width="100%" />
   </a>
 </div>
 
