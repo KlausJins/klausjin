@@ -1,37 +1,22 @@
-# 构建阶段
-FROM node:22-alpine AS builder
+FROM node:22-alpine
 
-WORKDIR /web
+WORKDIR /app
 
-# 先复制依赖文件（利用缓存）
-COPY  package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
+# 拷贝必要文件
+COPY package.json pnpm-lock.yaml ./
+COPY .next ./.next
+COPY public ./public
+COPY prisma ./prisma
+COPY src/generated ./src/generated
+COPY next.config.ts ./
 
-# 再复制源码文件
-COPY . .
+# 安装 pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Prisma 生成客户端（服务器性能有限，目前还是在本地构建项目了再上传服务器）
-# RUN pnpm run generate
-
-# 构建生产环境代码（服务器性能有限，目前还是在本地构建项目了再上传服务器）
-# RUN pnpm run build
-
-# 运行阶段
-FROM node:22-alpine AS runner
-
-WORKDIR /web
+# 只安装生产依赖
+RUN pnpm install --prod
 
 ENV NODE_ENV=production
-
-# 复制构建阶段的产物
-COPY --from=builder /web/package.json ./
-COPY --from=builder /web/.next ./.next
-COPY --from=builder /web/public ./public
-COPY --from=builder /web/node_modules ./node_modules
-COPY --from=builder /web/prisma ./prisma
-
-
 EXPOSE 3000
 
-CMD [ "node", "node_modules/next/dist/bin/next", "start"]
-
+CMD ["pnpm", "start"]

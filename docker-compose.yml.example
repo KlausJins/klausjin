@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: klausjin-postgres
+    environment:
+      POSTGRES_USER: your_dba
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U your_dba_name -d your_db_name"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: always
+
+  migrate:
+    build: ./web/klausjin-site
+    container_name: klausjin-migrate
+    env_file:
+      - ./web/klausjin-site/.env.production
+    environment:
+      PRISMA_ENGINES_MIRROR: https://registry.npmmirror.com/-/binary/prisma
+    command: npx prisma migrate deploy
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  web:
+    build: ./web/klausjin-site
+    container_name: klausjin-web
+    env_file:
+      - ./web/klausjin-site/.env.production
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    expose:
+      - "3000"
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: klausjin-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/site.conf:/etc/nginx/conf.d/site.conf:ro
+      - certbot_www:/var/www/certbot
+      - certbot_etc:/etc/letsencrypt
+    depends_on:
+      - web
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    container_name: klausjin-certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_etc:/etc/letsencrypt
+    entrypoint: >
+      sh -c "
+      certbot certonly --webroot
+      -w /var/www/certbot
+      -d klausjin.com
+      --email your@email.com
+      --agree-tos
+      --no-eff-email
+      --keep-until-expiring;
+      while :; do
+        certbot renew --quiet &&
+        nginx -s reload || true;
+        sleep 12h;
+      done
+      "
+
+volumes:
+  postgres_data:
+  certbot_www:
+  certbot_etc:
