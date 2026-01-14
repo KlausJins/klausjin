@@ -24,6 +24,7 @@
 ![HeroUI](https://img.shields.io/badge/HeroUI-000000?style=for-the-badge&logo=HeroUI&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-030712?style=for-the-badge&logo=tailwind-css&logoColor=#00BCFF)
 ![Prisma](https://img.shields.io/badge/Prisma-F3F5F6?style=for-the-badge&logo=Prisma&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 [![博客](https://img.shields.io/badge/klausjin.com-1A1A1A?style=for-the-badge&logo=Bloglovin&logoColor=white)](https://klausjin.com/)
 
 - 项目基于 **`Next.js 15` + `React 19` + `TypeScript` + `Tailwind CSS v4` + `HeroUI`** 构建。
@@ -90,13 +91,13 @@ cp .env.example .env.local
 
 ### 4. 修改 docker 文件
 
-复制 `docker-compose.yml.example` 文件并重命名为 `docker-compose.yml`，根据实际需求填写：
+复制 `docker-compose.yml.example` 文件并重命名为 `docker-compose.yml`：
 
 ```bash
 cp docker-compose.yml.example docker-compose.yml
 ```
 
-- 修改 `docker-compose.yml` 文件中 `postgres` 容器的数据库信息
+修改 `docker-compose.yml` 文件中 `postgres` 容器的数据库信息
 
 ### 5. 构建容器
 
