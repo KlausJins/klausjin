@@ -52,7 +52,9 @@
 
 ---
 
-## 📦 快速开始
+## 📦 快速部署
+
+### （由于本人的服务器性能拉，选择直接在本地打包构建好后再上传到服务器运行）
 
 ### 1. 克隆项目
 
@@ -61,9 +63,12 @@ git clone https://github.com/KlausJins/klausjin.git
 cd klausjin
 ```
 
-### 2. 安装依赖（使用 pnpm）
+### 2. 安装依赖
 
 ```bash
+# 进入网站目录
+cd web/klausjin-site
+# 安装依赖
 pnpm install
 ```
 
@@ -81,11 +86,46 @@ cp .env.example .env.local
 - `GitHub OAuth`（用于登录）
 - 阿里云 `OSS` 相关参数
 - `NextAuth secret` 和 `URL`
+- 修改 `nginx.conf` 和 `nginx.conf.bak` 中的域名为你的域名
 
-### 4. 启动开发服务器
+### 4. 修改 docker 文件
+
+复制 `docker-compose.yml.example` 文件并重命名为 `docker-compose.yml`，根据实际需求填写：
 
 ```bash
-pnpm dev
+cp docker-compose.yml.example docker-compose.yml
+```
+
+- 修改 `docker-compose.yml` 文件中 `postgres` 容器的数据库信息
+
+### 5. 构建容器
+
+```bash
+# /klausjin/web/klausjin-site
+# 构建镜像
+docker build -t your_image_name .
+# 把镜像保存到本地目录
+docker save your_image_name > your_image_name.tar
+```
+
+### 5. 上传到服务器后运行容器
+
+```bash
+# /klausjin/web/klausjin-site
+docker load < your_image_name.tar
+```
+
+```bash
+# /klausjin
+docker compose up -d
+# 重启 certbot 容器服务
+docker compose restart certbot
+# 启动容器后修改 nginx 文件
+cd nginx
+mv site.conf site.conf.default
+mv site.conf.bak site.conf
+# 重启 nginx 容器服务
+docker compose restart nginx
 ```
 
 ---
