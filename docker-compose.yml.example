@@ -64,21 +64,6 @@ services:
     volumes:
       - certbot_www:/var/www/certbot
       - certbot_etc:/etc/letsencrypt
-    entrypoint: >
-      sh -c "
-      certbot certonly --webroot
-      -w /var/www/certbot
-      -d klausjin.com
-      --email your@email.com
-      --agree-tos
-      --no-eff-email
-      --keep-until-expiring;
-      while :; do
-        certbot renew --quiet &&
-        nginx -s reload || true;
-        sleep 12h;
-      done
-      "
 
 volumes:
   postgres_data:
