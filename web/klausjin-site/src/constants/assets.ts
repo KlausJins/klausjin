@@ -6,7 +6,7 @@ export const ImageAssests = {
   ProAndCareerDarkSvg: '/about/ProAndCareerDark.svg',
   LocationLight: '/about/LocationLight.png',
   LocationDark: '/about/LocationDark.png',
-  HinsWallpaper: '/about/HinsWallpaper.jpg',
+  KobeWallpaper: '/about/KobeWallpaper.jpg',
   ChatGPT_svg: '/about/chatgpt.svg',
-  Code_svg: '/about/code.svg'
+  Code_svg: '/about/code.svg',
 }

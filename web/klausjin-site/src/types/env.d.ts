@@ -1,3 +1,9 @@
+// 用于通用 CSS/SCSS/LESS 导入
+declare module '*.css'
+declare module '*.scss'
+declare module '*.sass'
+declare module '*.less'
+
 declare namespace NodeJS {
   interface ProcessEnv {
     ADMIN_GITHUB_SECRET: string

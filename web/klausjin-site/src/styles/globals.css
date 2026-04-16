@@ -1,17 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
-@import "tailwindcss-animated";
+@import 'tailwindcss-animated';
 @plugin '../lib/hero.ts';
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
-@import "bytemd/dist/index.css";
+@import 'bytemd/dist/index.css';
 @import './github.css';
 @import './github-dark.css';
-@import "./custom.css";
-@import "./custom-dark.css";
+@import './custom.css';
+@import './custom-dark.css';
 @custom-variant dark (&:where(.dark, .dark *));
 /* @custom-variant dark (&:is(.dark *)); */
-
 
 @theme inline {
   --color-background: var(--background);
@@ -20,34 +19,33 @@
   --font-mono: var(--font-geist-mono);
 }
 
-
 @theme {
-  --color-primary: #18181B;
-  --color-darkprimary: #FAFAFA;
+  --color-primary: #18181b;
+  --color-darkprimary: #fafafa;
 
-  --color-secondary: #71717A;
-  --color-darksecondary: #A1A1AA;
+  --color-secondary: #71717a;
+  --color-darksecondary: #a1a1aa;
 
-  --color-content: #3C3C3CB3;
-  --color-darkContent: #EBEBEB99;
+  --color-content: #3c3c3cb3;
+  --color-darkContent: #ebebeb99;
 
-  --color-bgPrimary: #FFFFFF;
-  --color-lighterBgPrimary: #F9F9F9;
-  --color-darkBgPrimary: #1A1A1A;
+  --color-bgPrimary: #ffffff;
+  --color-lighterBgPrimary: #f9f9f9;
+  --color-darkBgPrimary: #1a1a1a;
   --color-darkerBgPrimary: #242424;
 
-  --color-activeColor: #F4F4F5;
-  --color-darkActiveColor: #27272A;
+  --color-activeColor: #f4f4f5;
+  --color-darkActiveColor: #27272a;
 
-  --color-hoverColor: #F4F4F5;
-  --color-darkHoverColor: #27272A;
+  --color-hoverColor: #f4f4f5;
+  --color-darkHoverColor: #27272a;
 
-  --color-borderColor: #E3E3E4;
-  --color-darkBorderColor: #27272A;
+  --color-borderColor: #e3e3e4;
+  --color-darkBorderColor: #27272a;
 
-  --color-tableHoverColor: #FAFAFA;
-  --color-tableSelectColor: #F4F4F5;
-  --color-darkTableColor: #27272A;
+  --color-tableHoverColor: #fafafa;
+  --color-tableSelectColor: #f4f4f5;
+  --color-darkTableColor: #27272a;
 
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -68,22 +66,22 @@
   --color-border: #e4e4e7;
   --color-accent: #f4f4f5;
 
-
   /* 动画 */
   --animate-fade-down: fade-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-sheet-fade-in: sheet-fade-in 0.5s cubic-bezier(0.31, 0.00, 0.00, 1.00);
-  --animate-sheet-fade-out: sheet-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
-  --animate-sheetOverlay-fade-in: sheetOverlay-fade-in 0.5s cubic-bezier(0.31, 0.00, 0.00, 1.00);
-  --animate-sheetOverlay-fade-out: sheetOverlay-fade-out 0.5s cubic-bezier(1.00, 0.00, 0.70, 0.99);
+  --animate-sheet-fade-in: sheet-fade-in 0.5s cubic-bezier(0.31, 0, 0, 1);
+  --animate-sheet-fade-out: sheet-fade-out 0.5s cubic-bezier(1, 0, 0.7, 0.99);
+  --animate-sheetOverlay-fade-in: sheetOverlay-fade-in 0.5s
+    cubic-bezier(0.31, 0, 0, 1);
+  --animate-sheetOverlay-fade-out: sheetOverlay-fade-out 0.5s
+    cubic-bezier(1, 0, 0.7, 0.99);
   --animate-opacity-in: opacity-in 0.3s ease-out;
   --animate-opacity-out: opacity-out 0.3s ease-out;
   --animate-scroll-mouse: scroll-mouse 3s ease-out infinite;
   --animate-rolling-text: rolling-text 4s infinite;
   --animate-scroll-to-left: scroll-to-left 60s linear infinite;
   --animate-rainbow: rainbow 12s linear infinite;
-  --animate-loading: hideAndSeek 1s alternate infinite cubic-bezier(0.86, 0, 0.07, 1);
-  ;
-
+  --animate-loading: hideAndSeek 1s alternate infinite
+    cubic-bezier(0.86, 0, 0.07, 1);
   @keyframes scroll-mouse {
     0% {
       transform: translateY(0);
@@ -645,7 +643,6 @@
   }
 }
 
-
 @layer utilities {
   .noscrollbar {
     -ms-overflow-style: none;
@@ -664,7 +661,6 @@
   }
 }
 
-
 @layer base {
   :root {
     --rainbow-right: #00a8cf;
@@ -673,23 +669,22 @@
   }
 
   .light {
-    --scrollBarTrackColor: #F9F9F9;
-    --scrollBarThumbColor: #E4E4E7;
-
+    --scrollBarTrackColor: #f9f9f9;
+    --scrollBarThumbColor: #e4e4e7;
   }
 
   .dark {
     --scrollBarTrackColor: #242424;
-    --scrollBarThumbColor: #27272A;
+    --scrollBarThumbColor: #27272a;
   }
 
   /* 高亮显示搜索关键字 */
   .searchResult em {
-    @apply text-[#003DFF] opacity-68 not-italic font-bold
+    @apply text-[#003DFF] opacity-68 not-italic font-bold;
   }
 
   .searchResult:hover em {
-    @apply opacity-100
+    @apply opacity-100;
   }
 }
 
@@ -700,7 +695,7 @@
   }
 
   :where(th label span)::after {
-    @apply  !bg-bgPrimary;
+    @apply !bg-bgPrimary;
   }
 
   .dark :where(th label svg) {
@@ -708,14 +703,13 @@
   }
 
   .dark :where(th label span)::after {
-    @apply  !bg-darkBgPrimary;
+    @apply !bg-darkBgPrimary;
   }
-
 }
 
 ::-webkit-scrollbar {
   width: 0px;
-  height: 10%
+  height: 10%;
 }
 
 ::-webkit-scrollbar-track {
@@ -729,4 +723,4 @@
   border-radius: 10px;
 }
 
-@import "./custom.css";
+@import './custom.css';
