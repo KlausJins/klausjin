@@ -60,6 +60,7 @@
 ### 1. 克隆项目
 
 ```bash
+# /本地操作
 git clone https://github.com/KlausJins/klausjin.git
 cd klausjin
 ```
@@ -67,8 +68,7 @@ cd klausjin
 ### 2. 安装依赖
 
 ```bash
-# 进入网站目录
-cd web/klausjin-site
+# /本地操作
 # 安装依赖
 pnpm install
 ```
@@ -78,6 +78,7 @@ pnpm install
 复制 `.env.example` 文件并重命名为 `.env.local`，根据实际需求填写：
 
 ```bash
+# /本地操作
 cp .env.example .env.local
 ```
 
@@ -87,13 +88,13 @@ cp .env.example .env.local
 - `GitHub OAuth`（用于登录）
 - 阿里云 `OSS` 相关参数
 - `NextAuth secret` 和 `URL`
-- 修改 `nginx.conf` 和 `nginx.conf.bak` 中的域名为你的域名
 
 ### 4. 修改 docker 文件
 
 复制 `docker-compose.yml.example` 文件并重命名为 `docker-compose.yml`：
 
 ```bash
+# /本地操作
 cp docker-compose.yml.example docker-compose.yml
 ```
 
@@ -102,31 +103,27 @@ cp docker-compose.yml.example docker-compose.yml
 ### 5. 构建容器
 
 ```bash
-# /klausjin/web/klausjin-site
+# /本地操作
 # 构建镜像
 docker build -t your_image_name .
 # 把镜像保存到本地目录
 docker save your_image_name > your_image_name.tar
 ```
 
-### 5. 上传到服务器后运行容器
+### 6. 上传到服务器后运行容器
 
 ```bash
-# /klausjin/web/klausjin-site
-docker load < your_image_name.tar
-```
+# /服务器操作
+# 导入新镜像
+docker load -i your_image_name.tar
 
-```bash
-# /klausjin
+# 启动容器
 docker compose up -d
-# 重启 certbot 容器服务
-docker compose restart certbot
-# 启动容器后修改 nginx 文件
-cd nginx
-mv site.conf site.conf.default
-mv site.conf.bak site.conf
-# 重启 nginx 容器服务
-docker compose restart nginx
+
+# 数据库迁移建表等操作
+docker compose run --rm your_image_name pnpm run migrate
+...（根据自己实际情况操作）
+
 ```
 
 ---
