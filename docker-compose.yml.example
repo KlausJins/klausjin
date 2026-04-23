@@ -15,9 +15,9 @@ services:
       - klausjin-network
     restart: always
 
-  web:
-    image: klausjin-site:latest
-    container_name: klausjin-web
+  website:
+    image: klausjin-website:latest
+    container_name: klausjin-website
     env_file:
       - .env.production
     networks:
@@ -25,7 +25,7 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     restart: always
-
+    
 networks:
   klausjin-network:
     driver: bridge
